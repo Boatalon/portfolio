@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FiX } from 'react-icons/fi';
 
@@ -43,7 +42,7 @@ const TranscriptModal = ({ isOpen, onClose }: TranscriptModalProps) => {
                     <div className="flex justify-start mb-4">
                         <a
                             href="/Transcript.pdf"
-                            download="Arnon_Chatri_Transcript.pdf"
+                            download="Transcript.pdf"
                             className="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 flex items-center gap-2"
                         >
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
