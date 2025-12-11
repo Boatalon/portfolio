@@ -27,13 +27,9 @@ export default function Home() {
                 <div className="container mx-auto">
                     <AnimatedSection>
                         <div className="text-center mb-20 relative">
-                            <div className="inline-block">
-                                <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white relative">
-                                    Featured Projects
-                                    {/* Decorative accent */}
-                                    <div className="absolute -top-3 -right-3 w-12 h-12 border-2 border-purple-500/50 rounded-lg -z-10"></div>
-                                </h2>
-                            </div>
+                            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
+                                Featured Projects
+                            </h2>
                             <p className="text-gray-400 text-lg max-w-2xl mx-auto mt-4">
                                 Explore my latest work in Machine Learning, Computer Vision, and AI
                             </p>
