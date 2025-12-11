@@ -1,3 +1,5 @@
+'use client';
+
 import Hero from '@/components/Hero';
 import AnimatedSection from '@/components/AnimatedSection';
 import ProjectCard from '@/components/ProjectCard';
