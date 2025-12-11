@@ -17,7 +17,7 @@ const TranscriptModal = ({ isOpen, onClose }: TranscriptModalProps) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4"
             onClick={onClose}
         >
             <motion.div
@@ -25,13 +25,13 @@ const TranscriptModal = ({ isOpen, onClose }: TranscriptModalProps) => {
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.9, opacity: 0 }}
                 transition={{ duration: 0.3 }}
-                className="relative bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-auto shadow-2xl"
+                className="relative bg-gray-900 border border-purple-500/30 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-auto shadow-2xl shadow-purple-500/20"
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Close Button */}
                 <button
                     onClick={onClose}
-                    className="sticky top-4 right-4 ml-auto flex items-center justify-center w-10 h-10 bg-stone-800 text-white rounded-full hover:bg-stone-700 transition-colors shadow-lg z-10"
+                    className="sticky top-4 right-4 ml-auto flex items-center justify-center w-10 h-10 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-full hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 z-10"
                     aria-label="Close modal"
                 >
                     <FiX size={24} />
@@ -55,7 +55,7 @@ const TranscriptModal = ({ isOpen, onClose }: TranscriptModalProps) => {
                     {/* PDF Viewer */}
                     <iframe
                         src="/Transcript.pdf"
-                        className="w-full h-[80vh] rounded-lg border border-white/10"
+                        className="w-full h-[80vh] rounded-lg border border-purple-500/20 bg-white"
                         title="Academic Transcript - Kasetsart University"
                     />
                 </div>
