@@ -158,10 +158,10 @@ export default function ContactPage() {
                             </div>
 
                             <div className="glass-effect rounded-xl p-8">
-                                <h3 className="text-xl font-bold mb-4">Let's Collaborate!</h3>
+                                <h3 className="text-xl font-bold mb-4">Let&apos;s Collaborate!</h3>
                                 <p className="text-gray-300">
-                                    I'm always interested in hearing about new projects and opportunities.
-                                    Whether you have a question or just want to say hi, feel free to reach out!
+                                    I&apos;m always interested in hearing about new projects and opportunities.
+                                    Whether you&apos;re looking to collaborate on a project, need ML expertise, feel free to reach out!
                                 </p>
                             </div>
                         </div>

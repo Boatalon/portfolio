@@ -23,7 +23,7 @@ const Hero = () => {
                         className="mb-4"
                     >
                         <span className="text-stone-600 font-medium text-base tracking-wide uppercase">
-                            Hello, I'm
+                            Hello, I&apos;m
                         </span>
                     </motion.div>
 

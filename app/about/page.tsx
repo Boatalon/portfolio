@@ -27,7 +27,7 @@ export default function AboutPage() {
                         <h2 className="text-3xl font-bold mb-4">Hello! 👋</h2>
                         <div className="space-y-4 text-stone-600 text-lg">
                             <p>
-                                I'm a passionate Machine Learning Engineer and Developer specializing in
+                                I&apos;m a passionate Machine Learning Engineer and Developer specializing in
                                 Computer Vision and Deep Learning. With a strong background in creating
                                 innovative AI solutions, I strive to build technology that makes a real
                                 impact.
@@ -39,7 +39,7 @@ export default function AboutPage() {
                                 various deep learning applications.
                             </p>
                             <p>
-                                When I'm not training models or writing code, you'll find me exploring
+                                When I&apos;m not training models or writing code, you&apos;ll find me exploring
                                 new ML papers, contributing to open-source projects, or sharing knowledge
                                 with the developer community.
                             </p>
@@ -100,7 +100,7 @@ export default function AboutPage() {
                                 <h3 className="text-xl font-bold mb-1">Education</h3>
                                 <p className="text-stone-600 mb-2">Your University</p>
                                 <p className="text-stone-600">
-                                    Bachelor's/Master's in Computer Science / Engineering
+                                    Bachelor&apos;s/Master&apos;s in Computer Science / Engineering
                                 </p>
                             </div>
                         </div>
