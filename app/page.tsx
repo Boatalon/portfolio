@@ -36,23 +36,18 @@ export default function Home() {
                         </div>
                     </AnimatedSection>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-                        {featuredProjects.map((project, index) => (
-                            <AnimatedSection key={project.id}>
-                                <ProjectCard project={project} index={index} />
-                            </AnimatedSection>
-                        ))}
+                    {/* Horizontal scrollable project cards */}
+                    <div className="relative overflow-hidden">
+                        <div className="flex gap-8 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-purple-500/50 scrollbar-track-gray-800">
+                            {featuredProjects.map((project, index) => (
+                                <div key={project.id} className="flex-none w-[90%] sm:w-[45%] lg:w-[30%] snap-start">
+                                    <AnimatedSection>
+                                        <ProjectCard project={project} index={index} />
+                                    </AnimatedSection>
+                                </div>
+                            ))}
+                        </div>
                     </div>
-
-                    <AnimatedSection className="text-center">
-                        <Link
-                            href="/projects"
-                            className="inline-flex items-center gap-2 px-8 py-4 border-2 border-purple-500/50 bg-white/5 rounded-xl font-semibold hover:border-purple-500 hover:bg-white/10 hover:shadow-lg hover:shadow-purple-500/30 hover:-translate-y-1 transition-all duration-300 group text-white"
-                        >
-                            View All Projects
-                            <FiArrowRight className="group-hover:translate-x-2 transition-transform duration-300" />
-                        </Link>
-                    </AnimatedSection>
                 </div>
             </section>
 

@@ -10,6 +10,7 @@ export interface Project {
     github?: string;
     featured: boolean;
     category: 'ml' | 'web' | 'mobile' | 'other';
+    slug?: string;
 }
 
 export const projects: Project[] = [
