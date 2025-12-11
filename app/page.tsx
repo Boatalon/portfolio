@@ -1,18 +1,26 @@
 import Hero from '@/components/Hero';
-import ProjectCard from '@/components/ProjectCard';
 import AnimatedSection from '@/components/AnimatedSection';
+import ProjectCard from '@/components/ProjectCard';
+import AboutSection from '@/components/AboutSection';
+import CVSection from '@/components/CVSection';
+import ContactSection from '@/components/ContactSection';
 import { featuredProjects } from '@/lib/projects';
 import Link from 'next/link';
 import { FiArrowRight } from 'react-icons/fi';
 
 export default function Home() {
     return (
-        <>
+        <main>
             {/* Hero Section */}
-            <Hero />
+            <section id="home">
+                <Hero />
+            </section>
+
+            {/* About Section */}
+            <AboutSection />
 
             {/* Featured Projects Section */}
-            <section id="featured" className="py-24 px-4">
+            <section id="projects" className="py-24 px-4">
                 <div className="container mx-auto">
                     <AnimatedSection>
                         <div className="text-center mb-20 relative">
@@ -93,6 +101,12 @@ export default function Home() {
                     </AnimatedSection>
                 </div>
             </section>
-        </>
+
+            {/* CV Section */}
+            <CVSection />
+
+            {/* Contact Section */}
+            <ContactSection />
+        </main>
     );
 }
