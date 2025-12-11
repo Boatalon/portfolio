@@ -23,7 +23,7 @@ const AboutSection = () => {
     ];
 
     return (
-        <section id="about" className="py-24 px-4 bg-gradient-to-b from-black to-gray-900">
+        <section id="about" className="py-24 px-4 bg-gradient-to-b from-black via-gray-900 to-gray-900">
             <div className="container mx-auto max-w-4xl">
                 <AnimatedSection>
                     <div className="text-center mb-16">

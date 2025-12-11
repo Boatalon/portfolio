@@ -20,7 +20,7 @@ export default function Home() {
             <AboutSection />
 
             {/* Featured Projects Section */}
-            <section id="projects" className="py-24 px-4 bg-gradient-to-b from-black to-gray-900">
+            <section id="projects" className="py-24 px-4 bg-gradient-to-b from-gray-900 to-gray-900">
                 <div className="container mx-auto">
                     <AnimatedSection>
                         <div className="text-center mb-20 relative">
@@ -89,13 +89,17 @@ export default function Home() {
                                 'Tailwind CSS',
                                 'Git',
                                 'Docker',
-                            ].map((tech) => (
-                                <span
+                            ].map((tech, index) => (
+                                <motion.span
                                     key={tech}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.5, delay: index * 0.05 }}
                                     className="px-6 py-3 glass-effect border border-purple-500/30 rounded-xl text-white font-semibold hover:border-purple-500 hover:shadow-lg hover:shadow-purple-500/30 hover:-translate-y-1 transition-all duration-300"
                                 >
                                     {tech}
-                                </span>
+                                </motion.span>
                             ))}
                         </div>
                     </AnimatedSection>
