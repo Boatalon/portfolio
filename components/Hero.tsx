@@ -6,7 +6,7 @@ import { FiArrowDown } from 'react-icons/fi';
 
 const Hero = () => {
     return (
-        <section className="min-h-screen flex items-center justify-center relative pt-20 overflow-hidden bg-gradient-to-br from-black via-gray-900 to-black">
+        <section className="min-h-screen flex items-center justify-center relative pt-20 overflow-hidden bg-gradient-to-b from-black via-gray-900 to-gray-900">
             {/* Animated background blobs */}
             <div className="absolute inset-0 opacity-20">
                 <div className="absolute top-20 right-20 w-96 h-96 bg-purple-500 rounded-full blur-3xl animate-pulse"></div>
