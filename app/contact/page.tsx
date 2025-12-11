@@ -36,7 +36,7 @@ export default function ContactPage() {
                             Get In <span className="gradient-text">Touch</span>
                         </h1>
                         <p className="text-xl text-gray-400">
-                            ติดต่อฉัน - Let's work together!
+                            ติดต่อฉัน - Let&apos;s work together!
                         </p>
                     </div>
                 </AnimatedSection>
