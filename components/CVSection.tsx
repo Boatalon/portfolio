@@ -25,9 +25,9 @@ const CVSection = () => {
     ];
 
     return (
-        <section id="cv" className="py-24 px-4 relative">
+        <section id="cv" className="py-24 px-4 relative bg-black">
             {/* Decorative border */}
-            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-stone-300 to-transparent"></div>
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent"></div>
 
             <div className="container mx-auto max-w-5xl">
                 <motion.div
@@ -38,10 +38,10 @@ const CVSection = () => {
                 >
                     {/* Header */}
                     <div className="text-center mb-16">
-                        <h2 className="text-4xl md:text-5xl font-bold mb-4 text-stone-900">
+                        <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
                             CV & Resume
                         </h2>
-                        <p className="text-stone-500 text-lg">
+                        <p className="text-gray-400 text-lg">
                             Software Engineer | Data Scientist | ML Engineer
                         </p>
                     </div>
@@ -52,10 +52,10 @@ const CVSection = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6, delay: 0.1 }}
-                        className="bg-gradient-to-br from-white to-stone-50 border-2 border-stone-200 rounded-2xl p-8 mb-8 shadow-lg"
+                        className="glass-effect border border-purple-500/20 rounded-2xl p-8 mb-8"
                     >
-                        <h3 className="text-2xl font-bold mb-4 text-stone-900">Professional Summary</h3>
-                        <p className="text-stone-600 leading-relaxed">
+                        <h3 className="text-2xl font-bold mb-4 text-white">Professional Summary</h3>
+                        <p className="text-gray-300 leading-relaxed">
                             Detail-oriented IT professional with a foundation in software development, information systems,
                             and data-driven problem solving. Experienced in building automated tools and machine learning workflows.
                             Skilled in API integration, system troubleshooting, and creating reliable digital solutions for real-world
@@ -70,16 +70,16 @@ const CVSection = () => {
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, delay: 0.2 }}
-                            className="bg-white border-2 border-stone-200 rounded-2xl p-8 shadow-lg"
+                            className="glass-effect border border-purple-500/20 rounded-2xl p-8"
                         >
-                            <h3 className="text-2xl font-bold mb-6 text-stone-900">Experience</h3>
-                            <div className="border-l-4 border-stone-400 pl-6">
+                            <h3 className="text-2xl font-bold mb-6 text-white">Experience</h3>
+                            <div className="border-l-4 border-purple-500 pl-6">
                                 <div className="mb-2">
-                                    <h4 className="text-lg font-bold text-stone-900">Machine Learning Researcher Assistant</h4>
-                                    <p className="text-stone-600 font-medium">Kasetsart University</p>
-                                    <p className="text-sm text-stone-500">Nov 2024 - Present</p>
+                                    <h4 className="text-lg font-bold text-white">Machine Learning Researcher Assistant</h4>
+                                    <p className="text-gray-300 font-medium">Kasetsart University</p>
+                                    <p className="text-sm text-gray-400">Nov 2024 - Present</p>
                                 </div>
-                                <ul className="list-disc list-inside text-stone-600 text-sm space-y-2 mt-4">
+                                <ul className="list-disc list-inside text-gray-300 text-sm space-y-2 mt-4">
                                     <li>Developed end-to-end AI pipelines for data preprocessing and model training</li>
                                     <li>Improved model accuracy through hyperparameter tuning and optimization</li>
                                     <li>Deployed production-ready AI models using FastAPI and Docker</li>
@@ -93,16 +93,16 @@ const CVSection = () => {
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, delay: 0.2 }}
-                            className="bg-white border-2 border-stone-200 rounded-2xl p-8 shadow-lg"
+                            className="glass-effect border border-purple-500/20 rounded-2xl p-8"
                         >
-                            <h3 className="text-2xl font-bold mb-6 text-stone-900">Education</h3>
-                            <div className="border-l-4 border-stone-400 pl-6">
-                                <h4 className="text-lg font-bold text-stone-900">Computer Engineering</h4>
-                                <p className="text-stone-600 font-medium">Kasetsart University</p>
-                                <p className="text-sm text-stone-500 mt-2">GPA: 2.50 (Cumulative)</p>
+                            <h3 className="text-2xl font-bold mb-6 text-white">Education</h3>
+                            <div className="border-l-4 border-purple-500 pl-6">
+                                <h4 className="text-lg font-bold text-white">Computer Engineering</h4>
+                                <p className="text-gray-300 font-medium">Kasetsart University</p>
+                                <p className="text-sm text-gray-400 mt-2">GPA: 2.50 (Cumulative)</p>
                                 <button
                                     onClick={() => setIsModalOpen(true)}
-                                    className="mt-4 inline-flex items-center gap-2 px-6 py-3 bg-stone-800 text-white rounded-lg font-semibold hover:bg-stone-700 hover:shadow-lg transition-all duration-300"
+                                    className="mt-4 inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300"
                                 >
                                     <FiFileText size={18} />
                                     View Transcript
@@ -117,16 +117,16 @@ const CVSection = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6, delay: 0.3 }}
-                        className="bg-white border-2 border-stone-200 rounded-2xl p-8 mb-8 shadow-lg"
+                        className="glass-effect border border-purple-500/20 rounded-2xl p-8 mb-8"
                     >
-                        <h3 className="text-2xl font-bold mb-6 text-stone-900">Key Competencies</h3>
+                        <h3 className="text-2xl font-bold mb-6 text-white">Key Competencies</h3>
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                             {competencies.map((comp, index) => (
                                 <div
                                     key={index}
-                                    className="flex items-center gap-2 text-stone-700"
+                                    className="flex items-center gap-2 text-gray-300"
                                 >
-                                    <div className="w-2 h-2 bg-stone-800 rounded-full"></div>
+                                    <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
                                     <span className="text-sm font-medium">{comp}</span>
                                 </div>
                             ))}
@@ -139,18 +139,18 @@ const CVSection = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6, delay: 0.4 }}
-                        className="bg-white border-2 border-stone-200 rounded-2xl p-8 shadow-lg"
+                        className="glass-effect border border-purple-500/20 rounded-2xl p-8"
                     >
-                        <h3 className="text-2xl font-bold mb-6 text-stone-900">Technical Skills</h3>
+                        <h3 className="text-2xl font-bold mb-6 text-white">Technical Skills</h3>
                         <div className="grid md:grid-cols-2 gap-6">
                             {skills.map((skillGroup, index) => (
                                 <div key={index}>
-                                    <h4 className="text-lg font-semibold text-stone-800 mb-3">{skillGroup.category}</h4>
+                                    <h4 className="text-lg font-semibold text-purple-400 mb-3">{skillGroup.category}</h4>
                                     <div className="flex flex-wrap gap-2">
                                         {skillGroup.items.map((skill, idx) => (
                                             <span
                                                 key={idx}
-                                                className="px-4 py-2 bg-gradient-to-br from-stone-100 to-stone-200 text-stone-800 rounded-lg text-sm font-semibold border border-stone-300 shadow-sm"
+                                                className="px-4 py-2 glass-effect border border-purple-500/30 text-white rounded-lg text-sm font-semibold hover:border-purple-500 hover:shadow-lg hover:shadow-purple-500/30 transition-all"
                                             >
                                                 {skill}
                                             </span>

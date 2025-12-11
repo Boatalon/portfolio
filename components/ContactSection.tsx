@@ -26,17 +26,17 @@ const ContactSection = () => {
     };
 
     return (
-        <section id="contact" className="py-24 px-4 relative">
+        <section id="contact" className="py-24 px-4 relative bg-gradient-to-b from-black to-gray-900">
             {/* Decorative border */}
-            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-stone-300 to-transparent"></div>
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent"></div>
 
             <div className="container mx-auto max-w-5xl">
                 <AnimatedSection>
                     <div className="text-center mb-16">
-                        <h2 className="text-4xl md:text-5xl font-bold mb-4 text-stone-900">
+                        <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
                             Get In Touch
                         </h2>
-                        <p className="text-xl text-stone-500">
+                        <p className="text-xl text-gray-400">
                             ติดต่อฉัน - Let&apos;s work together!
                         </p>
                     </div>
@@ -45,11 +45,11 @@ const ContactSection = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {/* Contact Form */}
                     <AnimatedSection>
-                        <div className="bg-white border-2 border-stone-200 rounded-2xl p-8 shadow-lg">
-                            <h3 className="text-2xl font-bold mb-6 text-stone-900">Send a Message</h3>
+                        <div className="glass-effect border border-purple-500/20 rounded-2xl p-8">
+                            <h3 className="text-2xl font-bold mb-6 text-white">Send a Message</h3>
                             <form onSubmit={handleSubmit} className="space-y-4">
                                 <div>
-                                    <label htmlFor="name" className="block text-sm font-semibold mb-2 text-stone-700">
+                                    <label htmlFor="name" className="block text-sm font-semibold mb-2 text-gray-300">
                                         Name
                                     </label>
                                     <input
@@ -59,13 +59,13 @@ const ContactSection = () => {
                                         value={formData.name}
                                         onChange={handleChange}
                                         required
-                                        className="w-full px-4 py-3 bg-stone-50 border-2 border-stone-200 rounded-lg focus:outline-none focus:border-stone-400 transition-colors text-stone-900"
+                                        className="w-full px-4 py-3 bg-white/5 border border-purple-500/30 rounded-lg focus:outline-none focus:border-purple-500 transition-colors text-white placeholder-gray-500"
                                         placeholder="Your name"
                                     />
                                 </div>
 
                                 <div>
-                                    <label htmlFor="email" className="block text-sm font-semibold mb-2 text-stone-700">
+                                    <label htmlFor="email" className="block text-sm font-semibold mb-2 text-gray-300">
                                         Email
                                     </label>
                                     <input
@@ -75,13 +75,13 @@ const ContactSection = () => {
                                         value={formData.email}
                                         onChange={handleChange}
                                         required
-                                        className="w-full px-4 py-3 bg-stone-50 border-2 border-stone-200 rounded-lg focus:outline-none focus:border-stone-400 transition-colors text-stone-900"
+                                        className="w-full px-4 py-3 bg-white/5 border border-purple-500/30 rounded-lg focus:outline-none focus:border-purple-500 transition-colors text-white placeholder-gray-500"
                                         placeholder="your.email@example.com"
                                     />
                                 </div>
 
                                 <div>
-                                    <label htmlFor="message" className="block text-sm font-semibold mb-2 text-stone-700">
+                                    <label htmlFor="message" className="block text-sm font-semibold mb-2 text-gray-300">
                                         Message
                                     </label>
                                     <textarea
@@ -91,14 +91,14 @@ const ContactSection = () => {
                                         onChange={handleChange}
                                         required
                                         rows={5}
-                                        className="w-full px-4 py-3 bg-stone-50 border-2 border-stone-200 rounded-lg focus:outline-none focus:border-stone-400 transition-colors resize-none text-stone-900"
+                                        className="w-full px-4 py-3 bg-white/5 border border-purple-500/30 rounded-lg focus:outline-none focus:border-purple-500 transition-colors resize-none text-white placeholder-gray-500"
                                         placeholder="Your message..."
                                     />
                                 </div>
 
                                 <button
                                     type="submit"
-                                    className="w-full px-6 py-4 bg-gradient-to-br from-stone-800 to-stone-900 text-white rounded-xl font-semibold hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2"
+                                    className="w-full px-6 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-purple-500/50 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2"
                                 >
                                     <FiSend />
                                     Send Message
@@ -110,19 +110,19 @@ const ContactSection = () => {
                     {/* Contact Info */}
                     <AnimatedSection>
                         <div className="space-y-6">
-                            <div className="bg-white border-2 border-stone-200 rounded-2xl p-8 shadow-lg">
-                                <h3 className="text-2xl font-bold mb-6 text-stone-900">Contact Information</h3>
+                            <div className="glass-effect border border-purple-500/20 rounded-2xl p-8">
+                                <h3 className="text-2xl font-bold mb-6 text-white">Contact Information</h3>
                                 <div className="space-y-4">
                                     <a
                                         href="mailto:boat.arnonchatri@gmail.com"
-                                        className="flex items-center gap-4 text-stone-700 hover:text-stone-900 transition-colors group"
+                                        className="flex items-center gap-4 text-gray-300 hover:text-white transition-colors group"
                                     >
-                                        <div className="w-12 h-12 flex items-center justify-center bg-stone-100 border-2 border-stone-200 rounded-lg group-hover:bg-stone-200 transition-colors">
+                                        <div className="w-12 h-12 flex items-center justify-center bg-white/5 border border-purple-500/30 rounded-lg group-hover:bg-white/10 group-hover:border-purple-500 transition-all">
                                             <FiMail className="text-xl" />
                                         </div>
                                         <div>
                                             <p className="font-semibold">Email</p>
-                                            <p className="text-sm text-stone-500">boat.arnonchatri@gmail.com</p>
+                                            <p className="text-sm text-gray-400">boat.arnonchatri@gmail.com</p>
                                         </div>
                                     </a>
 
@@ -130,14 +130,14 @@ const ContactSection = () => {
                                         href="https://github.com/Boatalon"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex items-center gap-4 text-stone-700 hover:text-stone-900 transition-colors group"
+                                        className="flex items-center gap-4 text-gray-300 hover:text-white transition-colors group"
                                     >
-                                        <div className="w-12 h-12 flex items-center justify-center bg-stone-100 border-2 border-stone-200 rounded-lg group-hover:bg-stone-200 transition-colors">
+                                        <div className="w-12 h-12 flex items-center justify-center bg-white/5 border border-purple-500/30 rounded-lg group-hover:bg-white/10 group-hover:border-purple-500 transition-all">
                                             <FiGithub className="text-xl" />
                                         </div>
                                         <div>
                                             <p className="font-semibold">GitHub</p>
-                                            <p className="text-sm text-stone-500">@Boatalon</p>
+                                            <p className="text-sm text-gray-400">@Boatalon</p>
                                         </div>
                                     </a>
 
@@ -145,22 +145,22 @@ const ContactSection = () => {
                                         href="https://www.linkedin.com/in/อานนท์-ชาตรี-b5b894392/"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex items-center gap-4 text-stone-700 hover:text-stone-900 transition-colors group"
+                                        className="flex items-center gap-4 text-gray-300 hover:text-white transition-colors group"
                                     >
-                                        <div className="w-12 h-12 flex items-center justify-center bg-stone-100 border-2 border-stone-200 rounded-lg group-hover:bg-stone-200 transition-colors">
+                                        <div className="w-12 h-12 flex items-center justify-center bg-white/5 border border-purple-500/30 rounded-lg group-hover:bg-white/10 group-hover:border-purple-500 transition-all">
                                             <FiLinkedin className="text-xl" />
                                         </div>
                                         <div>
                                             <p className="font-semibold">LinkedIn</p>
-                                            <p className="text-sm text-stone-500">Arnon Chatri</p>
+                                            <p className="text-sm text-gray-400">Arnon Chatri</p>
                                         </div>
                                     </a>
                                 </div>
                             </div>
 
-                            <div className="bg-gradient-to-br from-white to-stone-50 border-2 border-stone-200 rounded-2xl p-8 shadow-lg">
-                                <h4 className="text-xl font-bold mb-4 text-stone-900">Let&apos;s Collaborate!</h4>
-                                <p className="text-stone-600">
+                            <div className="glass-effect border border-purple-500/20 rounded-2xl p-8">
+                                <h4 className="text-xl font-bold mb-4 text-white">Let&apos;s Collaborate!</h4>
+                                <p className="text-gray-300">
                                     I&apos;m always interested in hearing about new projects and opportunities.
                                     Whether you&apos;re looking to collaborate on a project, need ML expertise, feel free to reach out!
                                 </p>
