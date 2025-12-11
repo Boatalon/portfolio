@@ -20,18 +20,18 @@ export default function Home() {
             <AboutSection />
 
             {/* Featured Projects Section */}
-            <section id="projects" className="py-24 px-4">
+            <section id="projects" className="py-24 px-4 bg-gray-900">
                 <div className="container mx-auto">
                     <AnimatedSection>
                         <div className="text-center mb-20 relative">
                             <div className="inline-block">
-                                <h2 className="text-4xl md:text-5xl font-bold mb-4 text-stone-900 relative">
+                                <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white relative">
                                     Featured Projects
                                     {/* Decorative accent */}
-                                    <div className="absolute -top-3 -right-3 w-12 h-12 border-2 border-stone-400 rounded-lg -z-10 opacity-50"></div>
+                                    <div className="absolute -top-3 -right-3 w-12 h-12 border-2 border-purple-500/50 rounded-lg -z-10"></div>
                                 </h2>
                             </div>
-                            <p className="text-stone-500 text-lg max-w-2xl mx-auto mt-4">
+                            <p className="text-gray-400 text-lg max-w-2xl mx-auto mt-4">
                                 Explore my latest work in Machine Learning, Computer Vision, and AI
                             </p>
                         </div>
@@ -48,7 +48,7 @@ export default function Home() {
                     <AnimatedSection className="text-center">
                         <Link
                             href="/projects"
-                            className="inline-flex items-center gap-2 px-8 py-4 border-2 border-stone-300 bg-white rounded-xl font-semibold hover:border-stone-500 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
+                            className="inline-flex items-center gap-2 px-8 py-4 border-2 border-purple-500/50 bg-white/5 rounded-xl font-semibold hover:border-purple-500 hover:bg-white/10 hover:shadow-lg hover:shadow-purple-500/30 hover:-translate-y-1 transition-all duration-300 group text-white"
                         >
                             View All Projects
                             <FiArrowRight className="group-hover:translate-x-2 transition-transform duration-300" />
@@ -58,17 +58,17 @@ export default function Home() {
             </section>
 
             {/* Skills/Technologies Section */}
-            <section className="py-24 px-4 relative">
+            <section className="py-24 px-4 relative bg-black">
                 {/* Decorative border */}
-                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-stone-300 to-transparent"></div>
+                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent"></div>
 
                 <div className="container mx-auto">
                     <AnimatedSection>
                         <div className="text-center mb-16">
-                            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-stone-900">
+                            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
                                 Tech Stack
                             </h2>
-                            <p className="text-stone-500 text-lg">
+                            <p className="text-gray-400 text-lg">
                                 Technologies I work with
                             </p>
                         </div>
@@ -92,7 +92,7 @@ export default function Home() {
                             ].map((tech) => (
                                 <span
                                     key={tech}
-                                    className="px-6 py-3 bg-gradient-to-br from-white to-stone-50 border-2 border-stone-200 rounded-xl text-stone-800 font-semibold hover:border-stone-400 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 shadow-md"
+                                    className="px-6 py-3 glass-effect border border-purple-500/30 rounded-xl text-white font-semibold hover:border-purple-500 hover:shadow-lg hover:shadow-purple-500/30 hover:-translate-y-1 transition-all duration-300"
                                 >
                                     {tech}
                                 </span>
