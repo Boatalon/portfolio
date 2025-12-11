@@ -16,10 +16,8 @@ const AnimatedSection = ({ children, className = '' }: AnimatedSectionProps) => 
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        setIsVisible(true);
-                        observer.unobserve(entry.target);
-                    }
+                    // Toggle visibility based on whether element is in view
+                    setIsVisible(entry.isIntersecting);
                 });
             },
             { threshold: 0.1 }
