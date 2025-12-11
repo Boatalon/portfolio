@@ -7,6 +7,7 @@ import ContactSection from '@/components/ContactSection';
 import { featuredProjects } from '@/lib/projects';
 import Link from 'next/link';
 import { FiArrowRight } from 'react-icons/fi';
+import { motion } from 'framer-motion';
 
 export default function Home() {
     return (
