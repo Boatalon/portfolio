@@ -39,8 +39,8 @@ const TranscriptModal = ({ isOpen, onClose }: TranscriptModalProps) => {
 
                 {/* Transcript PDF */}
                 <div className="p-6 pt-0">
-                    {/* Download button */}
-                    <div className="flex justify-end mb-4">
+                    {/* Download button - moved to left */}
+                    <div className="flex justify-start mb-4">
                         <a
                             href="/Transcript.pdf"
                             download="Arnon_Chatri_Transcript.pdf"
@@ -55,7 +55,7 @@ const TranscriptModal = ({ isOpen, onClose }: TranscriptModalProps) => {
                     {/* PDF Viewer */}
                     <iframe
                         src="/Transcript.pdf"
-                        className="w-full h-[80vh] rounded-lg border border-purple-500/20 bg-white"
+                        className="w-full h-[80vh] rounded-lg border border-purple-500/20"
                         title="Academic Transcript - Kasetsart University"
                     />
                 </div>
