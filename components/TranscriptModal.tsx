@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { FiX } from 'react-icons/fi';
 
@@ -41,23 +42,26 @@ const TranscriptModal = ({ isOpen, onClose }: TranscriptModalProps) => {
                     {/* Download button - left aligned */}
                     <div className="flex justify-start mb-4 pr-16">
                         <a
-                            href="/public/Transcript.pdf"
-                            download="Transcript.pdf"
+                            href="/transcript.png"
+                            download="Arnon_Chatri_Transcript.png"
                             className="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 flex items-center gap-2"
                         >
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg>
-                            Download PDF
+                            Download Image
                         </a>
                     </div>
 
-                    {/* PDF Viewer */}
-                    <div className="w-full bg-white rounded-lg overflow-hidden shadow-inner">
-                        <iframe
-                            src="/Transcript.pdf"
-                            className="w-full h-[75vh] border-0"
-                            title="Academic Transcript - Kasetsart University"
+                    {/* Transcript Image Display */}
+                    <div className="w-full bg-white rounded-lg p-4 overflow-hidden shadow-inner">
+                        <Image
+                            src="/transcript.png"
+                            alt="Academic Transcript - Kasetsart University"
+                            width={696}
+                            height={1024}
+                            className="w-full h-auto rounded"
+                            priority
                         />
                     </div>
                 </div>
