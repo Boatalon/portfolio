@@ -56,54 +56,6 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* Skills/Technologies Section */}
-            <section className="py-24 px-4 relative bg-gradient-to-b from-gray-900 to-black">
-                {/* Decorative border */}
-                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent"></div>
-
-                <div className="container mx-auto">
-                    <AnimatedSection>
-                        <div className="text-center mb-16">
-                            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
-                                Tech Stack
-                            </h2>
-                            <p className="text-gray-400 text-lg">
-                                Technologies I work with
-                            </p>
-                        </div>
-                    </AnimatedSection>
-
-                    <AnimatedSection>
-                        <div className="flex flex-wrap justify-center gap-4 max-w-4xl mx-auto">
-                            {[
-                                'Python',
-                                'PyTorch',
-                                'TensorFlow',
-                                'Computer Vision',
-                                'Deep Learning',
-                                'JavaScript',
-                                'React',
-                                'Next.js',
-                                'TypeScript',
-                                'Tailwind CSS',
-                                'Git',
-                                'Docker',
-                            ].map((tech, index) => (
-                                <motion.span
-                                    key={tech}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ duration: 0.5, delay: index * 0.05 }}
-                                    className="px-6 py-3 glass-effect border border-purple-500/30 rounded-xl text-white font-semibold hover:border-purple-500 hover:shadow-lg hover:shadow-purple-500/30 hover:-translate-y-1 transition-all duration-300"
-                                >
-                                    {tech}
-                                </motion.span>
-                            ))}
-                        </div>
-                    </AnimatedSection>
-                </div>
-            </section>
 
             {/* CV Section */}
             <CVSection />
