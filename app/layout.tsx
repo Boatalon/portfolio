@@ -1,0 +1,43 @@
+import type { Metadata } from 'next';
+import { Inter, Space_Grotesk } from 'next/font/google';
+import './globals.css';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+
+const inter = Inter({
+    subsets: ['latin'],
+    variable: '--font-inter',
+});
+
+const spaceGrotesk = Space_Grotesk({
+    subsets: ['latin'],
+    variable: '--font-space-grotesk',
+});
+
+export const metadata: Metadata = {
+    title: 'Portfolio | ML Engineer & Developer',
+    description: 'Portfolio showcasing Machine Learning, Computer Vision, and Web Development projects including Sign Language Translation and Object Detection systems.',
+    keywords: ['Machine Learning', 'Computer Vision', 'Deep Learning', 'Portfolio', 'AI', 'Developer'],
+    authors: [{ name: 'Your Name' }],
+    openGraph: {
+        title: 'Portfolio | ML Engineer & Developer',
+        description: 'Showcasing innovative AI and ML projects',
+        type: 'website',
+    },
+};
+
+export default function RootLayout({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
+    return (
+        <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
+            <body className="font-sans">
+                <Navbar />
+                <main>{children}</main>
+                <Footer />
+            </body>
+        </html>
+    );
+}

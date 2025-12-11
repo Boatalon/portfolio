@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 97, 84, 73;
+  /* Brown text */
+  --background-start-rgb: 252, 249, 241;
+  /* Cream */
+  --background-end-rgb: 252, 249, 241;
+  /* Cream */
+  --accent-rgb: 97, 84, 73;
+  /* Brown accent */
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-start-rgb));
+  min-height: 100vh;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .glass-effect {
+    background: rgba(97, 84, 73, 0.03);
+    border: 1px solid rgba(97, 84, 73, 0.1);
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-stone-700 via-stone-600 to-stone-700 bg-clip-text text-transparent;
+  }
+
+  .hover-lift {
+    @apply transition-transform duration-300 hover:-translate-y-1;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f5f0e8;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #615449;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4a3f36;
+}
