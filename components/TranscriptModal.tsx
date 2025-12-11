@@ -24,24 +24,24 @@ const TranscriptModal = ({ isOpen, onClose }: TranscriptModalProps) => {
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.9, opacity: 0 }}
                 transition={{ duration: 0.3 }}
-                className="relative bg-gray-900 border border-purple-500/30 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-auto shadow-2xl shadow-purple-500/20"
+                className="relative bg-gray-900 border border-purple-500/30 rounded-2xl max-w-5xl w-full max-h-[95vh] overflow-hidden shadow-2xl shadow-purple-500/20"
                 onClick={(e) => e.stopPropagation()}
             >
-                {/* Close Button */}
+                {/* Close Button - Fixed position */}
                 <button
                     onClick={onClose}
-                    className="sticky top-4 right-4 ml-auto flex items-center justify-center w-10 h-10 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-full hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 z-10"
+                    className="absolute top-4 right-4 flex items-center justify-center w-12 h-12 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-full hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 z-20"
                     aria-label="Close modal"
                 >
                     <FiX size={24} />
                 </button>
 
-                {/* Transcript PDF */}
-                <div className="p-6 pt-0">
-                    {/* Download button - moved to left */}
-                    <div className="flex justify-start mb-4">
+                {/* Content Container with scroll */}
+                <div className="p-6 overflow-y-auto max-h-[95vh]">
+                    {/* Download button - left aligned */}
+                    <div className="flex justify-start mb-4 pr-16">
                         <a
-                            href="/Transcript.pdf"
+                            href="/public/Transcript.pdf"
                             download="Transcript.pdf"
                             className="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all duration-300 flex items-center gap-2"
                         >
@@ -51,12 +51,15 @@ const TranscriptModal = ({ isOpen, onClose }: TranscriptModalProps) => {
                             Download PDF
                         </a>
                     </div>
+
                     {/* PDF Viewer */}
-                    <iframe
-                        src="/Transcript.pdf"
-                        className="w-full h-[80vh] rounded-lg border border-purple-500/20"
-                        title="Academic Transcript - Kasetsart University"
-                    />
+                    <div className="w-full bg-white rounded-lg overflow-hidden shadow-inner">
+                        <iframe
+                            src="/Transcript.pdf"
+                            className="w-full h-[75vh] border-0"
+                            title="Academic Transcript - Kasetsart University"
+                        />
+                    </div>
                 </div>
             </motion.div>
         </motion.div>
