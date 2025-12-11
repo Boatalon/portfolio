@@ -20,7 +20,7 @@ export default function Home() {
             <AboutSection />
 
             {/* Featured Projects Section */}
-            <section id="projects" className="py-24 px-4 bg-gray-900">
+            <section id="projects" className="py-24 px-4 bg-gradient-to-b from-black to-gray-900">
                 <div className="container mx-auto">
                     <AnimatedSection>
                         <div className="text-center mb-20 relative">
@@ -58,7 +58,7 @@ export default function Home() {
             </section>
 
             {/* Skills/Technologies Section */}
-            <section className="py-24 px-4 relative bg-black">
+            <section className="py-24 px-4 relative bg-gradient-to-b from-gray-900 to-black">
                 {/* Decorative border */}
                 <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent"></div>
 
