@@ -18,7 +18,7 @@ const ContactSection = () => {
         setStatus('loading');
 
         try {
-            const response = await fetch('https://formspree.io/f/xeoyvojr', {
+            const response = await fetch('/api/send-email', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -27,8 +27,6 @@ const ContactSection = () => {
                     name: formData.name,
                     email: formData.email,
                     message: formData.message,
-                    _replyto: formData.email,
-                    _subject: `Portfolio Contact from ${formData.name}`,
                 }),
             });
 
