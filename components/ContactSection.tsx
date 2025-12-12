@@ -2,7 +2,8 @@
 
 import AnimatedSection from '@/components/AnimatedSection';
 import { useState } from 'react';
-import { FiMail, FiGithub, FiLinkedin, FiSend } from 'react-icons/fi';
+import { FiMail, FiGithub, FiLinkedin, FiSend, FiCheck, FiAlertCircle } from 'react-icons/fi';
+
 
 const ContactSection = () => {
     const [formData, setFormData] = useState({
