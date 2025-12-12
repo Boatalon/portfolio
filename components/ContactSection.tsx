@@ -11,24 +11,40 @@ const ContactSection = () => {
         email: '',
         message: '',
     });
+    const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setStatus('loading');
 
-        // Create mailto link with form data
-        const subject = encodeURIComponent(`Portfolio Contact: ${formData.name}`);
-        const body = encodeURIComponent(
-            `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-        );
-        const mailtoLink = `mailto:boat.arnonchatri@gmail.com?subject=${subject}&body=${body}`;
+        try {
+            const response = await fetch('https://formspree.io/f/xeoyvojr', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: formData.name,
+                    email: formData.email,
+                    message: formData.message,
+                    _replyto: formData.email,
+                    _subject: `Portfolio Contact from ${formData.name}`,
+                }),
+            });
 
-        // Open email client
-        window.location.href = mailtoLink;
-
-        // Reset form
-        setTimeout(() => {
-            setFormData({ name: '', email: '', message: '' });
-        }, 500);
+            if (response.ok) {
+                setStatus('success');
+                setFormData({ name: '', email: '', message: '' });
+                setTimeout(() => setStatus('idle'), 5000);
+            } else {
+                setStatus('error');
+                setTimeout(() => setStatus('idle'), 5000);
+            }
+        } catch (error) {
+            console.error('Error sending email:', error);
+            setStatus('error');
+            setTimeout(() => setStatus('idle'), 5000);
+        }
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -61,8 +77,23 @@ const ContactSection = () => {
                         <div className="glass-effect border border-purple-500/20 rounded-2xl p-8">
                             <h3 className="text-2xl font-bold mb-4 text-white">Send a Message</h3>
                             <p className="text-sm text-gray-400 mb-6">
-                                Fill out the form below and click send. This will open your email client to send a message directly to <span className="text-purple-400 font-semibold">boat.arnonchatri@gmail.com</span>
+                                Fill out the form below to send me a message directly to <span className="text-purple-400 font-semibold">boat.arnonchatri@gmail.com</span>
                             </p>
+
+                            {status === 'success' && (
+                                <div className="mb-6 p-4 bg-green-500/10 border border-green-500/50 rounded-lg flex items-center gap-3 text-green-400">
+                                    <FiCheck className="text-xl flex-shrink-0" />
+                                    <p className="text-sm">Message sent successfully! I'll get back to you soon.</p>
+                                </div>
+                            )}
+
+                            {status === 'error' && (
+                                <div className="mb-6 p-4 bg-red-500/10 border border-red-500/50 rounded-lg flex items-center gap-3 text-red-400">
+                                    <FiAlertCircle className="text-xl flex-shrink-0" />
+                                    <p className="text-sm">Failed to send message. Please try again or email me directly.</p>
+                                </div>
+                            )}
+
                             <form onSubmit={handleSubmit} className="space-y-4">
                                 <div>
                                     <label htmlFor="name" className="block text-sm font-semibold mb-2 text-gray-300">
@@ -75,7 +106,8 @@ const ContactSection = () => {
                                         value={formData.name}
                                         onChange={handleChange}
                                         required
-                                        className="w-full px-4 py-3 bg-white/5 border border-purple-500/30 rounded-lg focus:outline-none focus:border-purple-500 transition-colors text-white placeholder-gray-500"
+                                        disabled={status === 'loading'}
+                                        className="w-full px-4 py-3 bg-white/5 border border-purple-500/30 rounded-lg focus:outline-none focus:border-purple-500 transition-colors text-white placeholder-gray-500 disabled:opacity-50"
                                         placeholder="Your name"
                                     />
                                 </div>
@@ -91,7 +123,8 @@ const ContactSection = () => {
                                         value={formData.email}
                                         onChange={handleChange}
                                         required
-                                        className="w-full px-4 py-3 bg-white/5 border border-purple-500/30 rounded-lg focus:outline-none focus:border-purple-500 transition-colors text-white placeholder-gray-500"
+                                        disabled={status === 'loading'}
+                                        className="w-full px-4 py-3 bg-white/5 border border-purple-500/30 rounded-lg focus:outline-none focus:border-purple-500 transition-colors text-white placeholder-gray-500 disabled:opacity-50"
                                         placeholder="your.email@example.com"
                                     />
                                 </div>
@@ -107,17 +140,28 @@ const ContactSection = () => {
                                         onChange={handleChange}
                                         required
                                         rows={5}
-                                        className="w-full px-4 py-3 bg-white/5 border border-purple-500/30 rounded-lg focus:outline-none focus:border-purple-500 transition-colors resize-none text-white placeholder-gray-500"
+                                        disabled={status === 'loading'}
+                                        className="w-full px-4 py-3 bg-white/5 border border-purple-500/30 rounded-lg focus:outline-none focus:border-purple-500 transition-colors resize-none text-white placeholder-gray-500 disabled:opacity-50"
                                         placeholder="Your message..."
                                     />
                                 </div>
 
                                 <button
                                     type="submit"
-                                    className="w-full px-6 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-purple-500/50 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2"
+                                    disabled={status === 'loading'}
+                                    className="w-full px-6 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-purple-500/50 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                                 >
-                                    <FiSend />
-                                    Send Message
+                                    {status === 'loading' ? (
+                                        <>
+                                            <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                                            Sending...
+                                        </>
+                                    ) : (
+                                        <>
+                                            <FiSend />
+                                            Send Message
+                                        </>
+                                    )}
                                 </button>
                             </form>
                         </div>
