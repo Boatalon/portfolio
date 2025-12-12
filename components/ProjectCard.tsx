@@ -17,7 +17,7 @@ const ProjectCard = ({ project, index = 0 }: ProjectCardProps) => {
             className="block"
         >
             <div
-                className="group glass-effect border border-purple-500/20 rounded-xl overflow-hidden hover:border-purple-500/60 hover:shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-2 transition-all duration-300 cursor-pointer flex flex-col h-[650px] sm:h-[680px] lg:h-[690px]"
+                className="group glass-effect border border-purple-500/20 rounded-xl overflow-hidden overflow-y-hidden hover:border-purple-500/60 hover:shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-2 transition-all duration-300 cursor-pointer flex flex-col h-[700px] sm:h-[730px] lg:h-[750px]"
                 style={{ animationDelay: `${index * 0.1}s` }}
             >
                 {/* Decorative top border */}
