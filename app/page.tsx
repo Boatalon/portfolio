@@ -41,9 +41,7 @@ export default function Home() {
                         <div className="flex gap-8 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-purple-500/50 scrollbar-track-gray-800 px-4 -mx-4">
                             {featuredProjects.map((project, index) => (
                                 <div key={project.id} className="flex-none w-[85%] sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)] snap-start first:ml-4 last:mr-4">
-                                    <AnimatedSection>
-                                        <ProjectCard project={project} index={index} />
-                                    </AnimatedSection>
+                                    <ProjectCard project={project} index={index} />
                                 </div>
                             ))}
                         </div>
