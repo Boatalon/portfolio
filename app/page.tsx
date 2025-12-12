@@ -11,6 +11,8 @@ import Link from 'next/link';
 import { FiArrowRight } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 
+import InfiniteCarousel from '@/components/InfiniteCarousel';
+
 export default function Home() {
     return (
         <>
@@ -36,21 +38,7 @@ export default function Home() {
                         </div>
                     </AnimatedSection>
 
-                    {/* Horizontal scrollable project cards */}
-                    <div className="relative">
-                        <div className="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory px-6 
-                                        scrollbar-hide
-                                        [&>*]:transition-transform [&>*]:duration-500
-                                        [&>*:not(:nth-child(1))]:scale-90 
-                                        [&>*:nth-child(1)]:scale-100
-                                        sm:[&>*]:scale-100">
-                            {featuredProjects.map((project, index) => (
-                                <div key={project.id} className="flex-none w-[90%] sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] snap-center">
-                                    <ProjectCard project={project} index={index} />
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+                    <InfiniteCarousel projects={featuredProjects} />
                 </div>
             </section>
 
