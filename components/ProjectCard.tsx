@@ -14,13 +14,14 @@ interface ProjectCardProps {
 const ProjectCard = ({ project, index = 0 }: ProjectCardProps) => {
     return (
         <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, amount: 0.3 }}
+            initial={{ opacity: 0, x: 60, scale: 0.95 }}
+            whileInView={{ opacity: 1, x: 0, scale: 1 }}
+            viewport={{ once: false, amount: 0.2, margin: "-50px" }}
             transition={{
-                duration: 0.5,
-                delay: index * 0.1,
-                ease: "easeOut"
+                type: "spring",
+                stiffness: 100,
+                damping: 20,
+                delay: index * 0.05,
             }}
         >
             <Link href={`/projects/${project.slug || project.id}`} className="block">

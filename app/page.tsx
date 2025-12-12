@@ -38,9 +38,9 @@ export default function Home() {
 
                     {/* Horizontal scrollable project cards */}
                     <div className="relative">
-                        <div className="flex gap-8 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-purple-500/50 scrollbar-track-gray-800 px-4 -mx-4">
+                        <div className="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory scrollbar-thin scrollbar-thumb-purple-500/50 scrollbar-track-gray-800 px-6">
                             {featuredProjects.map((project, index) => (
-                                <div key={project.id} className="flex-none w-[85%] sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)] snap-start first:ml-4 last:mr-4">
+                                <div key={project.id} className="flex-none w-[90%] sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] snap-center">
                                     <ProjectCard project={project} index={index} />
                                 </div>
                             ))}
