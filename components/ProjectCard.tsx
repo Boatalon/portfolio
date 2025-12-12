@@ -17,14 +17,14 @@ const ProjectCard = ({ project, index = 0 }: ProjectCardProps) => {
             className="block h-full"
         >
             <div
-                className="group glass-effect border border-purple-500/20 rounded-xl overflow-hidden hover:border-purple-500/60 hover:shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-2 transition-all duration-300 cursor-pointer h-full"
+                className="group glass-effect border border-purple-500/20 rounded-xl overflow-hidden hover:border-purple-500/60 hover:shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-2 transition-all duration-300 cursor-pointer flex flex-col min-h-[550px]"
                 style={{ animationDelay: `${index * 0.1}s` }}
             >
                 {/* Decorative top border */}
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500"></div>
 
                 {/* Project Image */}
-                <div className="relative h-52 overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900">
+                <div className="relative h-48 flex-shrink-0 overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900">
                     {project.image && (
                         <Image
                             src={project.image}
@@ -41,11 +41,11 @@ const ProjectCard = ({ project, index = 0 }: ProjectCardProps) => {
                 </div>
 
                 {/* Project Info */}
-                <div className="p-6">
-                    <h3 className="text-2xl font-bold mb-3 text-white group-hover:text-purple-400 transition-colors duration-300">
+                <div className="p-6 flex flex-col flex-grow">
+                    <h3 className="text-xl font-bold mb-3 text-white group-hover:text-purple-400 transition-colors duration-300">
                         {project.title}
                     </h3>
-                    <p className="text-gray-400 text-sm mb-4 line-clamp-3 leading-relaxed">
+                    <p className="text-gray-400 text-sm mb-4 leading-relaxed flex-grow line-clamp-4">
                         {project.description}
                     </p>
 
@@ -67,7 +67,7 @@ const ProjectCard = ({ project, index = 0 }: ProjectCardProps) => {
                     </div>
 
                     {/* View Details Indicator */}
-                    <div className="flex items-center gap-2 text-purple-400 text-sm font-semibold pt-4 border-t border-white/10">
+                    <div className="flex items-center gap-2 text-purple-400 text-sm font-semibold pt-4 border-t border-white/10 mt-auto">
                         <span>View Details</span>
                         <FiExternalLink className="group-hover:translate-x-1 transition-transform" />
                     </div>
