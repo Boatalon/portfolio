@@ -17,7 +17,7 @@ const ProjectCard = ({ project, index = 0 }: ProjectCardProps) => {
             className="block h-full"
         >
             <div
-                className="group glass-effect border border-purple-500/20 rounded-xl overflow-hidden hover:border-purple-500/60 hover:shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-2 transition-all duration-300 cursor-pointer flex flex-col min-h-[550px]"
+                className="group glass-effect border border-purple-500/20 rounded-xl overflow-hidden hover:border-purple-500/60 hover:shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-2 transition-all duration-300 cursor-pointer flex flex-col min-h-[600px]"
                 style={{ animationDelay: `${index * 0.1}s` }}
             >
                 {/* Decorative top border */}
@@ -41,7 +41,7 @@ const ProjectCard = ({ project, index = 0 }: ProjectCardProps) => {
                 </div>
 
                 {/* Project Info */}
-                <div className="p-6 flex flex-col flex-grow">
+                <div className="p-5 flex flex-col flex-grow">
                     <h3 className="text-xl font-bold mb-3 text-white group-hover:text-purple-400 transition-colors duration-300">
                         {project.title}
                     </h3>
