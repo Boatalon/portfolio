@@ -181,7 +181,7 @@ const ContactSection = () => {
                                         className="flex items-center gap-4 text-gray-300 hover:text-white transition-colors group"
                                     >
                                         <div className="w-12 h-12 flex items-center justify-center bg-white/5 border border-purple-500/30 rounded-lg group-hover:bg-white/10 group-hover:border-purple-500 transition-all">
-                                            <HuggingFaceIcon className="w-5 h-5" />
+                                            <HuggingFaceIcon className="w-6 h-6" />
                                         </div>
                                         <div>
                                             <p className="font-semibold">Hugging Face</p>

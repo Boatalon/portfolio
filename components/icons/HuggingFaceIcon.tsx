@@ -1,16 +1,22 @@
-// Hugging Face official logo SVG component
+// Hugging Face official logo SVG component (simplified)
 export const HuggingFaceIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
     <svg
         className={className}
-        viewBox="0 0 95 88"
+        viewBox="0 0 24 24"
         fill="currentColor"
         xmlns="http://www.w3.org/2000/svg"
     >
-        <path d="M47.21 70.93c-13.52 0-24.48-10.96-24.48-24.48 0-13.52 10.96-24.48 24.48-24.48 13.52 0 24.48 10.96 24.48 24.48 0 13.52-10.96 24.48-24.48 24.48zm0-44.07c-10.8 0-19.59 8.79-19.59 19.59s8.79 19.59 19.59 19.59 19.59-8.79 19.59-19.59-8.79-19.59-19.59-19.59z" />
-        <path d="M59.65 46.45c0 3.43-2.78 6.21-6.21 6.21s-6.21-2.78-6.21-6.21 2.78-6.21 6.21-6.21 6.21 2.78 6.21 6.21z" />
-        <path d="M41.19 46.45c0 3.43-2.78 6.21-6.21 6.21s-6.21-2.78-6.21-6.21 2.78-6.21 6.21-6.21 6.21 2.78 6.21 6.21z" />
-        <path d="M47.21 61.35c-4.59 0-8.32-3.73-8.32-8.32h3.26c0 2.8 2.27 5.07 5.07 5.07 2.8 0 5.07-2.27 5.07-5.07h3.26c-.01 4.59-3.74 8.32-8.34 8.32z" />
-        <path d="M0 46.45C0 20.8 20.8 0 46.45 0h2.1C74.2 0 95 20.8 95 46.45v2.1C95 74.2 74.2 95 48.55 95h-2.1C20.8 95 0 74.2 0 48.55v-2.1zm46.45-41.57C23.6 4.88 4.88 23.6 4.88 46.45v2.1c0 22.85 18.72 41.57 41.57 41.57h2.1c22.85 0 41.57-18.72 41.57-41.57v-2.1c0-22.85-18.72-41.57-41.57-41.57h-2.1z" />
+        {/* Face circle */}
+        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" fill="none" />
+
+        {/* Left eye */}
+        <circle cx="8.5" cy="10" r="1.5" fill="currentColor" />
+
+        {/* Right eye */}
+        <circle cx="15.5" cy="10" r="1.5" fill="currentColor" />
+
+        {/* Smile */}
+        <path d="M7 14c0 2.8 2.2 5 5 5s5-2.2 5-5" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" />
     </svg>
 );
 
