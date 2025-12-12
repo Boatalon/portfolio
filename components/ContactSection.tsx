@@ -3,6 +3,7 @@
 import AnimatedSection from '@/components/AnimatedSection';
 import { useState } from 'react';
 import { FiMail, FiGithub, FiLinkedin, FiSend, FiCheck, FiAlertCircle } from 'react-icons/fi';
+import { SiHuggingface } from 'react-icons/si';
 
 
 const ContactSection = () => {
@@ -174,15 +175,17 @@ const ContactSection = () => {
                                 <h3 className="text-2xl font-bold mb-6 text-white">Contact Information</h3>
                                 <div className="space-y-4">
                                     <a
-                                        href="mailto:boat.arnonchatri@gmail.com"
+                                        href="https://huggingface.co/Boatarnonchatri"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         className="flex items-center gap-4 text-gray-300 hover:text-white transition-colors group"
                                     >
                                         <div className="w-12 h-12 flex items-center justify-center bg-white/5 border border-purple-500/30 rounded-lg group-hover:bg-white/10 group-hover:border-purple-500 transition-all">
-                                            <FiMail className="text-xl" />
+                                            <SiHuggingface className="text-xl" />
                                         </div>
                                         <div>
-                                            <p className="font-semibold">Email</p>
-                                            <p className="text-sm text-gray-400">boat.arnonchatri@gmail.com</p>
+                                            <p className="font-semibold">Hugging Face</p>
+                                            <p className="text-sm text-gray-400">@Boatarnonchatri</p>
                                         </div>
                                     </a>
 
