@@ -1,4 +1,4 @@
-// Hugging Face official logo SVG component (simplified)
+// Hugging Face logo with hands 🤗
 export const HuggingFaceIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
     <svg
         className={className}
@@ -7,16 +7,22 @@ export const HuggingFaceIcon = ({ className = "w-6 h-6" }: { className?: string 
         xmlns="http://www.w3.org/2000/svg"
     >
         {/* Face circle */}
-        <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" fill="none" />
+        <circle cx="12" cy="12" r="8" stroke="currentColor" strokeWidth="1.5" fill="none" />
 
         {/* Left eye */}
-        <circle cx="8.5" cy="10" r="1.5" fill="currentColor" />
+        <circle cx="9.5" cy="11" r="1.2" fill="currentColor" />
 
         {/* Right eye */}
-        <circle cx="15.5" cy="10" r="1.5" fill="currentColor" />
+        <circle cx="14.5" cy="11" r="1.2" fill="currentColor" />
 
         {/* Smile */}
-        <path d="M7 14c0 2.8 2.2 5 5 5s5-2.2 5-5" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+        <path d="M8.5 14c0 1.9 1.6 3.5 3.5 3.5s3.5-1.6 3.5-3.5" stroke="currentColor" strokeWidth="1.3" fill="none" strokeLinecap="round" />
+
+        {/* Left hand */}
+        <path d="M3 10c.5-1 1.5-2 2.5-2.5 1-.5 1.5 0 1.5 1" stroke="currentColor" strokeWidth="1.3" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+
+        {/* Right hand */}
+        <path d="M21 10c-.5-1-1.5-2-2.5-2.5-1-.5-1.5 0-1.5 1" stroke="currentColor" strokeWidth="1.3" fill="none" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
 );
 
