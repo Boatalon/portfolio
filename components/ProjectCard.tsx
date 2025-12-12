@@ -17,14 +17,14 @@ const ProjectCard = ({ project, index = 0 }: ProjectCardProps) => {
             className="block h-full"
         >
             <div
-                className="group glass-effect border border-purple-500/20 rounded-xl overflow-hidden hover:border-purple-500/60 hover:shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-2 transition-all duration-300 cursor-pointer flex flex-col min-h-[600px]"
+                className="group glass-effect border border-purple-500/20 rounded-xl overflow-hidden hover:border-purple-500/60 hover:shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-2 transition-all duration-300 cursor-pointer flex flex-col min-h-[650px] sm:min-h-[680px] lg:min-h-[690px]"
                 style={{ animationDelay: `${index * 0.1}s` }}
             >
                 {/* Decorative top border */}
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500"></div>
 
                 {/* Project Image */}
-                <div className="relative h-48 flex-shrink-0 overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900">
+                <div className="relative h-44 sm:h-48 flex-shrink-0 overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900">
                     {project.image && (
                         <Image
                             src={project.image}
@@ -41,33 +41,33 @@ const ProjectCard = ({ project, index = 0 }: ProjectCardProps) => {
                 </div>
 
                 {/* Project Info */}
-                <div className="p-5 flex flex-col flex-grow">
-                    <h3 className="text-xl font-bold mb-3 text-white group-hover:text-purple-400 transition-colors duration-300">
+                <div className="p-4 sm:p-5 flex flex-col flex-grow">
+                    <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3 text-white group-hover:text-purple-400 transition-colors duration-300">
                         {project.title}
                     </h3>
-                    <p className="text-gray-400 text-sm mb-4 leading-relaxed flex-grow line-clamp-4">
+                    <p className="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4 leading-relaxed flex-grow line-clamp-4">
                         {project.description}
                     </p>
 
                     {/* Tags */}
-                    <div className="flex flex-wrap gap-2 mb-4">
+                    <div className="flex flex-wrap gap-2 mb-3 sm:mb-4">
                         {project.tags.slice(0, 3).map((tag) => (
                             <span
                                 key={tag}
-                                className="px-3 py-1 glass-effect border border-purple-500/20 text-gray-300 text-xs rounded-full font-medium"
+                                className="px-2.5 sm:px-3 py-1 glass-effect border border-purple-500/20 text-gray-300 text-xs rounded-full font-medium"
                             >
                                 {tag}
                             </span>
                         ))}
                         {project.tags.length > 3 && (
-                            <span className="px-3 py-1 glass-effect border border-purple-500/20 text-gray-300 text-xs rounded-full">
+                            <span className="px-2.5 sm:px-3 py-1 glass-effect border border-purple-500/20 text-gray-300 text-xs rounded-full">
                                 +{project.tags.length - 3}
                             </span>
                         )}
                     </div>
 
                     {/* View Details Indicator */}
-                    <div className="flex items-center gap-2 text-purple-400 text-sm font-semibold pt-4 border-t border-white/10 mt-auto">
+                    <div className="flex items-center gap-2 text-purple-400 text-xs sm:text-sm font-semibold pt-3 sm:pt-4 border-t border-white/10 mt-auto">
                         <span>View Details</span>
                         <FiExternalLink className="group-hover:translate-x-1 transition-transform" />
                     </div>
