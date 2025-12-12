@@ -11,6 +11,7 @@ interface InfiniteCarouselProps {
 const InfiniteCarousel = ({ projects }: InfiniteCarouselProps) => {
     const scrollRef = useRef<HTMLDivElement>(null);
     const [centerIndex, setCenterIndex] = useState(0);
+    const isScrollingRef = useRef(false);
 
     // Triple the projects for infinite scroll effect
     const infiniteProjects = [...projects, ...projects, ...projects];
@@ -20,26 +21,50 @@ const InfiniteCarousel = ({ projects }: InfiniteCarouselProps) => {
         if (!container) return;
 
         // Start at middle set
-        const cardWidth = container.scrollWidth / infiniteProjects.length;
-        container.scrollLeft = cardWidth * projects.length;
+        setTimeout(() => {
+            const scrollWidth = container.scrollWidth;
+            const containerWidth = container.clientWidth;
+            const itemWidth = scrollWidth / infiniteProjects.length;
+
+            // Scroll to start of middle section
+            container.scrollLeft = itemWidth * projects.length + containerWidth / 2 - itemWidth / 2;
+        }, 100);
 
         const handleScroll = () => {
-            const scrollLeft = container.scrollLeft;
-            const cardWidth = container.scrollWidth / infiniteProjects.length;
-            const currentIndex = Math.round(scrollLeft / cardWidth);
+            if (isScrollingRef.current) return;
 
-            // Update center index
+            const scrollLeft = container.scrollLeft;
+            const scrollWidth = container.scrollWidth;
+            const containerWidth = container.clientWidth;
+            const itemWidth = scrollWidth / infiniteProjects.length;
+
+            // Calculate which card is centered
+            const centerPosition = scrollLeft + containerWidth / 2;
+            const currentIndex = Math.floor(centerPosition / itemWidth);
+
+            // Update center index (modulo to get actual project index)
             setCenterIndex(currentIndex % projects.length);
 
-            // Infinite loop logic
-            if (currentIndex <= 0) {
-                container.scrollLeft = cardWidth * projects.length;
-            } else if (currentIndex >= infiniteProjects.length - 1) {
-                container.scrollLeft = cardWidth * projects.length;
+            // Infinite loop logic - jump when near boundaries
+            const threshold = itemWidth * 2;
+
+            // If scrolled too far left (approaching first set)
+            if (scrollLeft < threshold) {
+                isScrollingRef.current = true;
+                const newScrollLeft = scrollLeft + (itemWidth * projects.length);
+                container.scrollTo({ left: newScrollLeft, behavior: 'instant' });
+                setTimeout(() => { isScrollingRef.current = false; }, 50);
+            }
+            // If scrolled too far right (approaching last set)
+            else if (scrollLeft > scrollWidth - containerWidth - threshold) {
+                isScrollingRef.current = true;
+                const newScrollLeft = scrollLeft - (itemWidth * projects.length);
+                container.scrollTo({ left: newScrollLeft, behavior: 'instant' });
+                setTimeout(() => { isScrollingRef.current = false; }, 50);
             }
         };
 
-        container.addEventListener('scroll', handleScroll);
+        container.addEventListener('scroll', handleScroll, { passive: true });
         return () => container.removeEventListener('scroll', handleScroll);
     }, [projects.length, infiniteProjects.length]);
 
@@ -47,8 +72,7 @@ const InfiniteCarousel = ({ projects }: InfiniteCarouselProps) => {
         <div className="relative">
             <div
                 ref={scrollRef}
-                className="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory px-6 scrollbar-hide scroll-smooth"
-                style={{ scrollBehavior: 'smooth' }}
+                className="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory px-6 scrollbar-hide"
             >
                 {infiniteProjects.map((project, index) => {
                     const isCentered = index % projects.length === centerIndex;
