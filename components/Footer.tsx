@@ -1,16 +1,17 @@
 'use client';
 
 import Link from 'next/link';
-import { FiGithub, FiLinkedin, FiMail, FiTwitter } from 'react-icons/fi';
+import { FiGithub, FiLinkedin, FiMail, FiTwitter, FiInstagram } from 'react-icons/fi';
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
 
     const socialLinks = [
-        { icon: FiGithub, href: 'https://github.com/yourusername', label: 'GitHub' },
-        { icon: FiLinkedin, href: 'https://linkedin.com/in/yourusername', label: 'LinkedIn' },
-        { icon: FiTwitter, href: 'https://twitter.com/yourusername', label: 'Twitter' },
-        { icon: FiMail, href: 'mailto:your.email@example.com', label: 'Email' },
+        { icon: FiGithub, href: 'https://github.com/Boatalon', label: 'GitHub' },
+        { icon: FiLinkedin, href: 'https://www.linkedin.com/in/อานนท์-ชาตรี-b5b894392/', label: 'LinkedIn' },
+        // { icon: FiTwitter, href: 'https://twitter.com/yourusername', label: 'Twitter' },
+        { icon: FiMail, href: 'mailto:boat.arnonchatri@gmail.com', label: 'Email' },
+        { icon: FiInstagram, href: 'https://www.instagram.com/elbr0_/', label: 'Instagram' },
     ];
 
     return (

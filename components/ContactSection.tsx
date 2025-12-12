@@ -13,9 +13,21 @@ const ContactSection = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log('Form submitted:', formData);
-        alert('Thank you for your message! I will get back to you soon.');
-        setFormData({ name: '', email: '', message: '' });
+
+        // Create mailto link with form data
+        const subject = encodeURIComponent(`Portfolio Contact: ${formData.name}`);
+        const body = encodeURIComponent(
+            `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+        );
+        const mailtoLink = `mailto:boat.arnonchatri@gmail.com?subject=${subject}&body=${body}`;
+
+        // Open email client
+        window.location.href = mailtoLink;
+
+        // Reset form
+        setTimeout(() => {
+            setFormData({ name: '', email: '', message: '' });
+        }, 500);
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -46,7 +58,10 @@ const ContactSection = () => {
                     {/* Contact Form */}
                     <AnimatedSection>
                         <div className="glass-effect border border-purple-500/20 rounded-2xl p-8">
-                            <h3 className="text-2xl font-bold mb-6 text-white">Send a Message</h3>
+                            <h3 className="text-2xl font-bold mb-4 text-white">Send a Message</h3>
+                            <p className="text-sm text-gray-400 mb-6">
+                                Fill out the form below and click send. This will open your email client to send a message directly to <span className="text-purple-400 font-semibold">boat.arnonchatri@gmail.com</span>
+                            </p>
                             <form onSubmit={handleSubmit} className="space-y-4">
                                 <div>
                                     <label htmlFor="name" className="block text-sm font-semibold mb-2 text-gray-300">
