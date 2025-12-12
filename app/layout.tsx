@@ -3,6 +3,7 @@ import { Inter, Space_Grotesk } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const inter = Inter({
     subsets: ['latin'],
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
     title: 'Portfolio | ML Engineer & Developer',
     description: 'Portfolio showcasing Machine Learning, Computer Vision, and Web Development projects including Sign Language Translation and Object Detection systems.',
     keywords: ['Machine Learning', 'Computer Vision', 'Deep Learning', 'Portfolio', 'AI', 'Developer'],
-    authors: [{ name: 'Your Name' }],
+    authors: [{ name: 'Arnon Chatri' }],
     openGraph: {
         title: 'Portfolio | ML Engineer & Developer',
         description: 'Showcasing innovative AI and ML projects',
@@ -37,6 +38,7 @@ export default function RootLayout({
                 <Navbar />
                 <main>{children}</main>
                 <Footer />
+                <SpeedInsights />
             </body>
         </html>
     );

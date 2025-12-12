@@ -20,10 +20,10 @@ export const HuggingFaceIcon = ({ className = "w-6 h-6" }: { className?: string 
 
 
         {/* Left hand */}
-        <path d="M2 22c1-1.5 2-2.5 3.5-3 1.5-.5 2 .5 2 1.5" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M2 21c1-1.5 2-2.5 3.5-3 1.5-.5 2 .5 2 1.5" stroke="currentColor" strokeWidth="5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
 
         {/* Right hand */}
-        <path d="M22 22c-1-1.5-2-2.5-3.5-3-1.5-.5-2 .5-2 1.5" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M22 21c-1-1.5-2-2.5-3.5-3-1.5-.5-2 .5-2 1.5" stroke="currentColor" strokeWidth="5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
 );
 
