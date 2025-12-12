@@ -14,10 +14,10 @@ const ProjectCard = ({ project, index = 0 }: ProjectCardProps) => {
     return (
         <Link
             href={`/projects/${project.slug || project.id}`}
-            className="block h-full"
+            className="block"
         >
             <div
-                className="group glass-effect border border-purple-500/20 rounded-xl overflow-hidden hover:border-purple-500/60 hover:shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-2 transition-all duration-300 cursor-pointer flex flex-col min-h-[650px] sm:min-h-[680px] lg:min-h-[690px]"
+                className="group glass-effect border border-purple-500/20 rounded-xl overflow-hidden hover:border-purple-500/60 hover:shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-2 transition-all duration-300 cursor-pointer flex flex-col h-[650px] sm:h-[680px] lg:h-[690px]"
                 style={{ animationDelay: `${index * 0.1}s` }}
             >
                 {/* Decorative top border */}
@@ -45,7 +45,7 @@ const ProjectCard = ({ project, index = 0 }: ProjectCardProps) => {
                     <h3 className="text-lg sm:text-xl font-bold mb-2 sm:mb-3 text-white group-hover:text-purple-400 transition-colors duration-300">
                         {project.title}
                     </h3>
-                    <p className="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4 leading-relaxed flex-grow line-clamp-4">
+                    <p className="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4 leading-relaxed flex-grow line-clamp-3">
                         {project.description}
                     </p>
 
