@@ -16,13 +16,13 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-    title: 'Portfolio | ML Engineer & Developer',
+    title: 'Portfolio | Boat Arnon Chatri',
     description: 'Portfolio showcasing Machine Learning, Computer Vision, and Web Development projects including Sign Language Translation and Object Detection systems.',
-    keywords: ['Machine Learning', 'Computer Vision', 'Deep Learning', 'Portfolio', 'AI', 'Developer'],
+    keywords: ['Machine Learning', 'Computer Vision', 'Deep Learning', 'Portfolio', 'AI', 'Developer', 'Boat', 'Arnon Chatri', 'intern ship', 'Boat portfolio website', 'Boat portfolio'],
     authors: [{ name: 'Arnon Chatri' }],
     openGraph: {
-        title: 'Portfolio | ML Engineer & Developer',
-        description: 'Showcasing innovative AI and ML projects',
+        title: 'Portfolio | Boat Arnon Chatri',
+        description: 'Portfolio showcasing Machine Learning, Computer Vision, and Web Development projects including Sign Language Translation and Object Detection systems.',
         type: 'website',
     },
 };
