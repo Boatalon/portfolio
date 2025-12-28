@@ -56,17 +56,17 @@ const ContactSection = () => {
     };
 
     return (
-        <section id="contact" className="py-24 px-4 relative bg-gradient-to-b from-black to-gray-900">
+        <section id="contact" className="py-24 px-4 relative bg-[#f5f1e8]">
             {/* Decorative border */}
-            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent"></div>
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-600/50 to-transparent"></div>
 
             <div className="container mx-auto max-w-5xl">
                 <AnimatedSection>
                     <div className="text-center mb-16">
-                        <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
+                        <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
                             Get In Touch
                         </h2>
-                        <p className="text-xl text-gray-400">
+                        <p className="text-xl text-gray-800">
                             ติดต่อฉัน - Let&apos;s work together!
                         </p>
                     </div>
@@ -75,10 +75,10 @@ const ContactSection = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {/* Contact Form */}
                     <AnimatedSection>
-                        <div className="glass-effect border border-purple-500/20 rounded-2xl p-8">
-                            <h3 className="text-2xl font-bold mb-4 text-white">Send a Message</h3>
-                            <p className="text-sm text-gray-400 mb-6">
-                                Fill out the form below to send me a message directly to <span className="text-purple-400 font-semibold">boat.arnonchatri@gmail.com</span>
+                        <div className="glass-effect border border-amber-600/20 rounded-2xl p-8">
+                            <h3 className="text-2xl font-bold mb-4 text-gray-900">Send a Message</h3>
+                            <p className="text-sm text-gray-800 mb-6">
+                                Fill out the form below to send me a message directly to <span className="text-amber-700 font-semibold">boat.arnonchatri@gmail.com</span>
                             </p>
 
                             {status === 'success' && (
@@ -97,7 +97,7 @@ const ContactSection = () => {
 
                             <form onSubmit={handleSubmit} className="space-y-4">
                                 <div>
-                                    <label htmlFor="name" className="block text-sm font-semibold mb-2 text-gray-300">
+                                    <label htmlFor="name" className="block text-sm font-semibold mb-2 text-gray-800">
                                         Name
                                     </label>
                                     <input
@@ -108,13 +108,13 @@ const ContactSection = () => {
                                         onChange={handleChange}
                                         required
                                         disabled={status === 'loading'}
-                                        className="w-full px-4 py-3 bg-white/5 border border-purple-500/30 rounded-lg focus:outline-none focus:border-purple-500 transition-colors text-white placeholder-gray-500 disabled:opacity-50"
+                                        className="w-full px-4 py-3 bg-white/50 border border-amber-600/30 rounded-lg focus:outline-none focus:border-amber-600 transition-colors text-gray-900 placeholder-gray-600 disabled:opacity-50"
                                         placeholder="Your name"
                                     />
                                 </div>
 
                                 <div>
-                                    <label htmlFor="email" className="block text-sm font-semibold mb-2 text-gray-300">
+                                    <label htmlFor="email" className="block text-sm font-semibold mb-2 text-gray-800">
                                         Email
                                     </label>
                                     <input
@@ -125,13 +125,13 @@ const ContactSection = () => {
                                         onChange={handleChange}
                                         required
                                         disabled={status === 'loading'}
-                                        className="w-full px-4 py-3 bg-white/5 border border-purple-500/30 rounded-lg focus:outline-none focus:border-purple-500 transition-colors text-white placeholder-gray-500 disabled:opacity-50"
+                                        className="w-full px-4 py-3 bg-white/50 border border-amber-600/30 rounded-lg focus:outline-none focus:border-amber-600 transition-colors text-gray-900 placeholder-gray-600 disabled:opacity-50"
                                         placeholder="your.email@example.com"
                                     />
                                 </div>
 
                                 <div>
-                                    <label htmlFor="message" className="block text-sm font-semibold mb-2 text-gray-300">
+                                    <label htmlFor="message" className="block text-sm font-semibold mb-2 text-gray-800">
                                         Message
                                     </label>
                                     <textarea
@@ -142,7 +142,7 @@ const ContactSection = () => {
                                         required
                                         rows={5}
                                         disabled={status === 'loading'}
-                                        className="w-full px-4 py-3 bg-white/5 border border-purple-500/30 rounded-lg focus:outline-none focus:border-purple-500 transition-colors resize-none text-white placeholder-gray-500 disabled:opacity-50"
+                                        className="w-full px-4 py-3 bg-white/50 border border-amber-600/30 rounded-lg focus:outline-none focus:border-amber-600 transition-colors resize-none text-gray-900 placeholder-gray-600 disabled:opacity-50"
                                         placeholder="Your message..."
                                     />
                                 </div>
@@ -150,7 +150,7 @@ const ContactSection = () => {
                                 <button
                                     type="submit"
                                     disabled={status === 'loading'}
-                                    className="w-full px-6 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-purple-500/50 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+                                    className="w-full px-6 py-4 bg-gradient-to-r from-amber-700 to-orange-600 text-gray-900 rounded-xl font-semibold hover:shadow-lg hover:shadow-amber-600/50 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                                 >
                                     {status === 'loading' ? (
                                         <>
@@ -171,21 +171,21 @@ const ContactSection = () => {
                     {/* Contact Info */}
                     <AnimatedSection>
                         <div className="space-y-6">
-                            <div className="glass-effect border border-purple-500/20 rounded-2xl p-8">
-                                <h3 className="text-2xl font-bold mb-6 text-white">Contact Information</h3>
+                            <div className="glass-effect border border-amber-600/20 rounded-2xl p-8">
+                                <h3 className="text-2xl font-bold mb-6 text-gray-900">Contact Information</h3>
                                 <div className="space-y-4">
                                     <a
                                         href="https://huggingface.co/Boatarnonchatri"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex items-center gap-4 text-gray-300 hover:text-white transition-colors group"
+                                        className="flex items-center gap-4 text-gray-800 hover:text-gray-900 transition-colors group"
                                     >
-                                        <div className="w-12 h-12 flex items-center justify-center bg-white/5 border border-purple-500/30 rounded-lg group-hover:bg-white/10 group-hover:border-purple-500 transition-all">
+                                        <div className="w-12 h-12 flex items-center justify-center bg-white/50 border border-amber-600/30 rounded-lg group-hover:bg-white/70 group-hover:border-amber-600 transition-all">
                                             <HuggingFaceIcon className="w-6 h-6" />
                                         </div>
                                         <div>
                                             <p className="font-semibold">Hugging Face</p>
-                                            <p className="text-sm text-gray-400">@Boatarnonchatri</p>
+                                            <p className="text-sm text-gray-700">@Boatarnonchatri</p>
                                         </div>
                                     </a>
 
@@ -193,14 +193,14 @@ const ContactSection = () => {
                                         href="https://github.com/Boatalon"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex items-center gap-4 text-gray-300 hover:text-white transition-colors group"
+                                        className="flex items-center gap-4 text-gray-800 hover:text-gray-900 transition-colors group"
                                     >
-                                        <div className="w-12 h-12 flex items-center justify-center bg-white/5 border border-purple-500/30 rounded-lg group-hover:bg-white/10 group-hover:border-purple-500 transition-all">
+                                        <div className="w-12 h-12 flex items-center justify-center bg-white/50 border border-amber-600/30 rounded-lg group-hover:bg-white/70 group-hover:border-amber-600 transition-all">
                                             <FiGithub className="text-xl" />
                                         </div>
                                         <div>
                                             <p className="font-semibold">GitHub</p>
-                                            <p className="text-sm text-gray-400">@Boatalon</p>
+                                            <p className="text-sm text-gray-700">@Boatalon</p>
                                         </div>
                                     </a>
 
@@ -208,22 +208,22 @@ const ContactSection = () => {
                                         href="https://www.linkedin.com/in/อานนท์-ชาตรี-b5b894392/"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex items-center gap-4 text-gray-300 hover:text-white transition-colors group"
+                                        className="flex items-center gap-4 text-gray-800 hover:text-gray-900 transition-colors group"
                                     >
-                                        <div className="w-12 h-12 flex items-center justify-center bg-white/5 border border-purple-500/30 rounded-lg group-hover:bg-white/10 group-hover:border-purple-500 transition-all">
+                                        <div className="w-12 h-12 flex items-center justify-center bg-white/50 border border-amber-600/30 rounded-lg group-hover:bg-white/70 group-hover:border-amber-600 transition-all">
                                             <FiLinkedin className="text-xl" />
                                         </div>
                                         <div>
                                             <p className="font-semibold">LinkedIn</p>
-                                            <p className="text-sm text-gray-400">Arnon Chatri</p>
+                                            <p className="text-sm text-gray-700">Arnon Chatri</p>
                                         </div>
                                     </a>
                                 </div>
                             </div>
 
-                            <div className="glass-effect border border-purple-500/20 rounded-2xl p-8">
-                                <h4 className="text-xl font-bold mb-4 text-white">Let&apos;s Collaborate!</h4>
-                                <p className="text-gray-300">
+                            <div className="glass-effect border border-amber-600/20 rounded-2xl p-8">
+                                <h4 className="text-xl font-bold mb-4 text-gray-900">Let&apos;s Collaborate!</h4>
+                                <p className="text-gray-800">
                                     I&apos;m always interested in hearing about new projects and opportunities.
                                     Whether you&apos;re looking to collaborate on a project, need ML expertise, feel free to reach out!
                                 </p>

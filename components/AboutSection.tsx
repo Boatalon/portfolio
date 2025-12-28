@@ -6,40 +6,40 @@ import { motion } from 'framer-motion';
 const AboutSection = () => {
     const highlights = [
         {
-            icon: '💻',
+            icon: '🥵',
             title: 'Clean Code',
             description: 'Writing maintainable and scalable solutions',
         },
         {
-            icon: '🎯',
+            icon: '🤓',
             title: 'Best Practices',
             description: 'Following industry standards and modern approaches',
         },
         {
-            icon: '❤️',
+            icon: '🤮',
             title: 'Passion',
             description: 'Love for learning and building innovative solutions',
         },
     ];
 
     return (
-        <section id="about" className="py-24 px-4 bg-gradient-to-b from-black via-gray-900 to-gray-900">
+        <section id="about" className="py-24 px-4 bg-[#f5f1e8]">
             <div className="container mx-auto max-w-4xl">
                 <AnimatedSection>
                     <div className="text-center mb-16">
-                        <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
+                        <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
                             About Me
                         </h2>
-                        <p className="text-xl text-gray-400">
+                        <p className="text-xl text-gray-700">
                             เกี่ยวกับฉัน
                         </p>
                     </div>
                 </AnimatedSection>
 
                 <AnimatedSection>
-                    <div className="glass-effect rounded-2xl p-8 mb-12 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
-                        <h3 className="text-3xl font-bold mb-6 text-white">Hello! 👋</h3>
-                        <div className="space-y-4 text-gray-300 text-lg leading-relaxed">
+                    <div className="glass-effect rounded-2xl p-8 mb-12 border border-amber-600/20 hover:border-amber-600/40 transition-all duration-300">
+                        <h3 className="text-3xl font-bold mb-6 text-gray-900">Tang Rumen Chatri</h3>
+                        <div className="space-y-4 text-gray-700 text-lg leading-relaxed">
                             <p>
                                 I&apos;m a passionate Machine Learning Engineer and Developer specializing in
                                 Computer Vision and Deep Learning. With a strong background in creating
@@ -67,11 +67,11 @@ const AboutSection = () => {
                         <AnimatedSection key={index}>
                             <motion.div
                                 whileHover={{ y: -5, scale: 1.02 }}
-                                className="glass-effect rounded-2xl p-6 text-center hover:border-purple-500/40 transition-all duration-300 border border-white/10"
+                                className="glass-effect rounded-2xl p-6 text-center hover:border-amber-600/40 transition-all duration-300 border border-amber-600/20"
                             >
                                 <div className="text-5xl mb-4">{highlight.icon}</div>
-                                <h3 className="text-xl font-bold mb-2 text-white">{highlight.title}</h3>
-                                <p className="text-gray-400 text-sm">
+                                <h3 className="text-xl font-bold mb-2 text-gray-900">{highlight.title}</h3>
+                                <p className="text-gray-600 text-sm">
                                     {highlight.description}
                                 </p>
                             </motion.div>

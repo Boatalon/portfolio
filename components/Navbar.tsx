@@ -58,7 +58,7 @@ const Navbar = () => {
     return (
         <nav
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-                    ? 'glass-effect shadow-2xl shadow-purple-500/10 py-4'
+                    ? 'glass-effect shadow-2xl shadow-amber-600/10 py-4'
                     : 'bg-transparent py-6'
                 }`}
         >
@@ -79,13 +79,13 @@ const Navbar = () => {
                                 key={link.href}
                                 onClick={() => scrollToSection(link.href)}
                                 className={`relative group transition-colors duration-200 ${activeSection === link.href
-                                        ? 'text-white font-semibold'
-                                        : 'text-gray-300 hover:text-white'
+                                        ? 'text-gray-900 font-semibold'
+                                        : 'text-gray-300 hover:text-gray-900'
                                     }`}
                             >
                                 {link.label}
                                 <span
-                                    className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-purple-500 to-blue-500 transition-all duration-300 ${activeSection === link.href ? 'w-full' : 'w-0 group-hover:w-full'
+                                    className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-amber-600 to-orange-500 transition-all duration-300 ${activeSection === link.href ? 'w-full' : 'w-0 group-hover:w-full'
                                         }`}
                                 ></span>
                             </button>
@@ -94,7 +94,7 @@ const Navbar = () => {
 
                     {/* Mobile Menu Button */}
                     <button
-                        className="md:hidden text-white text-2xl"
+                        className="md:hidden text-gray-900 text-2xl"
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                         aria-label="Toggle menu"
                     >
@@ -110,8 +110,8 @@ const Navbar = () => {
                                 key={link.href}
                                 onClick={() => scrollToSection(link.href)}
                                 className={`block w-full text-left py-3 transition-colors duration-200 ${activeSection === link.href
-                                        ? 'text-white font-semibold'
-                                        : 'text-gray-300 hover:text-white'
+                                        ? 'text-gray-900 font-semibold'
+                                        : 'text-gray-300 hover:text-gray-900'
                                     }`}
                             >
                                 {link.label}
