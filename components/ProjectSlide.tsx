@@ -19,10 +19,10 @@ const ProjectSlide = ({ project }: ProjectSlideProps) => {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
-                className="w-full bg-white border-b border-gray-300 py-4 lg:py-6 flex-shrink-0"
+                className="w-full bg-white border-b border-gray-300 py-3 sm:py-4 lg:py-6 flex-shrink-0"
             >
-                <div className="container mx-auto px-4 sm:px-8 lg:px-16">
-                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 text-center">
+                <div className="container mx-auto px-3 sm:px-6 lg:px-16">
+                    <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 text-center">
                         {project.title}
                     </h2>
                 </div>
@@ -30,8 +30,8 @@ const ProjectSlide = ({ project }: ProjectSlideProps) => {
 
             {/* Main Content - Two Columns */}
             <div className="flex-1 overflow-hidden">
-                <div className="container mx-auto px-4 sm:px-8 lg:px-16 py-4 lg:py-6 h-full">
-                    <div className={`grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 h-full ${isDemoLeft ? '' : 'lg:grid-flow-dense'
+                <div className="container mx-auto px-3 sm:px-6 lg:px-16 py-3 sm:py-4 lg:py-6 h-full">
+                    <div className={`grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 lg:gap-6 h-full ${isDemoLeft ? '' : 'lg:grid-flow-dense'
                         }`}>
                         {/* Demo Section */}
                         <motion.div
@@ -62,13 +62,13 @@ const ProjectSlide = ({ project }: ProjectSlideProps) => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5, duration: 0.5 }}
-                    className="w-full bg-white border-t border-gray-300 py-4 lg:py-6 flex-shrink-0"
+                    className="w-full bg-white border-t border-gray-300 py-3 sm:py-4 lg:py-6 flex-shrink-0"
                 >
-                    <div className="container mx-auto px-4 sm:px-8 lg:px-16 max-w-4xl">
-                        <h3 className="text-lg lg:text-xl font-bold text-gray-900 mb-2 text-center">
+                    <div className="container mx-auto px-3 sm:px-6 lg:px-16 max-w-4xl">
+                        <h3 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900 mb-2 text-center">
                             Conclusion
                         </h3>
-                        <p className="text-sm lg:text-base text-gray-700 leading-relaxed text-center">
+                        <p className="text-xs sm:text-sm lg:text-base text-gray-700 leading-relaxed text-center">
                             {project.conclusion}
                         </p>
                     </div>

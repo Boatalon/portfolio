@@ -9,13 +9,13 @@ interface TextSectionProps {
 
 const TextSection = ({ project }: TextSectionProps) => {
     return (
-        <div className="bg-white border border-gray-300 rounded-2xl p-4 lg:p-6 h-full flex flex-col overflow-hidden">
-            <h3 className="text-xl lg:text-2xl font-bold text-gray-900 mb-4 flex-shrink-0">About This Project</h3>
+        <div className="bg-white border border-gray-300 rounded-2xl p-3 sm:p-4 lg:p-6 h-full flex flex-col overflow-hidden">
+            <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 mb-3 sm:mb-4 flex-shrink-0">About This Project</h3>
 
             {/* Scrollable content area */}
             <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar">
                 {/* Description */}
-                <p className="text-gray-700 text-sm lg:text-base leading-relaxed mb-6">
+                <p className="text-gray-700 text-xs sm:text-sm lg:text-base leading-relaxed mb-4 sm:mb-6">
                     {project.detailedDescription || project.description}
                 </p>
 

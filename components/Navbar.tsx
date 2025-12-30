@@ -57,9 +57,9 @@ const Navbar = () => {
 
     return (
         <nav
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-                    ? 'glass-effect shadow-2xl shadow-amber-600/10 py-4'
-                    : 'bg-transparent py-6'
+            className={`fixed top-0 left-0 right-0 z-50 h-20 flex items-center transition-all duration-300 ${isScrolled
+                ? 'glass-effect shadow-2xl shadow-amber-600/10'
+                : 'bg-transparent'
                 }`}
         >
             <div className="container mx-auto px-4">
@@ -80,7 +80,7 @@ const Navbar = () => {
                                 onClick={() => scrollToSection(link.href)}
                                 className={`relative group transition-colors duration-200 ${activeSection === link.href
                                         ? 'text-gray-900 font-semibold'
-                                        : 'text-gray-300 hover:text-gray-900'
+                                        : 'bg-gradient-to-r from-amber-600 to-orange-500 bg-clip-text text-transparent hover:from-amber-700 hover:to-orange-600'
                                     }`}
                             >
                                 {link.label}
@@ -111,7 +111,7 @@ const Navbar = () => {
                                 onClick={() => scrollToSection(link.href)}
                                 className={`block w-full text-left py-3 transition-colors duration-200 ${activeSection === link.href
                                         ? 'text-gray-900 font-semibold'
-                                        : 'text-gray-300 hover:text-gray-900'
+                                        : 'bg-gradient-to-r from-amber-600 to-orange-500 bg-clip-text text-transparent'
                                     }`}
                             >
                                 {link.label}

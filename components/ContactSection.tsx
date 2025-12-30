@@ -82,7 +82,7 @@ const ContactSection = () => {
                             </p>
 
                             {status === 'success' && (
-                                <div className="mb-6 p-4 bg-green-500/10 border border-green-500/50 rounded-lg flex items-center gap-3 text-green-400">
+                                <div className="mb-6 p-4 bg-amber-500/10 border border-amber-500/50 rounded-lg flex items-center gap-3 text-amber-700">
                                     <FiCheck className="text-xl flex-shrink-0" />
                                     <p className="text-sm">Message sent successfully! I'll get back to you soon.</p>
                                 </div>

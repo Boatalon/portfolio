@@ -29,7 +29,7 @@ const CVSection = () => {
             {/* Decorative border */}
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-600/50 to-transparent"></div>
 
-            <div className="container mx-auto max-w-5xl">
+            <div className="container mx-auto max-w-7xl px-4 sm:px-8 lg:px-16">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
