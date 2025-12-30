@@ -96,7 +96,7 @@ const HeroAboutSection = () => {
             <motion.div
                 style={{
                     position: 'absolute',
-                    top: '20vh',
+                    top: '60vh',
                     right: '10vw',
                     x: imageX,
                     y: imageY,
@@ -111,8 +111,8 @@ const HeroAboutSection = () => {
                         <Image
                             src="/profile.png"
                             alt="Arnon Chatri"
-                            width={700}
-                            height={800}
+                            width={800}
+                            height={900}
                             className="h-auto w-full object-cover"
                             priority
                         />
