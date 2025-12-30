@@ -80,6 +80,16 @@ const HeroAboutSection = () => {
         [1, 1, 0.5, 0]
     );
 
+    /**
+     * Image top position - starts higher in Hero, moves down in About section
+     * Hero: 20vh -> About: 28vh
+     */
+    const imageTop = useTransform(
+        clampedHeroProgress,
+        [0, 0.6, 1],
+        ['20vh', '24vh', '28vh']
+    );
+
 
     // Image layer portaled to body to escape stacking context issues
     const imageLayer = mounted ? createPortal(
@@ -96,8 +106,8 @@ const HeroAboutSection = () => {
             <motion.div
                 style={{
                     position: 'absolute',
-                    top: '60vh',
-                    right: '10vw',
+                    top: imageTop,
+                    right: '8vw',
                     x: imageX,
                     y: imageY,
                     opacity: imageOpacity,
