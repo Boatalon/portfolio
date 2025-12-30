@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { createPortal } from 'react-dom';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { FiGithub, FiLinkedin, FiMail, FiCode, FiBriefcase, FiAward } from 'react-icons/fi';
 import { useRef, useEffect, useState } from 'react';
 
@@ -55,39 +55,40 @@ const HeroAboutSection = () => {
         Math.min(Math.max(value, 0), 1)
     );
 
+    /**
+     * Smooth X movement with more keyframes for gradual curve
+     */
     const imageX = useTransform(
         clampedHeroProgress,
-        [0, 0.5, 0.8],
-        ['0vw', '-20vw', '-50vw']
+        [0, 0.1, 0.25, 0.4, 0.5, 1],
+        ['0vw', '-10vw', '-25vw', '-42vw', '-50vw', '-50vw']
     );
 
     /**
-     * Image vertical movement (during and after About section)
-     * Faster transition for quicker About Me appearance
+     * Image moves up proportionally with scroll (1:1 sync)
      */
     const imageY = useTransform(
         aboutProgress,
-        [0, 0.25, 0.45, 0.8],
-        ['0vh', '0vh', '-35vh', '-100vh']
+        [0, 0.3, 0.5, 0.7, 1],
+        ['0vh', '-30vh', '-50vh', '-70vh', '-100vh']
     );
 
     /**
-     * Image opacity (fade out as it scrolls up)
+     * Image stays clear at About, then gradually fades
      */
     const imageOpacity = useTransform(
         aboutProgress,
-        [0, 0.35, 0.6, 0.85],
-        [1, 1, 0.5, 0]
+        [0, 0.45, 0.5, 0.6, 0.7, 1],
+        [1, 1, 0.7, 0, 0, 0]
     );
 
     /**
-     * Image top position - starts higher in Hero, moves down in About section
-     * Hero: 20vh -> About: 28vh
+     * Image top position with more keyframes
      */
     const imageTop = useTransform(
         clampedHeroProgress,
-        [0, 0.3, 0.5],
-        ['20vh', '24vh', '55vh']
+        [0, 0.2, 0.4, 0.6, 0.8, 1],
+        ['25vh', '35vh', '45vh', '55vh', '65vh', '65vh']
     );
 
 
@@ -121,8 +122,8 @@ const HeroAboutSection = () => {
                         <Image
                             src="/profile.png"
                             alt="Arnon Chatri"
-                            width={800}
-                            height={900}
+                            width={900}
+                            height={1000}
                             className="h-auto w-full object-cover"
                             priority
                         />

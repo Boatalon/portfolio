@@ -68,7 +68,7 @@ const FeatureProjectsSlider = ({ projects }: FeatureProjectsSliderProps) => {
             {currentIndex > 0 && (
                 <button
                     onClick={() => paginate(-1)}
-                    className="absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 z-50 
+                    className="absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 z-40 
                              w-12 h-12 lg:w-16 lg:h-16 rounded-full 
                              bg-white/90 backdrop-blur-sm border-2 border-gray-300 
                              shadow-xl hover:shadow-2xl hover:border-amber-600 hover:bg-amber-50
@@ -84,7 +84,7 @@ const FeatureProjectsSlider = ({ projects }: FeatureProjectsSliderProps) => {
             {currentIndex < projects.length - 1 && (
                 <button
                     onClick={() => paginate(1)}
-                    className="absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 z-50 
+                    className="absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 z-40 
                              w-12 h-12 lg:w-16 lg:h-16 rounded-full 
                              bg-white/90 backdrop-blur-sm border-2 border-gray-300 
                              shadow-xl hover:shadow-2xl hover:border-amber-600 hover:bg-amber-50
@@ -131,7 +131,7 @@ const FeatureProjectsSlider = ({ projects }: FeatureProjectsSliderProps) => {
             </div>
 
             {/* Slide Indicators - Below everything */}
-            <div className="flex-shrink-0 w-full bg-[#f5f1e8] py-6 flex justify-center items-center z-50">
+            <div className="flex-shrink-0 w-full bg-[#f5f1e8] py-6 flex justify-center items-center z-20">
                 <div className="flex gap-2">
                     {projects.map((_, index) => (
                         <button
@@ -141,8 +141,8 @@ const FeatureProjectsSlider = ({ projects }: FeatureProjectsSliderProps) => {
                                 setCurrentIndex(index);
                             }}
                             className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex
-                                    ? 'bg-amber-600 w-8'
-                                    : 'bg-gray-400 hover:bg-gray-600'
+                                ? 'bg-amber-600 w-8'
+                                : 'bg-gray-400 hover:bg-gray-600'
                                 }`}
                             aria-label={`Go to project ${index + 1}`}
                         />
