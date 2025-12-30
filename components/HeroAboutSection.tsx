@@ -86,8 +86,8 @@ const HeroAboutSection = () => {
      */
     const imageTop = useTransform(
         clampedHeroProgress,
-        [0, 0.6, 1],
-        ['20vh', '24vh', '28vh']
+        [0, 0.3, 0.5],
+        ['20vh', '24vh', '55vh']
     );
 
 
@@ -146,6 +146,7 @@ const HeroAboutSection = () => {
               HERO SECTION
               ========================= */}
                 <div
+                    id="home"
                     ref={heroRef}
                     className="container mx-auto flex min-h-screen items-center px-4 sm:px-8 lg:px-16"
                 >
@@ -214,7 +215,7 @@ const HeroAboutSection = () => {
                 {/* =========================
               ABOUT SECTION
               ========================= */}
-                <div ref={aboutRef} className="relative min-h-screen bg-white">
+                <div id="about" ref={aboutRef} className="relative min-h-screen bg-[#f5f1e8]">
                     <div className="container mx-auto px-4 py-24 sm:px-8 lg:px-16">
                         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 lg:grid-cols-2">
                             <div className="hidden lg:block" />
