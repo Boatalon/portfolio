@@ -150,7 +150,7 @@ const ContactSection = () => {
                                 <button
                                     type="submit"
                                     disabled={status === 'loading'}
-                                    className="w-full px-6 py-4 bg-gradient-to-r from-amber-700 to-orange-600 text-gray-100 rounded-xl font-semibold hover:shadow-lg hover:shadow-amber-600/50 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+                                    className="w-full rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 px-8 py-4 font-semibold text-white shadow-lg transition hover:from-amber-600 hover:to-orange-600 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     {status === 'loading' ? (
                                         <>

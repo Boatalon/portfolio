@@ -34,16 +34,17 @@ const CVSection = () => {
             {/* Decorative border */}
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-600/50 to-transparent"></div>
 
-            <div className="container mx-auto max-w-7xl px-4 sm:px-8 lg:px-16">
+            <div className="container mx-auto max-w-2xl md:max-w-5xl lg:max-w-7xl px-4 sm:px-8 lg:px-16">
                 <div className="grid lg:grid-cols-12 gap-12">
                     {/* LEFT COLUMN: Header & Summary (Sticky) */}
                     <div className="lg:col-span-4">
-                        <div className="lg:sticky lg:top-32 space-y-8">
+                        <div className="lg:sticky lg:top-32 space-y-8 md:flex md:gap-8 md:space-y-0 lg:block lg:space-y-8">
                             <motion.div
                                 initial={{ opacity: 0, x: -20 }}
                                 whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.6 }}
+                                className="w-full"
                             >
                                 <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-800">
                                     CV & Resume
@@ -127,7 +128,7 @@ const CVSection = () => {
                                         <p className="text-sm text-gray-500 mt-2">GPA: 2.50 (Cumulative)</p>
                                         <button
                                             onClick={() => setIsModalOpen(true)}
-                                            className="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-amber-600 to-amber-700 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-amber-600/50 hover:from-amber-700 hover:to-amber-800 transition-all duration-300"
+                                            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 px-8 py-3 font-semibold text-white shadow-lg transition hover:from-amber-600 hover:to-orange-600"
                                         >
                                             <FiFileText size={18} />
                                             View Transcript

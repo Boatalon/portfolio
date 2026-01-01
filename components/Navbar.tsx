@@ -86,7 +86,7 @@ const Navbar = () => {
             <nav
                 onMouseEnter={() => setIsNavbarHovered(true)}
                 onMouseLeave={() => setIsNavbarHovered(false)}
-                className={`!fixed top-0 left-0 right-0 z-50 h-20 flex items-center transition-transform duration-500 ease-in-out ${isScrolled ? 'glass-effect shadow-2xl shadow-amber-600/10' : 'bg-transparent'
+                className={`!fixed top-0 left-0 right-0 z-50 h-20 flex items-center transition-transform duration-500 ease-in-out ${isScrolled ? 'glass-effect shadow-2xl shadow-amber-600/10 !bg-[#fffbf5]' : 'bg-transparent'
                     } ${isScrolled && !showNavbar && !isNavbarHovered ? '-translate-y-full' : 'translate-y-0'}`}
             >
                 <div className="container mx-auto px-4">
@@ -131,7 +131,7 @@ const Navbar = () => {
 
                     {/* Mobile Navigation */}
                     {isMobileMenuOpen && (
-                        <div className="md:hidden mt-4 glass-effect rounded-lg p-4">
+                        <div className="md:hidden mt-4 glass-effect rounded-lg p-4 !bg-[#fffbf5]">
                             {navLinks.map((link) => (
                                 <button
                                     key={link.href}

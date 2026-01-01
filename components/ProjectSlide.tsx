@@ -33,20 +33,20 @@ const ProjectSlide = ({ project }: ProjectSlideProps) => {
 
             {/* Main Content - Scrollable Area */}
             <div className="flex-1 overflow-y-auto">
-                <div className="w-full max-w-[90%] lg:max-w-[80%] mx-auto px-4 sm:px-6 py-2 sm:py-3 lg:py-3">
-                    <div className={`grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-16 ${isDemoLeft ? '' : 'lg:grid-flow-dense'
+                <div className="w-full max-w-[95%] md:max-w-[90%] lg:max-w-[80%] mx-auto px-4 sm:px-6 py-2 sm:py-3 lg:py-3">
+                    <div className={`grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-16 ${isDemoLeft ? '' : 'md:grid-flow-dense'
                         }`}>
                         {/* Demo Section */}
                         <motion.div
                             initial={{ opacity: 0, x: isDemoLeft ? -40 : 40 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.3, duration: 0.6 }}
-                            className={`${isDemoLeft ? '' : 'lg:col-start-2'} relative`}
+                            className={`${isDemoLeft ? '' : 'md:col-start-2'} relative`}
                         >
                             <DemoSection project={project} />
 
-                            {/* Orange Divider with Gradient Fade - Only on desktop */}
-                            <div className={`hidden lg:block absolute top-0 ${isDemoLeft ? 'right-0 translate-x-8' : 'left-0 -translate-x-8'} h-full w-px bg-gradient-to-b from-transparent via-amber-600 to-transparent`}></div>
+                            {/* Orange Divider with Gradient Fade - Visible on md+ screens */}
+                            <div className={`hidden md:block absolute top-0 ${isDemoLeft ? 'right-0 translate-x-3 lg:translate-x-8' : 'left-0 -translate-x-3 lg:-translate-x-8'} h-full w-px bg-gradient-to-b from-transparent via-amber-600 to-transparent`}></div>
                         </motion.div>
 
                         {/* Text Section */}
@@ -54,7 +54,7 @@ const ProjectSlide = ({ project }: ProjectSlideProps) => {
                             initial={{ opacity: 0, x: isDemoLeft ? 40 : -40 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.4, duration: 0.6 }}
-                            className={`${isDemoLeft ? '' : 'lg:col-start-1'}`}
+                            className={`${isDemoLeft ? '' : 'md:col-start-1'}`}
                         >
                             <TextSection project={project} />
                         </motion.div>
@@ -73,7 +73,7 @@ const ProjectSlide = ({ project }: ProjectSlideProps) => {
                     )}
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 

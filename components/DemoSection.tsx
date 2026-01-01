@@ -39,7 +39,7 @@ const DemoSection = ({ project }: DemoSectionProps) => {
                         rel="noopener noreferrer"
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-lg font-semibold text-sm hover:shadow-lg hover:shadow-amber-500/50 transition-all"
+                        className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 px-6 py-2 font-semibold text-white shadow-lg transition hover:from-amber-600 hover:to-orange-600 text-sm"
                     >
                         <FiExternalLink className="w-4 h-4" />
                         Live Demo
