@@ -19,26 +19,29 @@ const ProjectSlide = ({ project }: ProjectSlideProps) => {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
-                className="w-full bg-white border-b border-gray-300 py-3 sm:py-4 lg:py-6 flex-shrink-0"
+                className="w-full py-2 sm:py-3 lg:py-4 flex-shrink-0"
             >
-                <div className="container mx-auto px-3 sm:px-6 lg:px-16">
-                    <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 text-center">
+                <div className="w-full max-w-[90%] lg:max-w-[80%] mx-auto px-4 sm:px-6">
+                    <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-black text-left mb-2">
                         {project.title}
                     </h2>
+                    <p className="text-sm sm:text-base text-black text-left max-w-3xl">
+                        {project.description}
+                    </p>
                 </div>
             </motion.div>
 
-            {/* Main Content - Two Columns */}
-            <div className="flex-1 overflow-hidden">
-                <div className="container mx-auto px-3 sm:px-6 lg:px-16 py-3 sm:py-4 lg:py-6 h-full">
-                    <div className={`grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 lg:gap-6 h-full ${isDemoLeft ? '' : 'lg:grid-flow-dense'
+            {/* Main Content - Scrollable Area */}
+            <div className="flex-1 overflow-y-auto pb-24">
+                <div className="w-full max-w-[90%] lg:max-w-[80%] mx-auto px-4 sm:px-6 py-2 sm:py-3 lg:py-4">
+                    <div className={`grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-6 ${isDemoLeft ? '' : 'lg:grid-flow-dense'
                         }`}>
                         {/* Demo Section */}
                         <motion.div
                             initial={{ opacity: 0, x: isDemoLeft ? -40 : 40 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.3, duration: 0.6 }}
-                            className={`h-full ${isDemoLeft ? '' : 'lg:col-start-2'}`}
+                            className={`${isDemoLeft ? '' : 'lg:col-start-2'}`}
                         >
                             <DemoSection project={project} />
                         </motion.div>
@@ -48,32 +51,32 @@ const ProjectSlide = ({ project }: ProjectSlideProps) => {
                             initial={{ opacity: 0, x: isDemoLeft ? 40 : -40 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.4, duration: 0.6 }}
-                            className={`h-full ${isDemoLeft ? '' : 'lg:col-start-1'}`}
+                            className={`${isDemoLeft ? '' : 'lg:col-start-1'}`}
                         >
                             <TextSection project={project} />
                         </motion.div>
                     </div>
+
+                    {/* Footer Conclusion - Now part of scrollable flow */}
+                    {project.conclusion && (
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.5, duration: 0.5 }}
+                            className="w-full p-4 sm:p-6 mt-2"
+                        >
+                            <div className="max-w-5xl mx-auto">
+                                <h3 className="text-base sm:text-lg lg:text-xl font-bold text-black mb-2 text-center">
+                                    Conclusion
+                                </h3>
+                                <p className="text-xs sm:text-sm lg:text-base text-black leading-relaxed text-center">
+                                    {project.conclusion}
+                                </p>
+                            </div>
+                        </motion.div>
+                    )}
                 </div>
             </div>
-
-            {/* Footer Conclusion */}
-            {project.conclusion && (
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5, duration: 0.5 }}
-                    className="w-full bg-white border-t border-gray-300 py-3 sm:py-4 lg:py-6 flex-shrink-0"
-                >
-                    <div className="container mx-auto px-3 sm:px-6 lg:px-16 max-w-4xl">
-                        <h3 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900 mb-2 text-center">
-                            Conclusion
-                        </h3>
-                        <p className="text-xs sm:text-sm lg:text-base text-gray-700 leading-relaxed text-center">
-                            {project.conclusion}
-                        </p>
-                    </div>
-                </motion.div>
-            )}
         </div>
     );
 };

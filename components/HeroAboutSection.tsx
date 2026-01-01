@@ -95,7 +95,7 @@ const HeroAboutSection = () => {
     // Image layer portaled to body to escape stacking context issues
     const imageLayer = mounted ? createPortal(
         <div
-            className="fixed inset-0 pointer-events-none"
+            className="hidden lg:block fixed inset-0 pointer-events-none"
             style={{
                 zIndex: 40, // Lower than navbar (z-50) so image doesn't overlap
                 // GPU acceleration on container (not on animated element)
@@ -114,7 +114,7 @@ const HeroAboutSection = () => {
                     opacity: imageOpacity,
                     willChange: 'transform, opacity',
                 }}
-                className="w-[400px] sm:w-[450px] lg:w-[520px] xl:w-[560px]"
+                className="w-[500px] xl:w-[600px]"
             >
                 <div className="relative">
                     <div className="absolute inset-0 rotate-3 rounded-3xl bg-gradient-to-br from-amber-200/40 to-orange-200/40" />
@@ -151,7 +151,7 @@ const HeroAboutSection = () => {
                     ref={heroRef}
                     className="container mx-auto flex min-h-screen items-center px-4 sm:px-8 lg:px-16"
                 >
-                    <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 lg:grid-cols-2">
+                    <div className="mx-auto grid max-w-screen-2xl grid-cols-1 items-center gap-12 lg:grid-cols-2">
                         {/* Text */}
                         <motion.div
                             initial={{ opacity: 0, x: -40 }}
@@ -173,6 +173,23 @@ const HeroAboutSection = () => {
                             <p className="mb-8 text-lg text-gray-600">
                                 อานนท์ จัตรี | โบ๊ท
                             </p>
+
+                            {/* Mobile Image (Visible only on small screens) */}
+                            <div className="block lg:hidden mb-8 max-w-sm mx-auto">
+                                <div className="relative">
+                                    <div className="absolute inset-0 rotate-3 rounded-3xl bg-gradient-to-br from-amber-200/40 to-orange-200/40" />
+                                    <div className="relative overflow-hidden rounded-3xl shadow-2xl">
+                                        <Image
+                                            src="/profile.png"
+                                            alt="Arnon Chatri"
+                                            width={500}
+                                            height={555}
+                                            className="h-auto w-full object-cover"
+                                            priority
+                                        />
+                                    </div>
+                                </div>
+                            </div>
 
                             <p className="mb-8 max-w-xl text-lg leading-relaxed text-gray-700">
                                 Passionate about pushing the boundaries of Computer Vision and Deep Learning.
@@ -218,7 +235,7 @@ const HeroAboutSection = () => {
               ========================= */}
                 <div id="about" ref={aboutRef} className="relative min-h-screen bg-[#f5f1e8]">
                     <div className="container mx-auto px-4 py-24 sm:px-8 lg:px-16">
-                        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-12 lg:grid-cols-2">
+                        <div className="mx-auto grid max-w-screen-2xl grid-cols-1 gap-12 lg:grid-cols-2">
                             <div className="hidden lg:block" />
 
                             <div>

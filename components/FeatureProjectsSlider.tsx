@@ -63,7 +63,7 @@ const FeatureProjectsSlider = ({ projects }: FeatureProjectsSliderProps) => {
     const currentProject = projects[currentIndex];
 
     return (
-        <div className="relative w-full min-h-screen overflow-hidden bg-[#f5f1e8] flex flex-col">
+        <div className="relative w-full h-[100dvh] overflow-hidden bg-[#f5f1e8] flex flex-col">
             {/* Navigation Arrows */}
             {currentIndex > 0 && (
                 <button
@@ -131,7 +131,7 @@ const FeatureProjectsSlider = ({ projects }: FeatureProjectsSliderProps) => {
             </div>
 
             {/* Slide Indicators - Below everything */}
-            <div className="flex-shrink-0 w-full bg-[#f5f1e8] py-6 flex justify-center items-center z-20">
+            <div className="flex-shrink-0 w-full bg-[#f5f1e8] py-2 flex justify-center items-center z-20">
                 <div className="flex gap-2">
                     {projects.map((_, index) => (
                         <button
