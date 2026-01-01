@@ -67,11 +67,6 @@ const FeatureProjectsSlider = ({ projects }: FeatureProjectsSliderProps) => {
             {/* Decorative border at top */}
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-600/50 to-transparent"></div>
 
-            {/* Navigation Arrows */}
-
-
-
-
             {/* Main content wrapper */}
             <div className="flex flex-col bg-[#f5f1e8]">
                 {/* Slides container */}
