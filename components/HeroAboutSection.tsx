@@ -206,20 +206,20 @@ const HeroAboutSection = () => {
 
                                 <Link
                                     href="#contact"
-                                    className="rounded-xl border-2 border-gray-200 bg-white/80 px-8 py-3 font-semibold text-gray-800 shadow-md backdrop-blur transition hover:bg-white"
+                                    className="rounded-xl glass-effect backdrop-blur-md px-8 py-3 font-semibold text-gray-800 shadow-lg transition hover:shadow-xl hover:scale-105"
                                 >
                                     Contact Me
                                 </Link>
                             </div>
 
                             <div className="mt-8 flex gap-4">
-                                <a className="rounded-lg bg-white/80 p-3 shadow-md" href="#">
+                                <a className="rounded-lg glass-effect p-3 shadow-md text-amber-700 hover:text-amber-800 hover:shadow-lg transition-all" href="#">
                                     <FiGithub className="h-6 w-6" />
                                 </a>
-                                <a className="rounded-lg bg-white/80 p-3 shadow-md" href="#">
+                                <a className="rounded-lg glass-effect p-3 shadow-md text-amber-700 hover:text-amber-800 hover:shadow-lg transition-all" href="#">
                                     <FiLinkedin className="h-6 w-6" />
                                 </a>
-                                <a className="rounded-lg bg-white/80 p-3 shadow-md" href="#">
+                                <a className="rounded-lg glass-effect p-3 shadow-md text-amber-700 hover:text-amber-800 hover:shadow-lg transition-all" href="#">
                                     <FiMail className="h-6 w-6" />
                                 </a>
                             </div>
@@ -239,14 +239,14 @@ const HeroAboutSection = () => {
                             <div className="hidden lg:block" />
 
                             <div>
-                                <h2 className="mb-2 text-4xl font-bold text-gray-900 sm:text-5xl">
+                                <h2 className="mb-2 text-4xl font-bold text-gray-800 sm:text-5xl">
                                     About Me
                                 </h2>
-                                <p className="mb-8 text-xl font-semibold text-orange-600">
+                                <p className="mb-8 text-xl font-semibold text-amber-700">
                                     เกี่ยวกับฉัน
                                 </p>
 
-                                <div className="mb-8 rounded-2xl bg-gray-50 p-8 shadow-sm">
+                                <div className="mb-8 rounded-2xl glass-effect p-8 shadow-sm">
                                     <p className="text-lg leading-relaxed text-gray-700">
                                         I'm a Machine Learning Engineer focused on Computer Vision and
                                         Deep Learning, combining strong theory with real-world
@@ -254,10 +254,21 @@ const HeroAboutSection = () => {
                                     </p>
                                 </div>
 
-                                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                                    <ValueCard icon={<FiCode />} title="Clean Code" />
-                                    <ValueCard icon={<FiBriefcase />} title="Real Impact" />
-                                    <ValueCard icon={<FiAward />} title="Innovation" />
+
+                                <div className="relative">
+                                    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                                        <div className="relative">
+                                            <ValueCard icon={<FiCode />} title="Clean Code" />
+                                            {/* Divider after first card - only visible on lg screens */}
+                                            <div className="hidden lg:block absolute top-0 right-0 translate-x-3 h-full w-px bg-gradient-to-b from-transparent via-amber-600 to-transparent"></div>
+                                        </div>
+                                        <div className="relative">
+                                            <ValueCard icon={<FiBriefcase />} title="Real Impact" />
+                                            {/* Divider after second card - only visible on lg screens */}
+                                            <div className="hidden lg:block absolute top-0 right-0 translate-x-3 h-full w-px bg-gradient-to-b from-transparent via-amber-600 to-transparent"></div>
+                                        </div>
+                                        <ValueCard icon={<FiAward />} title="Innovation" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -269,11 +280,11 @@ const HeroAboutSection = () => {
 };
 
 const ValueCard = ({ icon, title }: { icon: React.ReactNode; title: string }) => (
-    <div className="rounded-xl bg-white p-6 shadow-md transition hover:shadow-xl">
+    <div className="rounded-xl glass-effect p-6 shadow-md transition hover:shadow-xl">
         <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-amber-100 to-orange-100 text-orange-600">
             {icon}
         </div>
-        <h3 className="mb-2 text-lg font-bold text-gray-900">{title}</h3>
+        <h3 className="mb-2 text-lg font-bold text-gray-800">{title}</h3>
         <p className="text-sm text-gray-600">Writing scalable, production-ready solutions</p>
     </div>
 );

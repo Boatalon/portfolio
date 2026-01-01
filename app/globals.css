@@ -35,13 +35,56 @@ html {
     }
 }
 
-/* Glass effect - Warm theme */
+/* Glass effect - Apple macOS inspired */
 .glass-effect {
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(217, 119, 6, 0.2);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+    /* More translucent background with warm tint - INCREASED TRANSPARENCY */
+    background: rgba(255, 251, 245, 0.4);
+
+    /* Stronger backdrop blur for that premium macOS feel */
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+
+    /* Subtle warm border with gradient - more transparent */
+    border: 1px solid rgba(245, 158, 11, 0.2);
+
+    /* Soft shadows for depth - layered like Apple does */
+    box-shadow:
+        0 8px 32px 0 rgba(217, 119, 6, 0.06),
+        0 1px 4px 0 rgba(0, 0, 0, 0.03),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+
+    /* Subtle inner glow for that "lit from within" effect */
+    position: relative;
+}
+
+.glass-effect::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.9) 50%,
+            transparent);
+    opacity: 0.7;
+}
+
+/* Navbar hover trigger - creates invisible area above navbar to trigger hover */
+.navbar-trigger::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    z-index: 49;
+    pointer-events: all;
+}
+
+.navbar-trigger:hover {
+    transform: translateY(0) !important;
 }
 
 /* Gradient text */

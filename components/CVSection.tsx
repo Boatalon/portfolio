@@ -15,13 +15,18 @@ const CVSection = () => {
         { category: 'Tools', items: ['Docker', 'Git', 'FastAPI'] },
     ];
 
-    const competencies = [
-        'ML Pipeline Development',
-        'Software Architecture',
-        'API Design & Integration',
-        'Research Methodology',
-        'Deployment & Inference',
-        'System Troubleshooting',
+    const experiences = [
+        {
+            role: 'Machine Learning Researcher Assistant',
+            company: 'Kasetsart University',
+            period: 'Nov 2024 - Present',
+            description: [
+                'Developed end-to-end AI pipelines for data preprocessing and model training',
+                'Improved model accuracy through hyperparameter tuning and optimization',
+                'Deployed production-ready AI models using FastAPI and Docker'
+            ]
+        },
+        // Add more experiences here
     ];
 
     return (
@@ -30,137 +35,138 @@ const CVSection = () => {
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-600/50 to-transparent"></div>
 
             <div className="container mx-auto max-w-7xl px-4 sm:px-8 lg:px-16">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                >
-                    {/* Header */}
-                    <div className="text-center mb-16">
-                        <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
-                            CV & Resume
-                        </h2>
-                        <p className="text-gray-800 text-lg">
-                            Software Engineer | Data Scientist | ML Engineer
-                        </p>
+                <div className="grid lg:grid-cols-12 gap-12">
+                    {/* LEFT COLUMN: Header & Summary (Sticky) */}
+                    <div className="lg:col-span-4">
+                        <div className="lg:sticky lg:top-32 space-y-8">
+                            <motion.div
+                                initial={{ opacity: 0, x: -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6 }}
+                            >
+                                <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-800">
+                                    CV & Resume
+                                </h2>
+                                <p className="text-gray-700 text-lg mb-8">
+                                    Software Engineer | Data Scientist | ML Engineer
+                                </p>
+
+                                {/* Summary moved here */}
+                                <div className="glass-effect border border-amber-600/20 rounded-2xl p-6 lg:p-8">
+                                    <h3 className="text-2xl font-bold mb-4 text-gray-800 flex items-center gap-2">
+                                        <div className="w-8 h-1 bg-amber-600 rounded-full"></div>
+                                        Summary
+                                    </h3>
+                                    <p className="text-gray-700 leading-relaxed text-sm">
+                                        Detail-oriented IT professional with a foundation in software development, information systems,
+                                        and data-driven problem solving. Experienced in building automated tools and machine learning workflows.
+                                        Skilled in API integration, system troubleshooting, and creating reliable digital solutions for real-world
+                                        use. Ability to work under pressure, manage technical issues effectively, and collaborate across teams.
+                                    </p>
+                                </div>
+                            </motion.div>
+                        </div>
                     </div>
 
-                    {/* Summary */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.1 }}
-                        className="glass-effect border border-amber-600/20 rounded-2xl p-8 mb-8"
-                    >
-                        <h3 className="text-2xl font-bold mb-4 text-gray-900">Professional Summary</h3>
-                        <p className="text-gray-900 leading-relaxed">
-                            Detail-oriented IT professional with a foundation in software development, information systems,
-                            and data-driven problem solving. Experienced in building automated tools and machine learning workflows.
-                            Skilled in API integration, system troubleshooting, and creating reliable digital solutions for real-world
-                            use. Ability to work under pressure, manage technical issues effectively, and collaborate across teams.
-                        </p>
-                    </motion.div>
-
-                    <div className="grid md:grid-cols-2 gap-8 mb-8">
+                    {/* RIGHT COLUMN: Experience, Education, Skills */}
+                    <div className="lg:col-span-8 space-y-12">
                         {/* Experience */}
                         <motion.div
-                            initial={{ opacity: 0, x: -20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, delay: 0.2 }}
-                            className="glass-effect border border-amber-600/20 rounded-2xl p-8"
                         >
-                            <h3 className="text-2xl font-bold mb-6 text-gray-900">Experience</h3>
-                            <div className="border-l-4 border-amber-600 pl-6">
-                                <div className="mb-2">
-                                    <h4 className="text-lg font-bold text-gray-900">Machine Learning Researcher Assistant</h4>
-                                    <p className="text-gray-800 font-medium">Kasetsart University</p>
-                                    <p className="text-sm text-gray-700">Nov 2024 - Present</p>
+                            <h3 className="text-3xl font-bold mb-8 text-gray-800 flex items-center gap-3">
+                                <span className="p-2 rounded-lg bg-amber-100 text-amber-600"><FiFileText size={28} /></span>
+                                Experience
+                            </h3>
+
+                            <div className="pl-2 mb-8">
+                                <div className="border-l-4 border-amber-600 pl-8 space-y-12">
+                                    {experiences.map((exp, index) => (
+                                        <div key={index} className="relative">
+                                            {/* Timeline dot */}
+                                            <div className="absolute -left-[39px] top-1.5 w-5 h-5 rounded-full bg-amber-600 border-4 border-[#f5f1e8]"></div>
+
+                                            <div className="mb-4">
+                                                <h4 className="text-xl font-bold text-gray-800">{exp.role}</h4>
+                                                <p className="text-amber-700 font-medium text-base">{exp.company}</p>
+                                                <p className="text-sm text-gray-500 mt-1">{exp.period}</p>
+                                            </div>
+                                            <ul className="list-disc list-inside text-gray-700 space-y-2 mt-4 text-sm leading-relaxed">
+                                                {exp.description.map((item, idx) => (
+                                                    <li key={idx}>{item}</li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    ))}
                                 </div>
-                                <ul className="list-disc list-inside text-gray-800 text-sm space-y-2 mt-4">
-                                    <li>Developed end-to-end AI pipelines for data preprocessing and model training</li>
-                                    <li>Improved model accuracy through hyperparameter tuning and optimization</li>
-                                    <li>Deployed production-ready AI models using FastAPI and Docker</li>
-                                </ul>
                             </div>
                         </motion.div>
 
                         {/* Education */}
                         <motion.div
-                            initial={{ opacity: 0, x: 20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: 0.2 }}
-                            className="glass-effect border border-amber-600/20 rounded-2xl p-8"
+                            transition={{ duration: 0.6, delay: 0.3 }}
                         >
-                            <h3 className="text-2xl font-bold mb-6 text-gray-900">Education</h3>
-                            <div className="border-l-4 border-amber-600 pl-6">
-                                <h4 className="text-lg font-bold text-gray-900">Computer Engineering</h4>
-                                <p className="text-gray-800 font-medium">Kasetsart University</p>
-                                <p className="text-sm text-gray-700 mt-2">GPA: 2.50 (Cumulative)</p>
-                                <button
-                                    onClick={() => setIsModalOpen(true)}
-                                    className="mt-4 inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-amber-700 to-orange-600 text-gray-900 rounded-lg font-semibold hover:shadow-lg hover:shadow-amber-600/50 transition-all duration-300"
-                                >
-                                    <FiFileText size={18} />
-                                    View Transcript
-                                </button>
+                            <h3 className="text-3xl font-bold mb-8 text-gray-800 flex items-center gap-3">
+                                <span className="p-2 rounded-lg bg-amber-100 text-amber-600"><FiFileText size={28} /></span>
+                                Education
+                            </h3>
+
+                            <div className="pl-2">
+                                <div className="border-l-4 border-amber-600 pl-8">
+                                    <div className="relative">
+                                        <div className="absolute -left-[39px] top-1.5 w-5 h-5 rounded-full bg-amber-600 border-4 border-[#f5f1e8]"></div>
+                                        <h4 className="text-xl font-bold text-gray-800">Computer Engineering</h4>
+                                        <p className="text-amber-700 font-medium text-base">Kasetsart University</p>
+                                        <p className="text-sm text-gray-500 mt-2">GPA: 2.50 (Cumulative)</p>
+                                        <button
+                                            onClick={() => setIsModalOpen(true)}
+                                            className="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-amber-600 to-amber-700 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-amber-600/50 hover:from-amber-700 hover:to-amber-800 transition-all duration-300"
+                                        >
+                                            <FiFileText size={18} />
+                                            View Transcript
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
+
+                        {/* Technical Skills */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: 0.4 }}
+                        >
+                            <h3 className="text-3xl font-bold mb-8 text-gray-800">Technical Skills</h3>
+                            <div className="space-y-8 pl-2">
+                                {skills.map((skillGroup, index) => (
+                                    <div key={index}>
+                                        <h4 className="text-lg font-bold text-amber-700 uppercase tracking-widest mb-4">
+                                            {skillGroup.category}
+                                        </h4>
+                                        <div className="flex flex-wrap gap-2">
+                                            {skillGroup.items.map((skill, idx) => (
+                                                <span
+                                                    key={idx}
+                                                    className="px-3 py-1.5 bg-amber-500/10 text-amber-900 rounded-lg text-xs font-semibold hover:bg-amber-500/20 transition-all cursor-default"
+                                                >
+                                                    {skill}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         </motion.div>
                     </div>
-
-                    {/* Key Competencies */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.3 }}
-                        className="glass-effect border border-amber-600/20 rounded-2xl p-8 mb-8"
-                    >
-                        <h3 className="text-2xl font-bold mb-6 text-gray-900">Key Competencies</h3>
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                            {competencies.map((comp, index) => (
-                                <div
-                                    key={index}
-                                    className="flex items-center gap-2 text-gray-800"
-                                >
-                                    <div className="w-2 h-2 bg-amber-600 rounded-full"></div>
-                                    <span className="text-sm font-medium">{comp}</span>
-                                </div>
-                            ))}
-                        </div>
-                    </motion.div>
-
-                    {/* Technical Skills */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.4 }}
-                        className="glass-effect border border-amber-600/20 rounded-2xl p-8"
-                    >
-                        <h3 className="text-2xl font-bold mb-6 text-gray-900">Technical Skills</h3>
-                        <div className="grid md:grid-cols-2 gap-6">
-                            {skills.map((skillGroup, index) => (
-                                <div key={index}>
-                                    <h4 className="text-lg font-semibold text-amber-700 mb-3">{skillGroup.category}</h4>
-                                    <div className="flex flex-wrap gap-2">
-                                        {skillGroup.items.map((skill, idx) => (
-                                            <span
-                                                key={idx}
-                                                className="px-4 py-2 glass-effect border border-amber-600/30 text-gray-900 rounded-lg text-sm font-semibold hover:border-amber-600 hover:shadow-lg hover:shadow-amber-600/30 transition-all"
-                                            >
-                                                {skill}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </motion.div>
-                </motion.div>
+                </div>
             </div>
 
             {/* Transcript Modal */}

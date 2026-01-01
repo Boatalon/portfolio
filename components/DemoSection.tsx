@@ -12,10 +12,10 @@ interface DemoSectionProps {
 const DemoSection = ({ project }: DemoSectionProps) => {
     return (
         <div className="h-full flex flex-col overflow-hidden">
-            <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-black mb-3 sm:mb-4 flex-shrink-0">Demo</h3>
+            <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-black mb-3 sm:mb-4 flex-shrink-0">Demo</h3>
 
             {/* Image/Demo Content */}
-            <div className="flex-1 flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl overflow-hidden min-h-[300px] sm:min-h-[400px] lg:min-h-[500px] mb-3 sm:mb-4 relative group">
+            <div className="flex-1 flex items-center justify-center glass-effect rounded-xl overflow-hidden min-h-[300px] sm:min-h-[400px] lg:min-h-[550px] mb-3 sm:mb-4 relative group">
                 {project.image && (
                     <Image
                         src={project.image}
@@ -52,7 +52,7 @@ const DemoSection = ({ project }: DemoSectionProps) => {
                         rel="noopener noreferrer"
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className="inline-flex items-center gap-2 px-4 py-2 bg-white border-2 border-gray-300 text-gray-700 rounded-lg font-semibold text-sm hover:border-amber-600 hover:text-amber-600 transition-all"
+                        className="inline-flex items-center gap-2 px-4 py-2 glass-effect text-gray-700 rounded-lg font-semibold text-sm hover:text-amber-600 hover:shadow-lg transition-all"
                     >
                         <FiGithub className="w-4 h-4" />
                         View Code

@@ -63,90 +63,89 @@ const FeatureProjectsSlider = ({ projects }: FeatureProjectsSliderProps) => {
     const currentProject = projects[currentIndex];
 
     return (
-        <div className="relative w-full h-[100dvh] overflow-hidden bg-[#f5f1e8] flex flex-col">
+        <div className="relative w-full h-auto bg-[#f5f1e8] flex flex-col">
+            {/* Decorative border at top */}
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-600/50 to-transparent"></div>
+
             {/* Navigation Arrows */}
-            {currentIndex > 0 && (
-                <button
-                    onClick={() => paginate(-1)}
-                    className="absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 z-40 
-                             w-12 h-12 lg:w-16 lg:h-16 rounded-full 
-                             bg-white/90 backdrop-blur-sm border-2 border-gray-300 
-                             shadow-xl hover:shadow-2xl hover:border-amber-600 hover:bg-amber-50
-                             transition-all duration-300 
-                             flex items-center justify-center group
-                             active:scale-95"
-                    aria-label="Previous project"
-                >
-                    <FiChevronLeft className="w-6 h-6 lg:w-8 lg:h-8 text-gray-700 group-hover:text-amber-600 transition-colors" />
-                </button>
-            )}
 
-            {currentIndex < projects.length - 1 && (
-                <button
-                    onClick={() => paginate(1)}
-                    className="absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 z-40 
-                             w-12 h-12 lg:w-16 lg:h-16 rounded-full 
-                             bg-white/90 backdrop-blur-sm border-2 border-gray-300 
-                             shadow-xl hover:shadow-2xl hover:border-amber-600 hover:bg-amber-50
-                             transition-all duration-300 
-                             flex items-center justify-center group
-                             active:scale-95"
-                    aria-label="Next project"
-                >
-                    <FiChevronRight className="w-6 h-6 lg:w-8 lg:h-8 text-gray-700 group-hover:text-amber-600 transition-colors" />
-                </button>
-            )}
 
-            {/* Slides Container */}
-            <div className="flex-1 relative overflow-hidden">
-                <AnimatePresence initial={false} custom={direction} mode="wait">
-                    <motion.div
-                        key={currentIndex}
-                        custom={direction}
-                        variants={slideVariants}
-                        initial="enter"
-                        animate="center"
-                        exit="exit"
-                        transition={{
-                            x: { type: "spring", stiffness: 300, damping: 30 },
-                            opacity: { duration: 0.3 }
-                        }}
-                        drag="x"
-                        dragConstraints={{ left: 0, right: 0 }}
-                        dragElastic={1}
-                        onDragEnd={(e, { offset, velocity }) => {
-                            const swipe = swipePower(offset.x, velocity.x);
 
-                            if (swipe < -swipeConfidenceThreshold && currentIndex < projects.length - 1) {
-                                paginate(1);
-                            } else if (swipe > swipeConfidenceThreshold && currentIndex > 0) {
-                                paginate(-1);
-                            }
-                        }}
-                        className="absolute inset-0"
-                    >
-                        <ProjectSlide project={currentProject} />
-                    </motion.div>
-                </AnimatePresence>
-            </div>
 
-            {/* Slide Indicators - Below everything */}
-            <div className="flex-shrink-0 w-full bg-[#f5f1e8] py-2 flex justify-center items-center z-20">
-                <div className="flex gap-2">
-                    {projects.map((_, index) => (
-                        <button
-                            key={index}
-                            onClick={() => {
-                                setDirection(index > currentIndex ? 1 : -1);
-                                setCurrentIndex(index);
+            {/* Main content wrapper */}
+            <div className="flex flex-col bg-[#f5f1e8]">
+                {/* Slides container */}
+                <div className="relative w-full min-h-[925px]">
+                    <AnimatePresence initial={false} custom={direction} mode="wait">
+                        <motion.div
+                            key={currentIndex}
+                            custom={direction}
+                            variants={slideVariants}
+                            initial="enter"
+                            animate="center"
+                            exit="exit"
+                            transition={{
+                                x: { type: "spring", stiffness: 300, damping: 30 },
+                                opacity: { duration: 0.2 }
                             }}
-                            className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex
-                                ? 'bg-amber-600 w-8'
-                                : 'bg-gray-400 hover:bg-gray-600'
-                                }`}
-                            aria-label={`Go to project ${index + 1}`}
-                        />
-                    ))}
+                            drag="x"
+                            dragConstraints={{ left: 0, right: 0 }}
+                            dragElastic={1}
+                            onDragEnd={(e, { offset, velocity }) => {
+                                const swipe = swipePower(offset.x, velocity.x);
+
+                                if (swipe < -swipeConfidenceThreshold && currentIndex < projects.length - 1) {
+                                    paginate(1);
+                                } else if (swipe > swipeConfidenceThreshold && currentIndex > 0) {
+                                    paginate(-1);
+                                }
+                            }}
+                            className="absolute inset-0"
+                        >
+                            <ProjectSlide project={currentProject} />
+                        </motion.div>
+                    </AnimatePresence>
+                </div>
+
+                {/* Slide Indicators with Navigation - Inside main content wrapper */}
+                <div className="flex-shrink-0 w-full py-3 flex justify-center items-center gap-4 z-20">
+                    {/* Previous Button */}
+                    <button
+                        onClick={() => paginate(-1)}
+                        disabled={currentIndex === 0}
+                        className="w-10 h-10 rounded-full glass-effect shadow-lg flex items-center justify-center text-gray-700 hover:text-amber-600 hover:shadow-xl transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                        aria-label="Previous project"
+                    >
+                        <FiChevronLeft className="w-5 h-5" />
+                    </button>
+
+                    {/* Pagination Dots */}
+                    <div className="flex gap-2">
+                        {projects.map((_, index) => (
+                            <button
+                                key={index}
+                                onClick={() => {
+                                    setDirection(index > currentIndex ? 1 : -1);
+                                    setCurrentIndex(index);
+                                }}
+                                className={`h-2 rounded-full transition-all ${index === currentIndex
+                                    ? 'bg-amber-600 w-8'
+                                    : 'bg-gray-400 w-2 hover:bg-gray-600'
+                                    }`}
+                                aria-label={`Go to project ${index + 1}`}
+                            />
+                        ))}
+                    </div>
+
+                    {/* Next Button */}
+                    <button
+                        onClick={() => paginate(1)}
+                        disabled={currentIndex === projects.length - 1}
+                        className="w-10 h-10 rounded-full glass-effect shadow-lg flex items-center justify-center text-gray-700 hover:text-amber-600 hover:shadow-xl transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                        aria-label="Next project"
+                    >
+                        <FiChevronRight className="w-5 h-5" />
+                    </button>
                 </div>
             </div>
         </div>
