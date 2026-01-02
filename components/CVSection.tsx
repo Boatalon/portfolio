@@ -125,7 +125,6 @@ const CVSection = () => {
                                         <div className="absolute -left-[39px] top-1.5 w-5 h-5 rounded-full bg-amber-600 border-4 border-[#f5f1e8]"></div>
                                         <h4 className="text-xl font-bold text-gray-800">Computer Engineering</h4>
                                         <p className="text-amber-700 font-medium text-base">Kasetsart University</p>
-                                        <p className="text-sm text-gray-500 mt-2">GPA: 2.50 (Cumulative)</p>
                                         <button
                                             onClick={() => setIsModalOpen(true)}
                                             className="mt-6 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 px-8 py-3 font-semibold text-white shadow-lg transition hover:from-amber-600 hover:to-orange-600"
