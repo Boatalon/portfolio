@@ -86,7 +86,7 @@ const Navbar = () => {
             <nav
                 onMouseEnter={() => setIsNavbarHovered(true)}
                 onMouseLeave={() => setIsNavbarHovered(false)}
-                className={`!fixed top-0 left-0 right-0 z-50 h-20 flex items-center transition-transform duration-500 ease-in-out glass-effect shadow-2xl shadow-amber-600/10 !bg-[#fffbf5] ${isScrolled && !showNavbar && !isNavbarHovered ? '-translate-y-full' : 'translate-y-0'}`}
+                className={`!fixed top-0 left-0 right-0 z-50 h-20 flex items-center transition-transform duration-500 ease-in-out lg:glass-effect lg:shadow-2xl lg:shadow-amber-600/10 lg:!bg-[#fffbf5] ${isScrolled && !showNavbar && !isNavbarHovered ? '-translate-y-full' : 'translate-y-0'}`}
             >
                 <div className="container mx-auto px-4">
                     <div className="flex items-center justify-between">
