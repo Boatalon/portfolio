@@ -86,18 +86,20 @@ const Navbar = () => {
             <nav
                 onMouseEnter={() => setIsNavbarHovered(true)}
                 onMouseLeave={() => setIsNavbarHovered(false)}
-                className={`!fixed top-0 left-0 right-0 z-50 h-20 flex items-center transition-transform duration-500 ease-in-out ${isScrolled ? 'glass-effect shadow-2xl shadow-amber-600/10 !bg-[#fffbf5]' : 'bg-transparent'
-                    } ${isScrolled && !showNavbar && !isNavbarHovered ? '-translate-y-full' : 'translate-y-0'}`}
+                className={`!fixed top-0 left-0 right-0 z-50 h-20 flex items-center transition-transform duration-500 ease-in-out glass-effect shadow-2xl shadow-amber-600/10 !bg-[#fffbf5] ${isScrolled && !showNavbar && !isNavbarHovered ? '-translate-y-full' : 'translate-y-0'}`}
             >
                 <div className="container mx-auto px-4">
                     <div className="flex items-center justify-between">
                         {/* Logo */}
                         <button
                             onClick={() => scrollToSection('home')}
-                            className="text-2xl font-bold gradient-text font-display cursor-pointer"
+                            className="text-2xl font-bold gradient-text font-display cursor-pointer hidden md:block"
                         >
                             Portfolio
                         </button>
+
+                        {/* Spacer for mobile to push hamburger to the right */}
+                        <div className="md:hidden flex-grow"></div>
 
                         {/* Desktop Navigation */}
                         <div className="hidden md:flex items-center space-x-8">
