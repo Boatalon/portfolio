@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiX, FiCamera, FiCameraOff, FiVolume2 } from 'react-icons/fi';
 import * as tf from '@tensorflow/tfjs';
@@ -50,6 +51,11 @@ declare global {
 }
 
 const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
     const videoRef = useRef<HTMLVideoElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const streamRef = useRef<MediaStream | null>(null);
@@ -406,7 +412,9 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
         }
     }, [isOpen]);
 
-    return (
+    if (!mounted) return null;
+
+    return createPortal(
         <AnimatePresence>
             {isOpen && (
                 <motion.div
@@ -564,7 +572,8 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
                     </motion.div>
                 </motion.div>
             )}
-        </AnimatePresence>
+        </AnimatePresence>,
+        document.body
     );
 };
 
