@@ -103,7 +103,7 @@ const FeatureProjectsSlider = ({ projects }: FeatureProjectsSliderProps) => {
                 </div>
 
                 {/* Slide Indicators with Navigation - Inside main content wrapper */}
-                <div className="flex-shrink-0 w-full py-3 flex justify-center items-center gap-4 z-20">
+                <div className="flex-shrink-0 w-full py-3 flex justify-center items-center gap-4 relative z-10">
                     {/* Previous Button */}
                     <button
                         onClick={() => paginate(-1)}
