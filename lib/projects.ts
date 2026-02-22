@@ -22,26 +22,25 @@ export interface Project {
 
 export const projects: Project[] = [
     {
-        id: 'sign-to-speech',
-        slug: 'sign-to-speech',
-        title: 'Sign to Speech',
-        titleTH: 'แปลภาษามือเป็นเสียง',
-        description: 'Real-time sign language translation using computer vision and machine learning. Converts sign language gestures into speech using video camera input.',
+        id: 'Handy-Talk',
+        slug: 'Handy-Talk',
+        title: 'Handy-Talk',
+        titleTH: 'Handy-Talk',
+        description: 'Real-time sign language translation using computer vision and machine learning. Converts sign word level language into speech using video camera.',
         descriptionTH: 'แปลภาษามือเป็นเสียงแบบเรียลไทม์ด้วยเทคโนโลยี Computer Vision และ Machine Learning โดยใช้กล้องวิดีโอในการตรวจจับท่าทางภาษามือ',
-        image: '/images/sign-to-speech.jpg',
+        image: '/images/asl-hello.gif',
         tags: ['Machine Learning', 'Computer Vision', 'Python', 'TensorFlow', 'Real-time Processing'],
         liveDemo: true,
         github: 'https://github.com/yourusername/sign-to-speech',
         featured: true,
         category: 'ml',
         layout: 'demo-left',
-        detailedDescription: 'This project aims to bridge the communication gap between sign language users and non-signers by providing real-time translation of sign language gestures into spoken words. Using advanced computer vision techniques and deep learning models, the system captures hand movements and facial expressions through a standard webcam, processes them in real-time, and generates corresponding speech output.',
+        detailedDescription: 'This project aims to bridge the communication gap between sign language users and non-signers by providing real-time translation of sign language into spoken words. computer vision techniques and deep learning models, the system captures hand movements and facial expressions through a standard webcam, processes them in real-time, and generates corresponding speech output. Live demo is a first experiment model for word level it has a bad accuracy because dataset is not enough we use many feature engineering method for this dataset',
         features: [
             'Real-time hand tracking and gesture recognition',
-            'Multi-language support for various sign languages',
-            'Text-to-speech conversion with natural voice',
-            'High accuracy rate of 95%+ for common gestures',
-            'Low latency processing suitable for conversations'
+            'WLASL dataset for training model',
+            'Low latency processing suitable for conversations',
+            'Feature engineer keypoint for WLASL dataset'
         ],
         conclusion: 'This sign language translation system demonstrates the power of AI in creating more inclusive technology. By making communication accessible to everyone, regardless of their hearing abilities, we can build a more connected society.'
     },
@@ -52,13 +51,13 @@ export const projects: Project[] = [
         titleTH: 'YangBOT-ตรวจจับโรคพืช',
         description: 'End to end disease detection for Yangpara tree using AI and notify via Line bot',
         descriptionTH: 'ระบบจำแนกประเภทแบบไบนารีโดยใช้ Faster R-CNN สำหรับการตรวจจับวัตถุ พร้อมการเทรนและประเมินผลด้วยชุดข้อมูลที่กำหนดเอง',
-        image: '/images/faster-rcnn.jpg',
+        image: '/images/yangbot-disease.png',
         tags: ['Deep Learning', 'PyTorch', 'Object Detection', 'Computer Vision'],
         github: 'https://github.com/yourusername/faster-rcnn-detection',
         featured: true,
         category: 'ml',
         layout: 'demo-right',
-        detailedDescription: 'Developed a sophisticated object detection system using the Faster R-CNN architecture, one of the most powerful deep learning models for accurate and efficient object detection. This project focuses on binary classification, trained on a custom dataset to detect specific objects with high precision.',
+        detailedDescription: 'Developed a sophisticated object detection system using the YOLO architecture, one of the most powerful deep learning models for accurate and efficient object detection. This project focuses on Colletotrichum sp. disease in Yangpara tree, trained on a custom dataset form Plant pathologist this team form Kasetsart University',
         features: [
             'Use Object Detection architecture for recognize disease in plant',
             'Custom dataset training pipeline with data augmentation',
@@ -80,7 +79,7 @@ export const projects: Project[] = [
         featured: true,
         category: 'other',
         layout: 'demo-left',
-        detailedDescription: 'A custom-built quadcopter drone designed for two primary purposes. First, it integrates an AI-powered computer vision system to detect and deter pigeons near buildings, helping reduce structural damage caused by bird activity. Second, it serves as an aerial survey drone for civil engineering applications, capturing aerial photography, surveying construction sites, and inspecting building structures from elevated perspectives.',
+        detailedDescription: 'A custom-built quadcopter drone designed for two primary purposes. First, it integrates an AI computer vision system to detect and deter pigeons near buildings. Second, it serves as an aerial survey drone for civil engineering applications, capturing aerial photography, surveying construction sites, and inspecting building structures from elevated perspectives.',
         features: [
             'pigeon detection using computer vision',
             'Autonomous flight for deterring pigeons from building perimeters',
