@@ -8,10 +8,28 @@ const nextConfig = {
             },
         ],
     },
-    eslint: {
-        // Ignore ESLint errors during production builds
-        // Our code is correct but Vercel cache causes false positives
-        ignoreDuringBuilds: true,
+    // Fix for @tensorflow/tfjs node.js dependencies in browser
+    webpack: (config, { isServer }) => {
+        if (!isServer) {
+            config.resolve.fallback = {
+                ...config.resolve.fallback,
+                fs: false,
+                path: false,
+                os: false,
+                crypto: false,
+            };
+        }
+        return config;
+    },
+    experimental: {
+        turbopack: {
+            resolveFallback: {
+                fs: false,
+                path: false,
+                os: false,
+                crypto: false,
+            },
+        },
     },
 };
 

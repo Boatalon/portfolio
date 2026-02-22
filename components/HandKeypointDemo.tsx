@@ -2,7 +2,21 @@
 
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiX, FiCamera, FiCameraOff } from 'react-icons/fi';
+import { FiX, FiCamera, FiCameraOff, FiVolume2 } from 'react-icons/fi';
+import * as tf from '@tensorflow/tfjs';
+
+// ASL Labels corresponding to WLASL20custom
+const ASL_LABELS = [
+    'book', 'chair', 'clothes', 'computer', 'drink', 
+    'drum', 'family', 'football', 'go', 'hat', 
+    'hello', 'kiss', 'like', 'play', 'school', 
+    'street', 'table', 'university', 'violin', 'wall'
+];
+
+interface PredictionResult {
+    word: string;
+    probability: number;
+}
 
 // MediaPipe hand connections (pairs of landmark indices)
 const HAND_CONNECTIONS = [
@@ -42,16 +56,51 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
     const handsRef = useRef<any>(null);
     const cameraRef = useRef<any>(null);
     const animFrameRef = useRef<number>(0);
+    const modelRef = useRef<tf.GraphModel | null>(null);
+    
+    // ASL Prediction State
+    const frameBufferRef = useRef<tf.Tensor3D[]>([]);
+    const lastSpokenWordRef = useRef<string>('');
+    const lastSpokenTimeRef = useRef<number>(0);
+    const isPredictingRef = useRef<boolean>(false);
 
     const [isLoading, setIsLoading] = useState(true);
+    const [loadingMsg, setLoadingMsg] = useState('Loading ASL Model...');
     const [error, setError] = useState<string | null>(null);
     const [handsDetected, setHandsDetected] = useState(0);
     const [scriptsLoaded, setScriptsLoaded] = useState(false);
+    const [predictions, setPredictions] = useState<PredictionResult[]>([]);
+
+    // TFJS Initialization
+    const initTFJSModel = useCallback(async () => {
+        try {
+            setLoadingMsg('Loading TFJS Engine...');
+            await tf.ready();
+            setLoadingMsg('Downloading ASL Model (20MB)...');
+            // Use absolute URL to prevent Next.js static routing issues on Vercel
+            const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
+            const modelUrl = `${baseUrl}/models/asl/model.json`;
+            const model = await tf.loadGraphModel(modelUrl);
+            modelRef.current = model;
+            
+            // Warm up the model (forces GPU compilation)
+            setLoadingMsg('Warming up AI Model...');
+            const warmupTensor = tf.zeros([1, 10, 224, 224, 3]);
+            await model.executeAsync(warmupTensor);
+            warmupTensor.dispose();
+            
+            console.log('[INFO] TFJS Model loaded and warmed up successfully.');
+            return true;
+        } catch (err: any) {
+            console.error('[ERROR] Failed to load TFJS model:', err);
+            setError('Failed to load ASL translation model.');
+            return false;
+        }
+    }, []);
 
     // Load MediaPipe scripts dynamically
     const loadScript = useCallback((src: string): Promise<void> => {
         return new Promise((resolve, reject) => {
-            // Check if already loaded
             const existing = document.querySelector(`script[src="${src}"]`);
             if (existing) {
                 resolve();
@@ -68,6 +117,7 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
 
     const loadMediaPipeScripts = useCallback(async () => {
         try {
+            setLoadingMsg('Loading Hand Tracking...');
             await loadScript('https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1675469240/hands.min.js');
             await loadScript('https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.3.1675466862/camera_utils.min.js');
             setScriptsLoaded(true);
@@ -76,7 +126,7 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
         }
     }, [loadScript]);
 
-    // Draw results on canvas
+    // Draw MediaPipe Hands on canvas
     const drawResults = useCallback((results: any) => {
         const canvas = canvasRef.current;
         if (!canvas) return;
@@ -90,7 +140,6 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
             setHandsDetected(results.multiHandLandmarks.length);
 
             for (const landmarks of results.multiHandLandmarks) {
-                // Draw connections
                 ctx.strokeStyle = 'rgba(255, 165, 0, 0.8)';
                 ctx.lineWidth = 3;
                 for (const [start, end] of HAND_CONNECTIONS) {
@@ -102,16 +151,13 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
                     ctx.stroke();
                 }
 
-                // Draw landmarks
                 landmarks.forEach((landmark: any, index: number) => {
                     const x = landmark.x * canvas.width;
                     const y = landmark.y * canvas.height;
 
-                    // Fingertip points are larger
                     const isTip = [4, 8, 12, 16, 20].includes(index);
                     const radius = isTip ? 8 : 5;
 
-                    // Glow effect
                     ctx.shadowColor = 'rgba(255, 165, 0, 0.8)';
                     ctx.shadowBlur = isTip ? 15 : 8;
 
@@ -125,7 +171,6 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
 
                     ctx.shadowBlur = 0;
 
-                    // Draw labels for key landmarks
                     if (LANDMARK_LABELS[index]) {
                         ctx.font = 'bold 12px Inter, sans-serif';
                         ctx.fillStyle = 'white';
@@ -141,7 +186,111 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
         }
     }, []);
 
-    // Initialize MediaPipe and camera
+    // Pronounce the word
+    const speakWord = useCallback((word: string) => {
+        const now = Date.now();
+        // Prevent repeating the same word too quickly (debounce 3 seconds)
+        if (word === lastSpokenWordRef.current && (now - lastSpokenTimeRef.current) < 3000) {
+            return;
+        }
+        
+        // Prevent overlapping speech entirely if still speaking
+        if (window.speechSynthesis.speaking) {
+            return;
+        }
+
+        const utterance = new SpeechSynthesisUtterance(word);
+        utterance.lang = 'en-US';
+        utterance.rate = 1.0;
+        utterance.pitch = 1.1;
+        window.speechSynthesis.speak(utterance);
+        
+        lastSpokenWordRef.current = word;
+        lastSpokenTimeRef.current = now;
+    }, []);
+
+    // Core ASL Prediction Logic Frame Loop
+    const processFrameForASL = useCallback(async () => {
+        if (!videoRef.current || !modelRef.current || isPredictingRef.current) return;
+        
+        // Only process if hands are detected to save compute
+        if (handsDetected === 0) {
+            // Gradually clear predictions if no hands
+            if (predictions.length > 0) {
+                setPredictions([]);
+            }
+            return;
+        }
+
+        try {
+            isPredictingRef.current = true;
+            
+            // 1. Capture and resize frame to 224x224 (Model Input size)
+            const tensor = tf.tidy(() => {
+                const img = tf.browser.fromPixels(videoRef.current!);
+                const resized = tf.image.resizeBilinear(img, [224, 224]);
+                // Model is MobileNetV2 based, expectation might be [0, 1] or [-1, 1], original uses frame_res / 255.0
+                return resized.div(255.0); 
+            });
+
+            // 2. Add to buffer
+            frameBufferRef.current.push(tensor as tf.Tensor3D);
+            
+            // 3. Keep only last 10 frames
+            if (frameBufferRef.current.length > 10) {
+                const oldTensor = frameBufferRef.current.shift();
+                oldTensor?.dispose();
+            }
+
+            // 4. If buffer full, predict
+            if (frameBufferRef.current.length === 10) {
+                // A) Stack and prepare batched tensor inside tidy
+                const batched = tf.tidy(() => {
+                    const stacked = tf.stack(frameBufferRef.current);
+                    return stacked.expandDims(0);
+                });
+                
+                // B) Run prediction asynchronously outside tidy (tf.tidy doesn't support async/await)
+                const preds = await modelRef.current!.executeAsync(batched) as tf.Tensor;
+                const data = await preds.data(); // Get data array
+                
+                // C) Manual memory cleanup
+                batched.dispose();
+                preds.dispose();
+                
+                // D) Compute top 5
+                const values = Array.from(data);
+                const results = values
+                    .map((prob, idx) => ({ word: ASL_LABELS[idx], probability: prob }))
+                    .sort((a, b) => b.probability - a.probability)
+                    .slice(0, 5);
+                
+                setPredictions(results);
+                
+                // Speak if confidence > 50%
+                if (results[0].probability >= 0.50) {
+                    speakWord(results[0].word);
+                }
+            }
+        } catch (e) {
+            console.error('Prediction error', e);
+        } finally {
+            isPredictingRef.current = false;
+        }
+    }, [handsDetected, speakWord, predictions.length]);
+
+    // Setup Video Loop for ASL Processing (~25 FPS)
+    useEffect(() => {
+        if (!isOpen || isLoading || error) return;
+        
+        const intervalId = setInterval(processFrameForASL, 1000 / 25);
+        
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, [isOpen, isLoading, error, processFrameForASL]);
+
+    // Initialize Demo (Both MediaPipe and TFJS)
     const initializeDemo = useCallback(async () => {
         if (!scriptsLoaded || !videoRef.current) return;
 
@@ -149,7 +298,11 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
             setIsLoading(true);
             setError(null);
 
-            // Initialize MediaPipe Hands
+            // Load TFJS model concurrently with hands setup
+            const modelLoaded = await initTFJSModel();
+            if (!modelLoaded) return;
+
+            setLoadingMsg('Initializing Camera...');
             const hands = new window.Hands({
                 locateFile: (file: string) => {
                     return `https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1675469240/${file}`;
@@ -166,7 +319,6 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
             hands.onResults(drawResults);
             handsRef.current = hands;
 
-            // Initialize camera
             const camera = new window.Camera(videoRef.current, {
                 onFrame: async () => {
                     if (handsRef.current && videoRef.current) {
@@ -185,50 +337,57 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
             setError(err?.message || 'Failed to initialize camera. Please allow camera access.');
             setIsLoading(false);
         }
-    }, [scriptsLoaded, drawResults]);
+    }, [scriptsLoaded, drawResults, initTFJSModel]);
 
-    // Load scripts when modal opens
+    // Mount logic
     useEffect(() => {
         if (isOpen && !scriptsLoaded) {
             loadMediaPipeScripts();
         }
     }, [isOpen, scriptsLoaded, loadMediaPipeScripts]);
 
-    // Initialize when scripts are loaded
     useEffect(() => {
         if (isOpen && scriptsLoaded) {
             initializeDemo();
         }
     }, [isOpen, scriptsLoaded, initializeDemo]);
 
-    // Cleanup on close
+    // Cleanup Logic
     useEffect(() => {
         if (!isOpen) {
-            // Stop camera
             if (cameraRef.current) {
                 cameraRef.current.stop();
                 cameraRef.current = null;
             }
-            // Stop media stream
             if (streamRef.current) {
                 streamRef.current.getTracks().forEach(track => track.stop());
                 streamRef.current = null;
             }
-            // Close hands
             if (handsRef.current) {
                 handsRef.current.close();
                 handsRef.current = null;
             }
-            // Cancel animation frame
             if (animFrameRef.current) {
                 cancelAnimationFrame(animFrameRef.current);
             }
+            
+            // Cleanup Tensors in Buffer
+            frameBufferRef.current.forEach(t => t.dispose());
+            frameBufferRef.current = [];
+            
+            // Optional: Dispose model to free memory, but usually keeping it cached is better
+            // if (modelRef.current) {
+            //    modelRef.current.dispose();
+            // }
+
             setIsLoading(true);
             setHandsDetected(0);
+            setPredictions([]);
+            window.speechSynthesis.cancel(); // Stop talking
         }
     }, [isOpen]);
 
-    // Handle canvas sizing
+    // Sizing
     useEffect(() => {
         const resizeCanvas = () => {
             if (canvasRef.current && videoRef.current) {
@@ -264,78 +423,142 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 0.9, opacity: 0 }}
                         transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-                        className="relative w-[95vw] max-w-4xl bg-gray-900 rounded-2xl overflow-hidden shadow-2xl"
+                        className="relative w-[95vw] max-w-6xl h-[90vh] md:h-[80vh] min-h-[500px] bg-gray-900 rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row"
                     >
-                        {/* Header */}
-                        <div className="flex items-center justify-between px-6 py-4 bg-gradient-to-r from-amber-600 to-orange-500">
-                            <div className="flex items-center gap-3">
-                                <FiCamera className="w-5 h-5 text-white" />
-                                <h3 className="text-lg font-bold text-white">
-                                    Hand Keypoint Detection — Live Demo
-                                </h3>
+                        {/* Video Section (Left) */}
+                        <div className="relative flex-1 bg-black flex flex-col min-h-0">
+                            {/* Header overlay */}
+                            <div className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between px-4 py-3 bg-gradient-to-b from-black/80 to-transparent">
+                                <div className="flex items-center gap-2">
+                                    <FiCamera className="w-5 h-5 text-white" />
+                                    <h3 className="text-sm font-bold text-white tracking-wide uppercase">
+                                        Live ASL Interpreter
+                                    </h3>
+                                </div>
+                                {/* Mobile close button */}
+                                <button onClick={onClose} className="md:hidden w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                                    <FiX className="w-5 h-5 text-white" />
+                                </button>
                             </div>
+
+                            <div className="relative flex-1">
+                                <video
+                                    ref={videoRef}
+                                    className="absolute inset-0 w-full h-full object-cover transform -scale-x-100"
+                                    playsInline
+                                    muted
+                                />
+                                <canvas
+                                    ref={canvasRef}
+                                    className="absolute inset-0 w-full h-full object-cover transform -scale-x-100"
+                                />
+
+                                {/* Loading Overlay */}
+                                {isLoading && (
+                                    <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-900/90 z-20">
+                                        <div className="w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mb-4" />
+                                        <p className="text-amber-500 font-bold text-lg">Initializing System</p>
+                                        <p className="text-gray-300 text-sm mt-2">{loadingMsg}</p>
+                                    </div>
+                                )}
+
+                                {/* Error Overlay */}
+                                {error && (
+                                    <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-900/90 z-20">
+                                        <FiCameraOff className="w-12 h-12 text-red-500 mb-4" />
+                                        <p className="text-white text-lg font-bold mb-2">System Error</p>
+                                        <p className="text-gray-400 text-sm text-center max-w-sm px-4">{error}</p>
+                                        <button
+                                            onClick={initializeDemo}
+                                            className="mt-6 px-6 py-2 bg-gradient-to-r from-red-600 to-red-500 text-white rounded-lg hover:shadow-lg hover:shadow-red-500/30 transition-all font-medium"
+                                        >
+                                            Try Again
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Tracking Status Footer */}
+                            <div className="absolute bottom-0 left-0 right-0 z-10 p-3 bg-gradient-to-t from-black/90 to-transparent flex items-center gap-3">
+                                <div className={`w-3 h-3 rounded-full ${handsDetected > 0 ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`} />
+                                <span className="text-white text-sm font-medium">
+                                    {handsDetected > 0 
+                                      ? `Tracking ${handsDetected} hand${handsDetected > 1 ? 's' : ''}` 
+                                      : 'No hands detected — please show your hands to translate'}
+                                </span>
+                            </div>
+                        </div>
+
+                        {/* Results Panel (Right) */}
+                        <div className="w-full md:w-80 bg-gray-900 border-l border-gray-800 flex flex-col relative z-20">
+                            {/* Desktop Close Button */}
                             <button
                                 onClick={onClose}
-                                className="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-colors"
+                                className="absolute top-4 right-4 hidden md:flex w-8 h-8 rounded-full bg-gray-800 hover:bg-gray-700 items-center justify-center transition-colors z-30 text-gray-400 hover:text-white"
                             >
-                                <FiX className="w-5 h-5 text-white" />
+                                <FiX className="w-5 h-5" />
                             </button>
-                        </div>
 
-                        {/* Video Container */}
-                        <div className="relative aspect-[4/3] bg-black">
-                            <video
-                                ref={videoRef}
-                                className="absolute inset-0 w-full h-full object-cover transform -scale-x-100"
-                                playsInline
-                                muted
-                            />
-                            <canvas
-                                ref={canvasRef}
-                                width={640}
-                                height={480}
-                                className="absolute inset-0 w-full h-full object-cover transform -scale-x-100"
-                            />
-
-                            {/* Loading Overlay */}
-                            {isLoading && (
-                                <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-900/90">
-                                    <div className="w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mb-4" />
-                                    <p className="text-white text-lg font-medium">Loading model...</p>
-                                    <p className="text-gray-400 text-sm mt-1">This may take a few seconds</p>
-                                </div>
-                            )}
-
-                            {/* Error Overlay */}
-                            {error && (
-                                <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-900/90">
-                                    <FiCameraOff className="w-12 h-12 text-red-400 mb-4" />
-                                    <p className="text-white text-lg font-medium mb-2">Camera Error</p>
-                                    <p className="text-gray-400 text-sm text-center max-w-md px-4">{error}</p>
-                                    <button
-                                        onClick={initializeDemo}
-                                        className="mt-4 px-6 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors font-medium"
-                                    >
-                                        Try Again
-                                    </button>
-                                </div>
-                            )}
-                        </div>
-
-                        {/* Footer Status */}
-                        <div className="flex items-center justify-between px-6 py-3 bg-gray-800">
-                            <div className="flex items-center gap-4">
-                                <div className="flex items-center gap-2">
-                                    <div className={`w-2.5 h-2.5 rounded-full ${handsDetected > 0 ? 'bg-green-400 animate-pulse' : 'bg-gray-500'}`} />
-                                    <span className="text-gray-300 text-sm">
-                                        {handsDetected > 0
-                                            ? `${handsDetected} hand${handsDetected > 1 ? 's' : ''} detected`
-                                            : 'No hands detected'}
-                                    </span>
-                                </div>
+                            <div className="p-6 border-b border-gray-800 mt-2">
+                                <h3 className="text-amber-500 font-bold text-lg mb-1 flex items-center gap-2">
+                                    Translation Results
+                                </h3>
+                                <p className="text-gray-400 text-xs leading-relaxed">
+                                    Displays the top 5 predicted ASL words based on 20 custom classes. Performs word-level translation dynamically.
+                                </p>
                             </div>
-                            <div className="flex items-center gap-2">
-                                <span className="text-xs text-gray-500">Powered by MediaPipe</span>
+
+                            <div className="flex-1 overflow-y-auto p-6">
+                                {predictions.length > 0 ? (
+                                    <div className="space-y-4">
+                                        <AnimatePresence>
+                                            {predictions.map((pred, i) => {
+                                                const pct = (pred.probability * 100).toFixed(1);
+                                                const isTop = i === 0;
+                                                return (
+                                                    <motion.div 
+                                                        key={pred.word}
+                                                        layout
+                                                        initial={{ opacity: 0, x: 20 }}
+                                                        animate={{ opacity: 1, x: 0 }}
+                                                        className={`relative overflow-hidden rounded-xl border ${isTop ? 'border-amber-500/50 bg-amber-500/10' : 'border-gray-800 bg-gray-800/50'} p-3`}
+                                                    >
+                                                        {/* Progress bar background */}
+                                                        <motion.div 
+                                                            className={`absolute left-0 top-0 bottom-0 ${isTop ? 'bg-amber-500/20' : 'bg-gray-700/50'} z-0`}
+                                                            initial={{ width: 0 }}
+                                                            animate={{ width: `${Math.max(5, pred.probability * 100)}%` }}
+                                                            transition={{ duration: 0.3 }}
+                                                        />
+                                                        
+                                                        <div className="relative z-10 flex items-center justify-between">
+                                                            <div className="flex items-center gap-3">
+                                                                <span className={`text-lg font-bold capitalize ${isTop ? 'text-amber-500' : 'text-gray-300'}`}>
+                                                                    {pred.word}
+                                                                </span>
+                                                                {isTop && pred.probability >= 0.50 && (
+                                                                    <FiVolume2 className="w-4 h-4 text-amber-500/70" />
+                                                                )}
+                                                            </div>
+                                                            <span className={`text-sm font-mono ${isTop ? 'text-amber-400' : 'text-gray-400'}`}>
+                                                                {pct}%
+                                                            </span>
+                                                        </div>
+                                                    </motion.div>
+                                                )
+                                            })}
+                                        </AnimatePresence>
+                                    </div>
+                                ) : (
+                                    <div className="h-full flex flex-col items-center justify-center opacity-50 space-y-4">
+                                        <div className="w-16 h-16 rounded-full border-2 border-dashed border-gray-600 flex items-center justify-center animate-spin-slow">
+                                            <div className="w-2 h-2 rounded-full bg-gray-600" />
+                                        </div>
+                                        <p className="text-gray-400 text-sm text-center">
+                                            Waiting for ASL<br/>hand gestures...
+                                        </p>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </motion.div>
