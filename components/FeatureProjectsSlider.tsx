@@ -70,7 +70,7 @@ const FeatureProjectsSlider = ({ projects }: FeatureProjectsSliderProps) => {
             {/* Main content wrapper */}
             <div className="flex flex-col bg-[#f5f1e8]">
                 {/* Slides container */}
-                <div className="relative w-full min-h-[950px] md:min-h-[950px] lg:min-h-[950px]">
+                <div className="relative w-full min-h-[960px] md:min-h-[960px] lg:min-h-[960px]">
                     <AnimatePresence initial={false} custom={direction} mode="wait">
                         <motion.div
                             key={currentIndex}
