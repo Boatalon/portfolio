@@ -171,7 +171,7 @@ const HeroAboutSection = () => {
                             </p>
 
                             <p className="mb-8 text-lg text-gray-600">
-                                อานนท์ จัตรี | โบ๊ท
+                                อานนท์ ชาตรี | โบ๊ท
                             </p>
 
                             {/* Mobile Image (Visible only on small screens) */}

@@ -46,11 +46,11 @@ export const projects: Project[] = [
         conclusion: 'This sign language translation system demonstrates the power of AI in creating more inclusive technology. By making communication accessible to everyone, regardless of their hearing abilities, we can build a more connected society.'
     },
     {
-        id: 'object-detection',
-        slug: 'object-detection',
-        title: 'Object Detection with Faster R-CNN',
-        titleTH: 'ตรวจจับวัตถุด้วย Faster R-CNN',
-        description: 'Binary classification system using Faster R-CNN for object detection with custom dataset training and evaluation.',
+        id: 'YangBOT-disease-detection',
+        slug: 'YangBOT-disease-detection',
+        title: 'YangBOT-disease-detection',
+        titleTH: 'YangBOT-ตรวจจับโรคพืช',
+        description: 'End to end disease detection for Yangpara tree using AI and notify via Line bot',
         descriptionTH: 'ระบบจำแนกประเภทแบบไบนารีโดยใช้ Faster R-CNN สำหรับการตรวจจับวัตถุ พร้อมการเทรนและประเมินผลด้วยชุดข้อมูลที่กำหนดเอง',
         image: '/images/faster-rcnn.jpg',
         tags: ['Deep Learning', 'PyTorch', 'Object Detection', 'Computer Vision'],
@@ -60,10 +60,10 @@ export const projects: Project[] = [
         layout: 'demo-right',
         detailedDescription: 'Developed a sophisticated object detection system using the Faster R-CNN architecture, one of the most powerful deep learning models for accurate and efficient object detection. This project focuses on binary classification, trained on a custom dataset to detect specific objects with high precision.',
         features: [
-            'Faster R-CNN architecture for high-speed detection',
+            'Use Object Detection architecture for recognize disease in plant',
             'Custom dataset training pipeline with data augmentation',
-            'Real-time bounding box visualization',
-            'PyTorch implementation with GPU acceleration',
+            'Use line bot for notify disease in plant',
+            'Use PyTorch for training model',
             'Comprehensive evaluation metrics and analysis'
         ],
         conclusion: 'The Faster R-CNN model proves to be highly effective for object detection tasks, offering an excellent balance between speed and accuracy. This project showcases the practical application of deep learning in computer vision.'
@@ -73,7 +73,7 @@ export const projects: Project[] = [
         slug: 'ai-pigeon-drone',
         title: 'AI Pigeon Deterrent & Survey Drone',
         titleTH: 'โดรน AI ไล่นกพิราบ & สำรวจงานวิศวกรรม',
-        description: 'Custom-built drone equipped with AI for deterring pigeons near buildings and serving as an aerial survey tool for civil engineering applications.',
+        description: ' .',
         descriptionTH: 'โดรนที่สร้างขึ้นเองพร้อม AI ตรวจสอบนกพิราบที่คำนวนด้วย arduno ด้วยภาพจากกล้องสำหรับไล่นกพิราบใกล้อาคาร และใช้เป็นโดรนสำรวจทางอากาศสำหรับงานวิศวกรรมโยธา ในภาพเป็นตัวต้นแบบ',
         image: '/images/ai-drone.jpg',
         tags: ['Drone', 'AI', 'Computer Vision', 'Civil Engineering', 'Embedded Systems', 'Autonomous'],
@@ -82,12 +82,11 @@ export const projects: Project[] = [
         layout: 'demo-left',
         detailedDescription: 'A custom-built quadcopter drone designed for two primary purposes. First, it integrates an AI-powered computer vision system to detect and deter pigeons near buildings, helping reduce structural damage caused by bird activity. Second, it serves as an aerial survey drone for civil engineering applications, capturing aerial photography, surveying construction sites, and inspecting building structures from elevated perspectives.',
         features: [
-            'AI-powered pigeon detection using computer vision',
+            'pigeon detection using computer vision',
             'Autonomous flight for deterring pigeons from building perimeters',
             'Aerial survey capabilities for civil engineering projects',
-            'Aerial photography for construction site analysis',
-            'High-altitude structural inspection of buildings and infrastructure',
-            'Fully custom-built hardware and software from the ground up'
+            'Use horn to scare away pigeons',
+            'custom-built hardware and software'
         ],
         conclusion: 'This project demonstrates the powerful intersection of AI, drone technology, and civil engineering to solve real-world problems — from managing pigeon-related building damage to enabling efficient aerial surveying of construction sites.'
     },
