@@ -283,12 +283,12 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
                 batched.dispose();
                 preds.dispose();
                 
-                // D) Compute top 5
+                // D) Compute top 3
                 const values = Array.from(data);
                 const results = values
                     .map((prob, idx) => ({ word: ASL_LABELS[idx], probability: prob }))
                     .sort((a, b) => b.probability - a.probability)
-                    .slice(0, 5);
+                    .slice(0, 3);
                 
                 setPredictions(results);
                 
