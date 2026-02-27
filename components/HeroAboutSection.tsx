@@ -213,13 +213,13 @@ const HeroAboutSection = () => {
                             </div>
 
                             <div className="mt-8 flex gap-4">
-                                <a className="rounded-lg glass-effect p-3 shadow-md text-amber-700 hover:text-amber-800 hover:shadow-lg transition-all" href="#">
+                                <a className="rounded-lg glass-effect p-3 shadow-md text-amber-700 hover:text-amber-800 hover:shadow-lg transition-all" href="https://github.com/Boatalon" target="_blank" rel="noopener noreferrer">
                                     <FiGithub className="h-6 w-6" />
                                 </a>
-                                <a className="rounded-lg glass-effect p-3 shadow-md text-amber-700 hover:text-amber-800 hover:shadow-lg transition-all" href="#">
+                                <a className="rounded-lg glass-effect p-3 shadow-md text-amber-700 hover:text-amber-800 hover:shadow-lg transition-all" href="https://www.linkedin.com/in/อานนท์-ชาตรี-b5b894392/" target="_blank" rel="noopener noreferrer">
                                     <FiLinkedin className="h-6 w-6" />
                                 </a>
-                                <a className="rounded-lg glass-effect p-3 shadow-md text-amber-700 hover:text-amber-800 hover:shadow-lg transition-all" href="#">
+                                <a className="rounded-lg glass-effect p-3 shadow-md text-amber-700 hover:text-amber-800 hover:shadow-lg transition-all" href="mailto:boat.arnonchatri@gmail.com">
                                     <FiMail className="h-6 w-6" />
                                 </a>
                             </div>

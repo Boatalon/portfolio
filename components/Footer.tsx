@@ -9,8 +9,6 @@ const Footer = () => {
     const socialLinks = [
         { icon: FiGithub, href: 'https://github.com/Boatalon', label: 'GitHub' },
         { icon: FiLinkedin, href: 'https://www.linkedin.com/in/อานนท์-ชาตรี-b5b894392/', label: 'LinkedIn' },
-        // { icon: FiTwitter, href: 'https://twitter.com/yourusername', label: 'Twitter' },
-        { icon: FiMail, href: 'mailto:boat.arnonchatri@gmail.com', label: 'Email' },
         { icon: FiInstagram, href: 'https://www.instagram.com/elbr0_/', label: 'Instagram' },
     ];
 

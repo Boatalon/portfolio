@@ -31,7 +31,7 @@ export const projects: Project[] = [
         image: '/images/asl-hello.gif',
         tags: ['Machine Learning', 'Computer Vision', 'Python', 'TensorFlow', 'Real-time Processing'],
         liveDemo: true,
-        github: 'https://github.com/yourusername/sign-to-speech',
+        github: 'https://github.com/Boatalon/HandyTalk',
         featured: true,
         category: 'ml',
         layout: 'demo-left',
@@ -53,11 +53,11 @@ export const projects: Project[] = [
         descriptionTH: 'ระบบจำแนกประเภทแบบไบนารีโดยใช้ Faster R-CNN สำหรับการตรวจจับวัตถุ พร้อมการเทรนและประเมินผลด้วยชุดข้อมูลที่กำหนดเอง',
         image: '/images/yangbot-disease.png',
         tags: ['Deep Learning', 'PyTorch', 'Object Detection', 'Computer Vision'],
-        github: 'https://github.com/yourusername/faster-rcnn-detection',
+        liveDemo: false,
         featured: true,
         category: 'ml',
         layout: 'demo-right',
-        detailedDescription: 'Developed a sophisticated object detection system using the YOLO architecture, one of the most powerful deep learning models for accurate and efficient object detection. This project focuses on Colletotrichum sp. disease in Yangpara tree, trained on a custom dataset form Plant pathologist this team form Kasetsart University',
+        detailedDescription: 'I am a researcher assistant for this project at Kasetsart University. I developed a sophisticated object detection system using the YOLO architecture, one of the most powerful deep learning models for accurate and efficient object detection. This project focuses on Colletotrichum sp. disease in Yangpara tree, trained on a custom dataset from Plant pathologists at Kasetsart University. Note: The source code for this project is confidential and cannot be shared due to the terms of the employment contract. A live demo is also not available for the same reason.',
         features: [
             'Use Object Detection architecture for recognize disease in plant',
             'Custom dataset training pipeline with data augmentation',
@@ -65,7 +65,7 @@ export const projects: Project[] = [
             'Use PyTorch for training model',
             'Comprehensive evaluation metrics and analysis'
         ],
-        conclusion: 'The Faster R-CNN model proves to be highly effective for object detection tasks, offering an excellent balance between speed and accuracy. This project showcases the practical application of deep learning in computer vision.'
+        conclusion: 'The YOLO model proves to be highly effective for object detection tasks, offering an excellent balance between speed and accuracy. This project showcases the practical application of deep learning in computer vision. Due to contractual obligations, the source code and live demo cannot be made publicly available.'
     },
     {
         id: 'ai-pigeon-drone',
