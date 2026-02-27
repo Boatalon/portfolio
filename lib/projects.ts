@@ -72,7 +72,7 @@ export const projects: Project[] = [
         slug: 'ai-pigeon-drone',
         title: 'AI Pigeon Deterrent & Survey Drone',
         titleTH: 'โดรน AI ไล่นกพิราบ & สำรวจงานวิศวกรรม',
-        description: ' .',
+        description: 'AI Pigeon Deterrent & Survey Drone',
         descriptionTH: 'โดรนที่สร้างขึ้นเองพร้อม AI ตรวจสอบนกพิราบที่คำนวนด้วย arduno ด้วยภาพจากกล้องสำหรับไล่นกพิราบใกล้อาคาร และใช้เป็นโดรนสำรวจทางอากาศสำหรับงานวิศวกรรมโยธา ในภาพเป็นตัวต้นแบบ',
         image: '/images/ai-drone.jpg',
         tags: ['Drone', 'AI', 'Computer Vision', 'Civil Engineering', 'Embedded Systems', 'Autonomous'],
