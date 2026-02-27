@@ -79,7 +79,7 @@ const HeroAboutSection = () => {
     const imageOpacity = useTransform(
         aboutProgress,
         [0, 0.55, 0.64, 0.7, 0.75, 1],
-        [1, 1, 0.8, 0.2, 0.1, 0]
+        [1, 1, 0.8, 0.2, 0, 0]
     );
 
     /**
@@ -265,16 +265,16 @@ const HeroAboutSection = () => {
                                 <div className="relative">
                                     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                                         <div className="relative">
-                                            <ValueCard icon={<FiCpu />} title="AI & ML" description="Building ML pipelines and deploying production-ready AI models" />
+                                            <ValueCard icon={<FiCpu />} title="AI & ML" description="ML pipelines and production-ready AI models" />
                                             {/* Divider after first card - only visible on lg screens */}
                                             <div className="hidden lg:block absolute top-0 right-0 translate-x-3 h-full w-px bg-gradient-to-b from-transparent via-amber-600 to-transparent"></div>
                                         </div>
                                         <div className="relative">
-                                            <ValueCard icon={<FiTool />} title="Hardware & Robotics" description="Custom drones, embedded systems, and hardware-software integration" />
+                                            <ValueCard icon={<FiTool />} title="Hardware & Robotics" description="Drones, embedded systems, and HW-SW integration" />
                                             {/* Divider after second card - only visible on lg screens */}
                                             <div className="hidden lg:block absolute top-0 right-0 translate-x-3 h-full w-px bg-gradient-to-b from-transparent via-amber-600 to-transparent"></div>
                                         </div>
-                                        <ValueCard icon={<FiUsers />} title="Team Player" description="2+ years collaborating on research and real-world engineering projects" />
+                                        <ValueCard icon={<FiUsers />} title="Team Player" description="2+ years on research and engineering teams" />
                                     </div>
                                 </div>
                             </div>
@@ -287,11 +287,11 @@ const HeroAboutSection = () => {
 };
 
 const ValueCard = ({ icon, title, description }: { icon: React.ReactNode; title: string; description: string }) => (
-    <div className="rounded-xl glass-effect p-6 shadow-md transition hover:shadow-xl">
-        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-amber-100 to-orange-100 text-orange-600">
+    <div className="rounded-xl glass-effect p-5 shadow-md transition hover:shadow-xl h-full flex flex-col">
+        <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-amber-100 to-orange-100 text-orange-600">
             {icon}
         </div>
-        <h3 className="mb-2 text-lg font-bold text-gray-800">{title}</h3>
+        <h3 className="mb-1 text-base font-bold text-gray-800">{title}</h3>
         <p className="text-sm text-gray-600">{description}</p>
     </div>
 );
