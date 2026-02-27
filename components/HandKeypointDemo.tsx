@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiX, FiCamera, FiCameraOff, FiVolume2 } from 'react-icons/fi';
 import * as tf from '@tensorflow/tfjs';
+import { getPreloadedModel, isModelReady } from './ModelPreloader';
 
 // ASL Labels corresponding to WLASL20custom
 const ASL_LABELS = [
@@ -77,19 +78,37 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
     const [scriptsLoaded, setScriptsLoaded] = useState(false);
     const [predictions, setPredictions] = useState<PredictionResult[]>([]);
 
-    // TFJS Initialization
+    // TFJS Initialization — uses preloaded model if available
     const initTFJSModel = useCallback(async () => {
         try {
-            setLoadingMsg('Loading TFJS Engine...');
-            await tf.ready();
-            setLoadingMsg('Downloading ASL Model (20MB)...');
-            // Use absolute URL to prevent Next.js static routing issues on Vercel
-            const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
-            const modelUrl = `${baseUrl}/models/asl/model.json`;
-            const model = await tf.loadGraphModel(modelUrl);
+            let model: tf.GraphModel | null = null;
+
+            // Try to use the preloaded & cached model first
+            if (isModelReady()) {
+                setLoadingMsg('Loading cached model...');
+                model = await getPreloadedModel();
+                console.log('[INFO] Using preloaded model (instant).');
+            } else {
+                // Model still preloading or preloader hasn't finished
+                setLoadingMsg('Loading ASL Model...');
+                model = await getPreloadedModel();
+                console.log('[INFO] Model loaded via preloader.');
+            }
+
+            if (!model) {
+                // Final fallback: direct network fetch
+                setLoadingMsg('Downloading ASL Model (20MB)...');
+                await tf.setBackend('webgl');
+                await tf.ready();
+                const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
+                const modelUrl = `${baseUrl}/models/asl/model.json`;
+                model = await tf.loadGraphModel(modelUrl);
+                console.log('[INFO] Model loaded via direct network fetch (fallback).');
+            }
+
             modelRef.current = model;
             
-            // Warm up the model (forces GPU compilation)
+            // Warm up the model (forces GPU shader compilation)
             setLoadingMsg('Warming up AI Model...');
             const warmupTensor = tf.zeros([1, 10, 224, 224, 3]);
             await model.executeAsync(warmupTensor);

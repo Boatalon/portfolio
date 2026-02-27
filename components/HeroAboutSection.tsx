@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { createPortal } from 'react-dom';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import { FiGithub, FiLinkedin, FiMail, FiCode, FiBriefcase, FiAward } from 'react-icons/fi';
+import { FiGithub, FiLinkedin, FiMail, FiCpu, FiTool, FiUsers } from 'react-icons/fi';
 import { useRef, useEffect, useState } from 'react';
 
 /**
@@ -74,12 +74,12 @@ const HeroAboutSection = () => {
     );
 
     /**
-     * Image stays clear at About, then gradually fades
+     * Image stays clear at About, then gradually fades later
      */
     const imageOpacity = useTransform(
         aboutProgress,
-        [0, 0.45, 0.5, 0.6, 0.7, 1],
-        [1, 1, 0.7, 0, 0, 0]
+        [0, 0.55, 0.64, 0.7, 0.75, 1],
+        [1, 1, 0.8, 0.2, 0.1, 0]
     );
 
     /**
@@ -166,7 +166,7 @@ const HeroAboutSection = () => {
 
                             <p className="mb-4 text-xl font-medium text-gray-700 sm:text-2xl">
                                 <span className="bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
-                                    Machine Learning Engineer
+                                    AI Engineer | Robotics | System Integration
                                 </span>
                             </p>
 
@@ -192,8 +192,8 @@ const HeroAboutSection = () => {
                             </div>
 
                             <p className="mb-8 max-w-xl text-lg leading-relaxed text-gray-700">
-                                Passionate about pushing the boundaries of Computer Vision and Deep Learning.
-                                Building production-ready AI systems that solve real problems and create meaningful impact.
+                                Passionate about AI, robotics, and embedded systems.
+                                Building ML pipelines, custom drones, and hardware-software solutions that solve real-world problems.
                             </p>
 
                             <div className="flex flex-wrap gap-4">
@@ -246,11 +246,18 @@ const HeroAboutSection = () => {
                                     เกี่ยวกับฉัน
                                 </p>
 
-                                <div className="mb-8 rounded-2xl glass-effect p-8 shadow-sm">
+                                <div className="mb-8 rounded-2xl glass-effect p-8 shadow-sm space-y-4">
                                     <p className="text-lg leading-relaxed text-gray-700">
-                                        I'm a Machine Learning Engineer focused on Computer Vision and
-                                        Deep Learning, combining strong theory with real-world
-                                        production experience to deliver meaningful impact.
+                                        Hello, my name is <span className="font-semibold text-gray-800">Arnon Chatri</span>, or you can call me <span className="font-semibold text-amber-700">Boat</span>. I have experience working with machine learning pipelines, AI research, and embedded systems.
+                                    </p>
+                                    <p className="text-lg leading-relaxed text-gray-700">
+                                        I worked as a research assistant on a university project and contributed to a published research paper at <span className="font-medium">Kasetsart University</span>. My team is called <span className="font-medium">Team Sean</span>, and I have been working with this team for about two years.
+                                    </p>
+                                    <p className="text-lg leading-relaxed text-gray-700">
+                                        I also had the opportunity to work on a drone project for the Faculty of Civil Engineering, where AI was an important part of the system. I built and customized the drone prototype myself until it was fully functional. This experience helped me discover my real interests and career direction.
+                                    </p>
+                                    <p className="text-lg leading-relaxed text-gray-700">
+                                        If you are looking for someone to work on <span className="font-medium">control systems, system integration, ML pipelines, and hardware-related projects</span> I am very passionate about this field and would love the opportunity to join your team.
                                     </p>
                                 </div>
 
@@ -258,16 +265,16 @@ const HeroAboutSection = () => {
                                 <div className="relative">
                                     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                                         <div className="relative">
-                                            <ValueCard icon={<FiCode />} title="Clean Code" />
+                                            <ValueCard icon={<FiCpu />} title="AI & ML" description="Building ML pipelines and deploying production-ready AI models" />
                                             {/* Divider after first card - only visible on lg screens */}
                                             <div className="hidden lg:block absolute top-0 right-0 translate-x-3 h-full w-px bg-gradient-to-b from-transparent via-amber-600 to-transparent"></div>
                                         </div>
                                         <div className="relative">
-                                            <ValueCard icon={<FiBriefcase />} title="Real Impact" />
+                                            <ValueCard icon={<FiTool />} title="Hardware & Robotics" description="Custom drones, embedded systems, and hardware-software integration" />
                                             {/* Divider after second card - only visible on lg screens */}
                                             <div className="hidden lg:block absolute top-0 right-0 translate-x-3 h-full w-px bg-gradient-to-b from-transparent via-amber-600 to-transparent"></div>
                                         </div>
-                                        <ValueCard icon={<FiAward />} title="Innovation" />
+                                        <ValueCard icon={<FiUsers />} title="Team Player" description="2+ years collaborating on research and real-world engineering projects" />
                                     </div>
                                 </div>
                             </div>
@@ -279,13 +286,13 @@ const HeroAboutSection = () => {
     );
 };
 
-const ValueCard = ({ icon, title }: { icon: React.ReactNode; title: string }) => (
+const ValueCard = ({ icon, title, description }: { icon: React.ReactNode; title: string; description: string }) => (
     <div className="rounded-xl glass-effect p-6 shadow-md transition hover:shadow-xl">
         <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-amber-100 to-orange-100 text-orange-600">
             {icon}
         </div>
         <h3 className="mb-2 text-lg font-bold text-gray-800">{title}</h3>
-        <p className="text-sm text-gray-600">Writing scalable, production-ready solutions</p>
+        <p className="text-sm text-gray-600">{description}</p>
     </div>
 );
 

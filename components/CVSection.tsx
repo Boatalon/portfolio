@@ -26,7 +26,17 @@ const CVSection = () => {
                 'Deployed production-ready AI models using FastAPI and Docker'
             ]
         },
-        // Add more experiences here
+        {
+            role: 'AI & Drone Engineer (Short-term Contract)',
+            company: 'Freelance',
+            period: '2024',
+            description: [
+                'Designed and built a custom quadcopter drone for pigeon deterrence and aerial survey',
+                'Integrated AI computer vision system for real-time pigeon detection using onboard camera',
+                'Developed autonomous flight control with Arduino-based embedded system',
+                'Implemented aerial photography and survey capabilities for civil engineering inspections'
+            ]
+        },
     ];
 
     return (
@@ -50,7 +60,7 @@ const CVSection = () => {
                                     CV & Resume
                                 </h2>
                                 <p className="text-gray-700 text-lg mb-8">
-                                    Software Engineer | Data Scientist | ML Engineer
+                                    AI Engineer | Software Engineer | Robotics | Intregration Firmware
                                 </p>
 
                                 {/* Summary moved here */}
@@ -60,10 +70,12 @@ const CVSection = () => {
                                         Summary
                                     </h3>
                                     <p className="text-gray-700 leading-relaxed text-sm">
-                                        Detail-oriented IT professional with a foundation in software development, information systems,
-                                        and data-driven problem solving. Experienced in building automated tools and machine learning workflows.
-                                        Skilled in API integration, system troubleshooting, and creating reliable digital solutions for real-world
-                                        use. Ability to work under pressure, manage technical issues effectively, and collaborate across teams.
+                                        I have experience in AI research, robotics, embedded systems, 
+                                        and software development. I can build machine learning models, 
+                                        automated systems, and integrate APIs. I have experience in debugging, 
+                                        some system troubleshooting, and improving system performance. 
+                                        Comfortable working on both software and hardware projects and solving real-world technical problems.
+                                        I'm can work under pressure and I like to learn new things.
                                     </p>
                                 </div>
                             </motion.div>

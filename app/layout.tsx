@@ -3,6 +3,7 @@ import { Inter, Space_Grotesk } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import ModelPreloader from '@/components/ModelPreloader';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const inter = Inter({
@@ -37,6 +38,7 @@ export default function RootLayout({
     return (
         <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
             <body className="font-sans">
+                <ModelPreloader />
                 <Navbar />
                 <main>{children}</main>
                 <Footer />
