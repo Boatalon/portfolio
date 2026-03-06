@@ -16,7 +16,6 @@ const Footer = () => {
         <footer className="glass-effect mt-20 border-t border-stone-200">
             <div className="container mx-auto px-4 py-12">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {/* Brand */}
                     <div>
                         <h3 className="text-2xl font-bold gradient-text mb-4 font-display">
                             Portfolio
@@ -26,7 +25,6 @@ const Footer = () => {
                         </p>
                     </div>
 
-                    {/* Social Links */}
                     <div>
                         <h4 className="text-lg font-semibold mb-4">Connect</h4>
                         <div className="flex gap-4">
@@ -46,7 +44,6 @@ const Footer = () => {
                     </div>
                 </div>
 
-                {/* Copyright */}
                 <div className="mt-8 pt-8 border-t border-stone-200 text-center text-stone-500">
                     <p>&copy; {currentYear} Arnon Chatri. All rights reserved.</p>
                 </div>

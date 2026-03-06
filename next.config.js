@@ -8,7 +8,6 @@ const nextConfig = {
             },
         ],
     },
-    // Fix for @tensorflow/tfjs node.js dependencies in browser
     webpack: (config, { isServer }) => {
         if (!isServer) {
             config.resolve.fallback = {

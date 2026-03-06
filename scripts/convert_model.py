@@ -4,7 +4,6 @@ Script to save Keras model as SavedModel format, then convert to TFJS graph mode
 import os
 import subprocess
 
-# In TF 2.13 and below with keras installed separately, we use keras directly
 import keras
 import tensorflow as tf
 
@@ -23,7 +22,6 @@ TFJS_DIR = os.path.abspath(os.path.join(
 
 def main():
     print(f"[INFO] Loading Keras model: {MODEL_PATH}")
-    # try both keras and tf.keras
     try:
         model = keras.models.load_model(MODEL_PATH)
     except Exception as e:
@@ -34,7 +32,6 @@ def main():
     os.makedirs(SAVED_MODEL_DIR, exist_ok=True)
     model.save(SAVED_MODEL_DIR, save_format='tf')
     
-    # 2. Convert SavedModel to TFJS GraphModel
     print(f"[INFO] Converting SavedModel to TFJS GraphModel at: {TFJS_DIR}")
     os.makedirs(TFJS_DIR, exist_ok=True)
     

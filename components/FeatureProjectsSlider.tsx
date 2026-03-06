@@ -64,12 +64,8 @@ const FeatureProjectsSlider = ({ projects }: FeatureProjectsSliderProps) => {
 
     return (
         <div className="relative w-full h-auto bg-[#f5f1e8] flex flex-col">
-            {/* Decorative border at top */}
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-600/50 to-transparent"></div>
-
-            {/* Main content wrapper */}
             <div className="flex flex-col bg-[#f5f1e8]">
-                {/* Slides container */}
                 <div className="relative w-full min-h-[960px] md:min-h-[960px] lg:min-h-[960px]">
                     <AnimatePresence initial={false} custom={direction} mode="wait">
                         <motion.div
@@ -101,10 +97,7 @@ const FeatureProjectsSlider = ({ projects }: FeatureProjectsSliderProps) => {
                         </motion.div>
                     </AnimatePresence>
                 </div>
-
-                {/* Slide Indicators with Navigation - Inside main content wrapper */}
                 <div className="flex-shrink-0 w-full py-3 flex justify-center items-center gap-4 relative z-10">
-                    {/* Previous Button */}
                     <button
                         onClick={() => paginate(-1)}
                         disabled={currentIndex === 0}
@@ -113,8 +106,6 @@ const FeatureProjectsSlider = ({ projects }: FeatureProjectsSliderProps) => {
                     >
                         <FiChevronLeft className="w-5 h-5" />
                     </button>
-
-                    {/* Pagination Dots */}
                     <div className="flex gap-2">
                         {projects.map((_, index) => (
                             <button
@@ -131,8 +122,6 @@ const FeatureProjectsSlider = ({ projects }: FeatureProjectsSliderProps) => {
                             />
                         ))}
                     </div>
-
-                    {/* Next Button */}
                     <button
                         onClick={() => paginate(1)}
                         disabled={currentIndex === projects.length - 1}

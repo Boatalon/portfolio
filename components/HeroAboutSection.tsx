@@ -7,84 +7,57 @@ import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { FiGithub, FiLinkedin, FiMail, FiCpu, FiTool, FiUsers } from 'react-icons/fi';
 import { useRef, useEffect, useState } from 'react';
 
-/**
- * Combined Hero + About Section
- *
- * Clean Architecture:
- * - Fixed image lives in its own visual layer (portaled to body)
- * - Scroll animation is driven ONLY by Hero section
- * - Image position is "frozen" when About section is reached
- * - Uses manual clamping for precise control
- */
+
 const HeroAboutSection = () => {
     const sectionRef = useRef<HTMLDivElement>(null);
     const heroRef = useRef<HTMLDivElement>(null);
     const aboutRef = useRef<HTMLDivElement>(null);
     const [mounted, setMounted] = useState(false);
 
-    // Portal mount check (client-side only)
+
     useEffect(() => {
         setMounted(true);
     }, []);
 
-    /**
-     * Scroll progress for Hero section (controls horizontal movement)
-     * 0 -> Hero top
-     * 1 -> Hero fully scrolled out
-     */
+
     const { scrollYProgress: heroProgress } = useScroll({
         target: heroRef,
         offset: ['start start', 'end start'],
     });
 
-    /**
-     * Scroll progress for About section (controls vertical movement)
-     * 0 -> About section starts coming into view
-     * 1 -> About section fully scrolled out
-     */
+
     const { scrollYProgress: aboutProgress } = useScroll({
         target: aboutRef,
         offset: ['start end', 'end start'],
     });
 
-    /**
-     * Image horizontal movement (during Hero section)
-     * Clamps progress between 0 and 1 for strict boundaries
-     */
+
     const clampedHeroProgress = useTransform(heroProgress, (value) =>
         Math.min(Math.max(value, 0), 1)
     );
 
-    /**
-     * Smooth X movement with more keyframes for gradual curve
-     */
+
     const imageX = useTransform(
         clampedHeroProgress,
         [0, 0.1, 0.25, 0.4, 0.5, 1],
         ['0vw', '-10vw', '-25vw', '-42vw', '-50vw', '-50vw']
     );
 
-    /**
-     * Image moves up proportionally with scroll (1:1 sync)
-     */
+
     const imageY = useTransform(
         aboutProgress,
         [0, 0.3, 0.5, 0.7, 1],
         ['0vh', '-30vh', '-50vh', '-70vh', '-100vh']
     );
 
-    /**
-     * Image stays clear at About, then gradually fades later
-     */
+
     const imageOpacity = useTransform(
         aboutProgress,
         [0, 0.55, 0.64, 0.7, 0.75, 1],
         [1, 1, 0.8, 0.2, 0, 0]
     );
 
-    /**
-     * Image top position with more keyframes
-     */
+
     const imageTop = useTransform(
         clampedHeroProgress,
         [0, 0.2, 0.4, 0.6, 0.8, 1],
@@ -97,8 +70,7 @@ const HeroAboutSection = () => {
         <div
             className="hidden lg:block fixed inset-0 pointer-events-none"
             style={{
-                zIndex: 40, // Lower than navbar (z-50) so image doesn't overlap
-                // GPU acceleration on container (not on animated element)
+                zIndex: 40,
                 transform: 'translateZ(0)',
                 backfaceVisibility: 'hidden',
             }}
@@ -143,16 +115,12 @@ const HeroAboutSection = () => {
                 id="hero-about-combined"
                 className="relative min-h-[200vh] bg-[#f5f1e8]"
             >
-                {/* =========================
-              HERO SECTION
-              ========================= */}
                 <div
                     id="home"
                     ref={heroRef}
                     className="container mx-auto flex min-h-screen items-center px-4 sm:px-8 lg:px-16"
                 >
                     <div className="mx-auto grid max-w-screen-2xl grid-cols-1 items-center gap-12 lg:grid-cols-2">
-                        {/* Text */}
                         <motion.div
                             initial={{ opacity: 0, x: -40 }}
                             animate={{ opacity: 1, x: 0 }}
@@ -174,7 +142,7 @@ const HeroAboutSection = () => {
                                 อานนท์ ชาตรี | โบ๊ท
                             </p>
 
-                            {/* Mobile Image (Visible only on small screens) */}
+
                             <div className="block lg:hidden mb-8 max-w-sm mx-auto">
                                 <div className="relative">
                                     <div className="absolute inset-0 rotate-3 rounded-3xl bg-gradient-to-br from-amber-200/40 to-orange-200/40" />
@@ -225,14 +193,10 @@ const HeroAboutSection = () => {
                             </div>
                         </motion.div>
 
-                        {/* Spacer column */}
+
                         <div className="hidden lg:block" />
                     </div>
                 </div>
-
-                {/* =========================
-              ABOUT SECTION
-              ========================= */}
                 <div id="about" ref={aboutRef} className="relative min-h-screen bg-[#f5f1e8]">
                     <div className="container mx-auto px-4 py-24 sm:px-8 lg:px-16">
                         <div className="mx-auto grid max-w-screen-2xl grid-cols-1 gap-12 lg:grid-cols-2">
@@ -266,12 +230,12 @@ const HeroAboutSection = () => {
                                     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                                         <div className="relative">
                                             <ValueCard icon={<FiCpu />} title="AI & ML" description="ML pipelines and production-ready AI models" />
-                                            {/* Divider after first card - only visible on lg screens */}
+
                                             <div className="hidden lg:block absolute top-0 right-0 translate-x-3 h-full w-px bg-gradient-to-b from-transparent via-amber-600 to-transparent"></div>
                                         </div>
                                         <div className="relative">
                                             <ValueCard icon={<FiTool />} title="Hardware & Robotics" description="Drones, embedded systems, and HW-SW integration" />
-                                            {/* Divider after second card - only visible on lg screens */}
+
                                             <div className="hidden lg:block absolute top-0 right-0 translate-x-3 h-full w-px bg-gradient-to-b from-transparent via-amber-600 to-transparent"></div>
                                         </div>
                                         <ValueCard icon={<FiUsers />} title="Team Player" description="2+ years on research and engineering teams" />

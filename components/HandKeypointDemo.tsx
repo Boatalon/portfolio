@@ -7,9 +7,8 @@ import { FiX, FiCamera, FiCameraOff, FiVolume2 } from 'react-icons/fi';
 import * as tf from '@tensorflow/tfjs';
 import { getPreloadedModel, isModelReady } from './ModelPreloader';
 
-// ASL Labels corresponding to WLASL20custom
 const ASL_LABELS = [
-    'book', 'chair', 'clothes', 'computer', 'drink', 
+    'book', 'chair', 'clothes', 'computer', 'drink',
     'drum', 'family', 'football', 'go', 'hat', 
     'hello', 'kiss', 'like', 'play', 'school', 
     'street', 'table', 'university', 'violin', 'wall'
@@ -20,14 +19,13 @@ interface PredictionResult {
     probability: number;
 }
 
-// MediaPipe hand connections (pairs of landmark indices)
 const HAND_CONNECTIONS = [
-    [0, 1], [1, 2], [2, 3], [3, 4],       // Thumb
-    [0, 5], [5, 6], [6, 7], [7, 8],       // Index
-    [0, 9], [9, 10], [10, 11], [11, 12],   // Middle
-    [0, 13], [13, 14], [14, 15], [15, 16], // Ring
-    [0, 17], [17, 18], [18, 19], [19, 20], // Pinky
-    [5, 9], [9, 13], [13, 17],             // Palm
+    [0, 1], [1, 2], [2, 3], [3, 4],
+    [0, 5], [5, 6], [6, 7], [7, 8],
+    [0, 9], [9, 10], [10, 11], [11, 12],
+    [0, 13], [13, 14], [14, 15], [15, 16],
+    [0, 17], [17, 18], [18, 19], [19, 20],
+    [5, 9], [9, 13], [13, 17],
 ];
 
 const LANDMARK_LABELS: Record<number, string> = {
@@ -65,7 +63,6 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
     const animFrameRef = useRef<number>(0);
     const modelRef = useRef<tf.GraphModel | null>(null);
     
-    // ASL Prediction State
     const frameBufferRef = useRef<tf.Tensor3D[]>([]);
     const lastSpokenWordRef = useRef<string>('');
     const lastSpokenTimeRef = useRef<number>(0);
@@ -78,25 +75,21 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
     const [scriptsLoaded, setScriptsLoaded] = useState(false);
     const [predictions, setPredictions] = useState<PredictionResult[]>([]);
 
-    // TFJS Initialization — uses preloaded model if available
     const initTFJSModel = useCallback(async () => {
         try {
             let model: tf.GraphModel | null = null;
 
-            // Try to use the preloaded & cached model first
             if (isModelReady()) {
                 setLoadingMsg('Loading cached model...');
                 model = await getPreloadedModel();
                 console.log('[INFO] Using preloaded model (instant).');
             } else {
-                // Model still preloading or preloader hasn't finished
                 setLoadingMsg('Loading ASL Model...');
                 model = await getPreloadedModel();
                 console.log('[INFO] Model loaded via preloader.');
             }
 
             if (!model) {
-                // Final fallback: direct network fetch
                 setLoadingMsg('Downloading ASL Model (20MB)...');
                 await tf.setBackend('webgl');
                 await tf.ready();
@@ -108,7 +101,6 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
 
             modelRef.current = model;
             
-            // Warm up the model (forces GPU shader compilation)
             setLoadingMsg('Warming up AI Model...');
             const warmupTensor = tf.zeros([1, 10, 224, 224, 3]);
             await model.executeAsync(warmupTensor);
@@ -123,7 +115,6 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
         }
     }, []);
 
-    // Load MediaPipe scripts dynamically
     const loadScript = useCallback((src: string): Promise<void> => {
         return new Promise((resolve, reject) => {
             const existing = document.querySelector(`script[src="${src}"]`);
@@ -151,7 +142,6 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
         }
     }, [loadScript]);
 
-    // Draw MediaPipe Hands on canvas
     const drawResults = useCallback((results: any) => {
         const canvas = canvasRef.current;
         if (!canvas) return;
@@ -211,15 +201,12 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
         }
     }, []);
 
-    // Pronounce the word
     const speakWord = useCallback((word: string) => {
         const now = Date.now();
-        // Prevent repeating the same word too quickly (debounce 3 seconds)
         if (word === lastSpokenWordRef.current && (now - lastSpokenTimeRef.current) < 3000) {
             return;
         }
         
-        // Prevent overlapping speech entirely if still speaking
         if (window.speechSynthesis.speaking) {
             return;
         }
@@ -234,13 +221,10 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
         lastSpokenTimeRef.current = now;
     }, []);
 
-    // Core ASL Prediction Logic Frame Loop
     const processFrameForASL = useCallback(async () => {
         if (!videoRef.current || !modelRef.current || isPredictingRef.current) return;
         
-        // Only process if hands are detected to save compute
         if (handsDetected === 0) {
-            // Gradually clear predictions if no hands
             if (predictions.length > 0) {
                 setPredictions([]);
             }
@@ -250,40 +234,31 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
         try {
             isPredictingRef.current = true;
             
-            // 1. Capture and resize frame to 224x224 (Model Input size)
             const tensor = tf.tidy(() => {
                 const img = tf.browser.fromPixels(videoRef.current!);
                 const resized = tf.image.resizeBilinear(img, [224, 224]);
-                // Model is MobileNetV2 based, expectation might be [0, 1] or [-1, 1], original uses frame_res / 255.0
                 return resized.div(255.0); 
             });
 
-            // 2. Add to buffer
             frameBufferRef.current.push(tensor as tf.Tensor3D);
             
-            // 3. Keep only last 10 frames
             if (frameBufferRef.current.length > 10) {
                 const oldTensor = frameBufferRef.current.shift();
                 oldTensor?.dispose();
             }
 
-            // 4. If buffer full, predict
             if (frameBufferRef.current.length === 10) {
-                // A) Stack and prepare batched tensor inside tidy
                 const batched = tf.tidy(() => {
                     const stacked = tf.stack(frameBufferRef.current);
                     return stacked.expandDims(0);
                 });
                 
-                // B) Run prediction asynchronously outside tidy (tf.tidy doesn't support async/await)
                 const preds = await modelRef.current!.executeAsync(batched) as tf.Tensor;
-                const data = await preds.data(); // Get data array
+                const data = await preds.data();
                 
-                // C) Manual memory cleanup
                 batched.dispose();
                 preds.dispose();
                 
-                // D) Compute top 3
                 const values = Array.from(data);
                 const results = values
                     .map((prob, idx) => ({ word: ASL_LABELS[idx], probability: prob }))
@@ -292,7 +267,6 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
                 
                 setPredictions(results);
                 
-                // Speak if confidence > 50%
                 if (results[0].probability >= 0.50) {
                     speakWord(results[0].word);
                 }
@@ -304,7 +278,6 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
         }
     }, [handsDetected, speakWord, predictions.length]);
 
-    // Setup Video Loop for ASL Processing (~25 FPS)
     useEffect(() => {
         if (!isOpen || isLoading || error) return;
         
@@ -315,7 +288,6 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
         };
     }, [isOpen, isLoading, error, processFrameForASL]);
 
-    // Initialize Demo (Both MediaPipe and TFJS)
     const initializeDemo = useCallback(async () => {
         if (!scriptsLoaded || !videoRef.current) return;
 
@@ -323,7 +295,6 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
             setIsLoading(true);
             setError(null);
 
-            // Load TFJS model concurrently with hands setup
             const modelLoaded = await initTFJSModel();
             if (!modelLoaded) return;
 
@@ -364,7 +335,6 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
         }
     }, [scriptsLoaded, drawResults, initTFJSModel]);
 
-    // Mount logic
     useEffect(() => {
         if (isOpen && !scriptsLoaded) {
             loadMediaPipeScripts();
@@ -377,7 +347,6 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
         }
     }, [isOpen, scriptsLoaded, initializeDemo]);
 
-    // Cleanup Logic
     useEffect(() => {
         if (!isOpen) {
             if (cameraRef.current) {
@@ -396,23 +365,16 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
                 cancelAnimationFrame(animFrameRef.current);
             }
             
-            // Cleanup Tensors in Buffer
             frameBufferRef.current.forEach(t => t.dispose());
             frameBufferRef.current = [];
-            
-            // Optional: Dispose model to free memory, but usually keeping it cached is better
-            // if (modelRef.current) {
-            //    modelRef.current.dispose();
-            // }
 
             setIsLoading(true);
             setHandsDetected(0);
             setPredictions([]);
-            window.speechSynthesis.cancel(); // Stop talking
+            window.speechSynthesis.cancel();
         }
     }, [isOpen]);
 
-    // Sizing
     useEffect(() => {
         const resizeCanvas = () => {
             if (canvasRef.current && videoRef.current) {
@@ -452,9 +414,7 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
                         transition={{ type: 'spring', damping: 25, stiffness: 300 }}
                         className="relative w-[95vw] max-w-6xl h-[90vh] md:h-[80vh] min-h-[500px] bg-gray-900 rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row"
                     >
-                        {/* Video Section (Left) */}
                         <div className="relative flex-1 bg-black flex flex-col min-h-0">
-                            {/* Header overlay */}
                             <div className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between px-4 py-3 bg-gradient-to-b from-black/80 to-transparent">
                                 <div className="flex items-center gap-2">
                                     <FiCamera className="w-5 h-5 text-white" />
@@ -462,7 +422,6 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
                                         Live ASL Interpreter
                                     </h3>
                                 </div>
-                                {/* Mobile close button */}
                                 <button onClick={onClose} className="md:hidden w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
                                     <FiX className="w-5 h-5 text-white" />
                                 </button>
@@ -480,7 +439,6 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
                                     className="absolute inset-0 w-full h-full object-cover transform -scale-x-100"
                                 />
 
-                                {/* Loading Overlay */}
                                 {isLoading && (
                                     <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-900/90 z-20">
                                         <div className="w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mb-4" />
@@ -489,7 +447,6 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
                                     </div>
                                 )}
 
-                                {/* Error Overlay */}
                                 {error && (
                                     <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-900/90 z-20">
                                         <FiCameraOff className="w-12 h-12 text-red-500 mb-4" />
@@ -505,7 +462,6 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
                                 )}
                             </div>
 
-                            {/* Tracking Status Footer */}
                             <div className="absolute bottom-0 left-0 right-0 z-10 p-3 bg-gradient-to-t from-black/90 to-transparent flex items-center gap-3">
                                 <div className={`w-3 h-3 rounded-full ${handsDetected > 0 ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`} />
                                 <span className="text-white text-sm font-medium">
@@ -516,9 +472,7 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
                             </div>
                         </div>
 
-                        {/* Results Panel (Right) */}
                         <div className="w-full md:w-80 bg-gray-900 border-l border-gray-800 flex flex-col relative z-20">
-                            {/* Desktop Close Button */}
                             <button
                                 onClick={onClose}
                                 className="absolute top-4 right-4 hidden md:flex w-8 h-8 rounded-full bg-gray-800 hover:bg-gray-700 items-center justify-center transition-colors z-30 text-gray-400 hover:text-white"
@@ -550,7 +504,6 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
                                                         animate={{ opacity: 1, x: 0 }}
                                                         className={`relative overflow-hidden rounded-xl border ${isTop ? 'border-amber-500/50 bg-amber-500/10' : 'border-gray-800 bg-gray-800/50'} p-3`}
                                                     >
-                                                        {/* Progress bar background */}
                                                         <motion.div 
                                                             className={`absolute left-0 top-0 bottom-0 ${isTop ? 'bg-amber-500/20' : 'bg-gray-700/50'} z-0`}
                                                             initial={{ width: 0 }}
