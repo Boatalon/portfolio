@@ -267,54 +267,64 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
     }, []);
 
     const processFrameRef = useRef<() => void>(() => {});
+    const lastVideoTimeRef = useRef<number>(-1);
+
     processFrameRef.current = async () => {
         const video = videoRef.current;
         const holistic = holisticRef.current;
+        
         if (!video || !holistic || video.readyState < 2) {
             animRef.current = requestAnimationFrame(processFrameRef.current);
             return;
         }
-        try {
-            const now = performance.now();
-            const result = holistic.detectForVideo(video, now);
-            drawSkeleton(result);
 
-            setCooldownRemaining(0);
-            
-            // VAD: Check if hands are present in this frame
-            const hasHands = (result?.leftHandLandmarks?.[0]?.length > 0) || (result?.rightHandLandmarks?.[0]?.length > 0);
+        if (video.currentTime !== lastVideoTimeRef.current) {
+            lastVideoTimeRef.current = video.currentTime;
+            try {
+                const now = performance.now();
+                const result = holistic.detectForVideo(video, now);
+                drawSkeleton(result);
 
-            // Collect frames at 25 FPS (every 40ms)
-            if (now - lastFrameTimeRef.current >= FRAME_INTERVAL_MS) {
-                lastFrameTimeRef.current = now;
+                setCooldownRemaining(0);
+                
+                // VAD: Check if hands are present in this frame
+                const hasHands = (result?.leftHandLandmarks?.[0]?.length > 0) || (result?.rightHandLandmarks?.[0]?.length > 0);
 
-                const frame = holisticToTgcnFrame(result);
-                if (frame) {
-                    frameBufferRef.current.push(frame);
-                    if (frameBufferRef.current.length > TGCN_FRAME_COUNT) frameBufferRef.current.shift();
-                    setFrameCount(frameBufferRef.current.length);
-                }
+                // Collect frames at 25 FPS (every 40ms)
+                if (now - lastFrameTimeRef.current >= FRAME_INTERVAL_MS) {
+                    lastFrameTimeRef.current = now;
 
-                if (frameBufferRef.current.length === TGCN_FRAME_COUNT) {
-                    framesSinceLastInferenceRef.current++;
-                    
-                    if (framesSinceLastInferenceRef.current >= INFERENCE_STRIDE) {
-                        framesSinceLastInferenceRef.current = 0;
+                    const frame = holisticToTgcnFrame(result);
+                    if (frame) {
+                        frameBufferRef.current.push(frame);
+                        if (frameBufferRef.current.length > TGCN_FRAME_COUNT) frameBufferRef.current.shift();
+                        setFrameCount(frameBufferRef.current.length);
+                    }
+
+                    if (frameBufferRef.current.length === TGCN_FRAME_COUNT) {
+                        framesSinceLastInferenceRef.current++;
                         
-                        if (hasHands) {
-                            // Run inference in background without blocking
-                            runInference();
-                        } else {
-                            // If no hands, add 'none' to history to quickly fade out old predictions
-                            predictionHistoryRef.current.push("none");
-                            if (predictionHistoryRef.current.length > VOTE_WINDOW) {
-                                predictionHistoryRef.current.shift();
+                        if (framesSinceLastInferenceRef.current >= INFERENCE_STRIDE) {
+                            framesSinceLastInferenceRef.current = 0;
+                            
+                            if (hasHands) {
+                                // Run inference in background without blocking
+                                runInference();
+                            } else {
+                                // If no hands, add 'none' to history to quickly fade out old predictions
+                                predictionHistoryRef.current.push("none");
+                                if (predictionHistoryRef.current.length > VOTE_WINDOW) {
+                                    predictionHistoryRef.current.shift();
+                                }
                             }
                         }
                     }
                 }
+            } catch (err: any) {
+                console.error("MediaPipe detection error:", err);
+                // Optionally show error to user if it persists
             }
-        } catch (_) { /* silent */ }
+        }
         animRef.current = requestAnimationFrame(processFrameRef.current);
     };
 
