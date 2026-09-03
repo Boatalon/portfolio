@@ -13,7 +13,7 @@ const ProjectSlide = ({ project }: ProjectSlideProps) => {
     const isDemoLeft = project.layout === 'demo-left' || !project.layout;
 
     return (
-        <div className="w-full h-full flex flex-col overflow-hidden">
+        <div className="w-full flex flex-col">
             {/* Project Title Header */}
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
@@ -22,17 +22,24 @@ const ProjectSlide = ({ project }: ProjectSlideProps) => {
                 className="w-full py-2 sm:py-3 lg:py-4 flex-shrink-0"
             >
                 <div className="w-full max-w-[90%] lg:max-w-[80%] mx-auto px-4 sm:px-6">
-                    <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-black text-left mb-2">
-                        {project.title}
-                    </h2>
+                    <div className="mb-2 flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
+                        <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-black text-left">
+                            {project.title}
+                        </h2>
+                        {project.period && (
+                            <span className="shrink-0 text-sm font-semibold tabular-nums text-amber-800">{project.period}</span>
+                        )}
+                    </div>
+                    {project.role && (
+                        <p className="mb-2 text-sm font-semibold text-amber-800">{project.role}</p>
+                    )}
                     <p className="text-sm sm:text-base text-black text-left max-w-3xl">
                         {project.description}
                     </p>
                 </div>
             </motion.div>
 
-            {/* Main Content - Scrollable Area */}
-            <div className="flex-1 overflow-y-auto">
+            <div className="flex-1">
                 <div className="w-full max-w-[95%] md:max-w-[90%] lg:max-w-[80%] mx-auto px-4 sm:px-6 py-2 sm:py-3 lg:py-3">
                     <div className={`grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 lg:gap-16 ${isDemoLeft ? '' : 'md:grid-flow-dense'
                         }`}>
@@ -64,7 +71,7 @@ const ProjectSlide = ({ project }: ProjectSlideProps) => {
                     {project.conclusion && (
                         <div className="w-full mt-6 mb-2">
                             <h3 className="text-base sm:text-lg lg:text-xl font-bold text-black mb-2 text-center">
-                                Conclusion
+                                Outcome
                             </h3>
                             <p className="text-xs sm:text-sm lg:text-base text-black leading-normal text-center max-w-4xl mx-auto">
                                 {project.conclusion}

@@ -82,14 +82,14 @@ const ContactSection = () => {
                             </p>
 
                             {status === 'success' && (
-                                <div className="mb-6 p-4 bg-amber-500/10 border border-amber-500/50 rounded-lg flex items-center gap-3 text-amber-700">
+                                <div role="status" aria-live="polite" className="mb-6 p-4 bg-amber-500/10 border border-amber-500/50 rounded-lg flex items-center gap-3 text-amber-700">
                                     <FiCheck className="text-xl flex-shrink-0" />
-                                    <p className="text-sm">Message sent successfully! I'll get back to you soon.</p>
+                                    <p className="text-sm">Message sent successfully! I&apos;ll get back to you soon.</p>
                                 </div>
                             )}
 
                             {status === 'error' && (
-                                <div className="mb-6 p-4 bg-red-500/10 border border-red-500/50 rounded-lg flex items-center gap-3 text-red-400">
+                                <div role="alert" aria-live="assertive" className="mb-6 p-4 bg-red-500/10 border border-red-500/50 rounded-lg flex items-center gap-3 text-red-700">
                                     <FiAlertCircle className="text-xl flex-shrink-0" />
                                     <p className="text-sm">Failed to send message. Please try again or email me directly.</p>
                                 </div>
@@ -150,7 +150,7 @@ const ContactSection = () => {
                                 <button
                                     type="submit"
                                     disabled={status === 'loading'}
-                                    className="w-full rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 px-8 py-4 font-semibold text-white shadow-lg transition hover:from-amber-600 hover:to-orange-600 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="w-full rounded-xl bg-amber-700 px-8 py-4 font-semibold text-white shadow-lg transition hover:bg-amber-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-900 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     {status === 'loading' ? (
                                         <>

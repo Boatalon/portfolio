@@ -66,7 +66,8 @@ const FeatureProjectsSlider = ({ projects }: FeatureProjectsSliderProps) => {
         <div className="relative w-full h-auto bg-[#f5f1e8] flex flex-col">
             <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-600/50 to-transparent"></div>
             <div className="flex flex-col bg-[#f5f1e8]">
-                <div className="relative w-full min-h-[960px] md:min-h-[960px] lg:min-h-[960px]">
+                {/* Slide area with side arrow buttons */}
+                <div className="relative w-full overflow-x-hidden">
                     <AnimatePresence initial={false} custom={direction} mode="wait">
                         <motion.div
                             key={currentIndex}
@@ -91,45 +92,53 @@ const FeatureProjectsSlider = ({ projects }: FeatureProjectsSliderProps) => {
                                     paginate(-1);
                                 }
                             }}
-                            className="absolute inset-0"
+                            className="relative w-full"
                         >
                             <ProjectSlide project={currentProject} />
                         </motion.div>
                     </AnimatePresence>
-                </div>
-                <div className="flex-shrink-0 w-full py-3 flex justify-center items-center gap-4 relative z-10">
-                    <button
+
+                    {/* Left arrow — absolute, vertically centred */}
+                    <motion.button
                         onClick={() => paginate(-1)}
                         disabled={currentIndex === 0}
-                        className="w-10 h-10 rounded-full glass-effect shadow-lg flex items-center justify-center text-gray-700 hover:text-amber-600 hover:shadow-xl transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/80 backdrop-blur-sm shadow-lg border border-amber-600/20 flex items-center justify-center text-gray-700 hover:text-amber-600 hover:border-amber-600/60 hover:shadow-xl transition-all disabled:opacity-20 disabled:cursor-not-allowed"
                         aria-label="Previous project"
                     >
-                        <FiChevronLeft className="w-5 h-5" />
-                    </button>
-                    <div className="flex gap-2">
-                        {projects.map((_, index) => (
-                            <button
-                                key={index}
-                                onClick={() => {
-                                    setDirection(index > currentIndex ? 1 : -1);
-                                    setCurrentIndex(index);
-                                }}
-                                className={`h-2 rounded-full transition-all ${index === currentIndex
-                                    ? 'bg-amber-600 w-8'
-                                    : 'bg-gray-400 w-2 hover:bg-gray-600'
-                                    }`}
-                                aria-label={`Go to project ${index + 1}`}
-                            />
-                        ))}
-                    </div>
-                    <button
+                        <FiChevronLeft className="w-6 h-6" />
+                    </motion.button>
+
+                    {/* Right arrow — absolute, vertically centred */}
+                    <motion.button
                         onClick={() => paginate(1)}
                         disabled={currentIndex === projects.length - 1}
-                        className="w-10 h-10 rounded-full glass-effect shadow-lg flex items-center justify-center text-gray-700 hover:text-amber-600 hover:shadow-xl transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/80 backdrop-blur-sm shadow-lg border border-amber-600/20 flex items-center justify-center text-gray-700 hover:text-amber-600 hover:border-amber-600/60 hover:shadow-xl transition-all disabled:opacity-20 disabled:cursor-not-allowed"
                         aria-label="Next project"
                     >
-                        <FiChevronRight className="w-5 h-5" />
-                    </button>
+                        <FiChevronRight className="w-6 h-6" />
+                    </motion.button>
+                </div>
+
+                {/* Dot indicators */}
+                <div className="flex-shrink-0 w-full py-3 flex justify-center items-center gap-2 relative z-10">
+                    {projects.map((_, index) => (
+                        <button
+                            key={index}
+                            onClick={() => {
+                                setDirection(index > currentIndex ? 1 : -1);
+                                setCurrentIndex(index);
+                            }}
+                            className={`h-2 rounded-full transition-all ${index === currentIndex
+                                ? 'bg-amber-600 w-8'
+                                : 'bg-gray-400 w-2 hover:bg-gray-600'
+                                }`}
+                            aria-label={`Go to project ${index + 1}`}
+                        />
+                    ))}
                 </div>
             </div>
         </div>

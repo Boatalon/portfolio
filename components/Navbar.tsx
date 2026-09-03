@@ -4,6 +4,14 @@ import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
 import { FiMenu, FiX } from 'react-icons/fi';
 
+const navLinks = [
+    { href: 'home', label: 'Home' },
+    { href: 'about', label: 'About' },
+    { href: 'projects', label: 'Projects' },
+    { href: 'cv', label: 'CV' },
+    { href: 'contact', label: 'Contact' },
+];
+
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -11,14 +19,6 @@ const Navbar = () => {
     const [isNavbarHovered, setIsNavbarHovered] = useState(false);
     const [showNavbar, setShowNavbar] = useState(true);
     const lastScrollY = useRef(0);
-
-    const navLinks = [
-        { href: 'home', label: 'Home' },
-        { href: 'about', label: 'About' },
-        { href: 'projects', label: 'Projects' },
-        { href: 'cv', label: 'CV' },
-        { href: 'contact', label: 'Contact' },
-    ];
 
     useEffect(() => {
 
@@ -109,12 +109,12 @@ const Navbar = () => {
                                     onClick={() => scrollToSection(link.href)}
                                     className={`relative group transition-colors duration-200 ${activeSection === link.href
                                         ? 'text-gray-900 font-semibold'
-                                        : 'bg-gradient-to-r from-amber-600 to-orange-500 bg-clip-text text-transparent hover:from-amber-700 hover:to-orange-600'
+                                        : 'text-amber-700 hover:text-amber-900'
                                         }`}
                                 >
                                     {link.label}
                                     <span
-                                        className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-amber-600 to-orange-500 transition-all duration-300 ${activeSection === link.href ? 'w-full' : 'w-0 group-hover:w-full'
+                                        className={`absolute bottom-0 left-0 h-0.5 bg-amber-700 transition-all duration-300 ${activeSection === link.href ? 'w-full' : 'w-0 group-hover:w-full'
                                             }`}
                                     ></span>
                                 </button>
@@ -126,6 +126,8 @@ const Navbar = () => {
                             className="md:hidden text-gray-900 text-2xl"
                             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                             aria-label="Toggle menu"
+                            aria-expanded={isMobileMenuOpen}
+                            aria-controls="mobile-navigation"
                         >
                             {isMobileMenuOpen ? <FiX /> : <FiMenu />}
                         </button>
@@ -133,14 +135,14 @@ const Navbar = () => {
 
                     {/* Mobile Navigation */}
                     {isMobileMenuOpen && (
-                        <div className="md:hidden mt-4 glass-effect rounded-lg p-4 !bg-[#fffbf5]">
+                        <div id="mobile-navigation" className="md:hidden mt-4 glass-effect rounded-lg p-4 !bg-[#fffbf5]">
                             {navLinks.map((link) => (
                                 <button
                                     key={link.href}
                                     onClick={() => scrollToSection(link.href)}
                                     className={`block w-full text-left py-3 transition-colors duration-200 ${activeSection === link.href
                                         ? 'text-gray-900 font-semibold'
-                                        : 'bg-gradient-to-r from-amber-600 to-orange-500 bg-clip-text text-transparent'
+                                        : 'text-amber-700'
                                         }`}
                                 >
                                     {link.label}

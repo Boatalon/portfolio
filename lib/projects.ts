@@ -14,9 +14,14 @@ export interface Project {
     slug?: string;
     // New fields for full-page layout
     layout?: 'demo-left' | 'demo-right' | 'full-width';
+    video?: string; // Path to a video file for the project card
     demoContent?: string; // URL for demo iframe or video
     detailedDescription?: string;
+    role?: string;
+    period?: string;
+    challenge?: string;
     features?: string[];
+    deploymentPlan?: string[];
     conclusion?: string;
 }
 
@@ -26,7 +31,7 @@ export const projects: Project[] = [
         slug: 'Handy-Talk',
         title: 'Handy-Talk',
         titleTH: 'Handy-Talk',
-        description: 'Real-time sign language translation using computer vision and machine learning. Converts sign word level language into speech using video camera.',
+        description: 'A browser-based prototype that translates supported sign-language words into speech using computer vision and machine learning.',
         descriptionTH: 'แปลภาษามือเป็นเสียงแบบเรียลไทม์ด้วยเทคโนโลยี Computer Vision และ Machine Learning โดยใช้กล้องวิดีโอในการตรวจจับท่าทางภาษามือ',
         image: '/images/asl-hello.gif',
         tags: ['Machine Learning', 'Computer Vision', 'Python', 'TensorFlow', 'Real-time Processing'],
@@ -35,21 +40,30 @@ export const projects: Project[] = [
         featured: true,
         category: 'ml',
         layout: 'demo-left',
-        detailedDescription: 'This project aims to bridge the communication gap between sign language users and non-signers by providing real-time translation of sign language into spoken words. computer vision techniques and deep learning models, the system captures hand movements and facial expressions through a standard webcam, processes them in real-time, and generates corresponding speech output. Live demo is a first experiment model for word level it has a bad accuracy because dataset is not enough we use many feature engineering method for this dataset',
+        role: 'Machine Learning & Web Prototype',
+        detailedDescription: 'Handy-Talk explores word-level sign-language recognition in the browser. A webcam captures a short sequence, MediaPipe extracts hand motion, and a TensorFlow model ranks supported words before the interface produces speech. The live demo is an early research prototype rather than a production accessibility tool.',
+        challenge: 'The available training data is limited, and sign-language meaning depends on motion, timing, hand shape, and context. The prototype must balance recognition quality with browser latency and user privacy.',
         features: [
             'Real-time hand tracking and gesture recognition',
-            'WLASL dataset for training model',
-            'Low latency processing suitable for conversations',
-            'Feature engineer keypoint for WLASL dataset'
+            'Sequence-based inference across 10 video frames',
+            'WLASL-based training workflow for supported vocabulary',
+            'Hand-keypoint feature engineering',
+            'Client-side speech output and top prediction confidence'
         ],
-        conclusion: 'This sign language translation system demonstrates the power of AI in creating more inclusive technology. By making communication accessible to everyone, regardless of their hearing abilities, we can build a more connected society.'
+        deploymentPlan: [
+            'Load the TensorFlow runtime and model only after the visitor starts the demo',
+            'Cache versioned model assets in IndexedDB for repeat sessions',
+            'Measure accuracy and latency on unseen users before expanding the vocabulary',
+            'Add a model-card notice covering limitations, supported words, and privacy'
+        ],
+        conclusion: 'The result is a working browser proof of concept that demonstrates the full camera-to-prediction-to-speech pipeline while making its current accuracy limits explicit.'
     },
     {
         id: 'YangBOT-disease-detection',
         slug: 'YangBOT-disease-detection',
-        title: 'YangBOT-disease-detection',
+        title: 'YangBOT Rubber Tree Disease Detection',
         titleTH: 'YangBOT-ตรวจจับโรคพืช',
-        description: 'End to end disease detection for Yangpara tree using AI and notify via Line bot',
+        description: 'A YOLO-based field workflow for detecting Colletotrichum disease in rubber trees and notifying farmers through LINE Bot.',
         descriptionTH: 'ระบบจำแนกประเภทแบบไบนารีโดยใช้ Faster R-CNN สำหรับการตรวจจับวัตถุ พร้อมการเทรนและประเมินผลด้วยชุดข้อมูลที่กำหนดเอง',
         image: '/images/yangbot-disease.png',
         tags: ['Deep Learning', 'PyTorch', 'Object Detection', 'Computer Vision'],
@@ -57,41 +71,95 @@ export const projects: Project[] = [
         featured: true,
         category: 'ml',
         layout: 'demo-right',
-        detailedDescription: 'I am a researcher assistant for this project at Kasetsart University. I developed a sophisticated object detection system using the YOLO architecture, one of the most powerful deep learning models for accurate and efficient object detection. This project focuses on Colletotrichum sp. disease in Yangpara tree, trained on a custom dataset from Plant pathologists at Kasetsart University. Note: The source code for this project is confidential and cannot be shared due to the terms of the employment contract. A live demo is also not available for the same reason.',
+        role: 'Machine Learning Research Assistant',
+        period: 'Nov 2024 — Aug 2026',
+        detailedDescription: 'At Kasetsart University, I developed and trained a YOLO-based object-detection system for Colletotrichum disease in rubber trees. The custom dataset was prepared with plant pathologists, and the workflow connects visual detection with LINE Bot alerts for farmers in high-risk areas. Source code and data remain confidential under the project agreement.',
+        challenge: 'Field images vary in lighting, disease severity, background clutter, and leaf condition. The system also needs evidence from plant specialists and weather data before a detection can support a dependable risk alert.',
         features: [
-            'Use Object Detection architecture for recognize disease in plant',
-            'Custom dataset training pipeline with data augmentation',
-            'Use line bot for notify disease in plant',
-            'Use PyTorch for training model',
-            'Comprehensive evaluation metrics and analysis'
+            'YOLO-based object detection for visible disease symptoms',
+            'Custom dataset prepared with plant pathologists',
+            'PyTorch training and evaluation workflow',
+            'LINE Bot notifications for high-risk areas',
+            'Disease-severity and weather-data collection for forecasting'
         ],
-        conclusion: 'The YOLO model proves to be highly effective for object detection tasks, offering an excellent balance between speed and accuracy. This project showcases the practical application of deep learning in computer vision. Due to contractual obligations, the source code and live demo cannot be made publicly available.'
+        deploymentPlan: [
+            'Validate the model on unseen field locations and changing weather conditions',
+            'Define confidence thresholds with plant-pathology reviewers',
+            'Package inference as a monitored service after field validation',
+            'Connect confirmed detections and forecasting signals to LINE Bot alerts'
+        ],
+        conclusion: 'The project established an end-to-end research workflow from expert-labeled field data to detection and farmer notification. Public code and a live demo are unavailable because the work is confidential.'
     },
     {
-        id: 'ai-pigeon-drone',
-        slug: 'ai-pigeon-drone',
-        title: 'AI Pigeon Deterrent & Survey Drone',
-        titleTH: 'โดรน AI ไล่นกพิราบ & สำรวจงานวิศวกรรม',
-        description: 'AI Pigeon Deterrent & Survey Drone',
-        descriptionTH: 'โดรนที่สร้างขึ้นเองพร้อม AI ตรวจสอบนกพิราบที่คำนวนด้วย arduno ด้วยภาพจากกล้องสำหรับไล่นกพิราบใกล้อาคาร และใช้เป็นโดรนสำรวจทางอากาศสำหรับงานวิศวกรรมโยธา ในภาพเป็นตัวต้นแบบ',
-        image: '/images/ai-drone.jpg',
-        tags: ['Drone', 'AI', 'Computer Vision', 'Civil Engineering', 'Embedded Systems', 'Autonomous'],
+        id: 'aavc-2026',
+        slug: 'aavc-2026',
+        title: 'Autonomous Aerial Vehicle Challenge AAVC 2026',
+        titleTH: 'การแข่งขันอากาศยานไร้คนขับอัตโนมัติ AAVC 2026',
+        description: 'An autonomous drone system for payload delivery and precision landing, built for the Autonomous Aerial Vehicle Challenge 2026.',
+        descriptionTH: 'ระบบโดรนอัตโนมัติสำหรับส่งสิ่งของและลงจอดอย่างแม่นยำ พัฒนาสำหรับการแข่งขัน Autonomous Aerial Vehicle Challenge 2026',
+        image: '/images/aavc-drone.jpg',
+        video: '/videos/aavc-drone.mp4',
+        tags: ['Pixhawk', 'Jetson Nano', 'ArUco', 'MAVLink', 'ArduPilot', 'Computer Vision'],
         featured: true,
         category: 'other',
         layout: 'demo-left',
-        detailedDescription: 'A custom-built quadcopter drone designed for two primary purposes. First, it integrates an AI computer vision system to detect and deter pigeons near buildings. Second, it serves as an aerial survey drone for civil engineering applications, capturing aerial photography, surveying construction sites, and inspecting building structures from elevated perspectives.',
+        role: 'Drone & Computer Vision Flyhigh Team',
+        period: 'Aug 2026',
+        detailedDescription: 'For the Flyhigh Team at Kasetsart University, I helped design and build an autonomous drone using Pixhawk, Jetson Nano, and onboard cameras. The vision system detects ArUco landing pads, while MAVLink coordinates autonomous payload delivery and precision landing. I represented Kasetsart University at AAVC 2026 from 28–30 August 2026.',
+        challenge: 'The aircraft had to combine visual targeting, mission control, payload delivery, and landing accuracy while remaining safe under changing power, communication, and flight conditions.',
         features: [
-            'pigeon detection using computer vision',
-            'Autonomous flight for deterring pigeons from building perimeters',
-            'Aerial survey capabilities for civil engineering projects',
-            'Use horn to scare away pigeons',
-            'custom-built hardware and software'
+            'ArUco landing-pad detection with an onboard camera',
+            'MAVLink mission control for autonomous payload delivery',
+            'Precision landing using Pixhawk and Jetson Nano',
+            'Geofencing, Return-to-Launch, and failsafe configuration',
+            'Flight-log analysis for stability, power reliability, and safety'
         ],
-        conclusion: 'This project demonstrates the powerful intersection of AI, drone technology, and civil engineering to solve real-world problems — from managing pigeon-related building damage to enabling efficient aerial surveying of construction sites.'
+        deploymentPlan: [
+            'Validate mission logic in simulation before hardware flight tests',
+            'Run controlled field tests for detection range, landing error, and payload release',
+            'Review flight logs after every test and tune power, control, and failsafe parameters',
+            'Promote only validated mission profiles to competition deployment'
+        ],
+        conclusion: 'The team completed an integrated autonomous-flight system and represented Kasetsart University at AAVC 2026, using staged testing and flight-log review to improve reliability and safety.'
+    },
+    {
+        id: 'pigeon-drone',
+        slug: 'pigeon-drone',
+        title: 'Pigeon Deterrence Drone',
+        titleTH: 'โดรนไล่นกพิราบ',
+        description: 'A custom-built quadcopter with onboard AI for real-time pigeon detection, aerial survey, and civil engineering inspection.',
+        descriptionTH: 'โดรนควอดคอปเตอร์พร้อม AI ตรวจจับนกพิราบแบบเรียลไทม์ สำรวจทางอากาศ และตรวจสอบงานวิศวกรรมโยธา',
+        image: '/images/pigeon-drone.jpg',
+        tags: ['Arduino', 'Computer Vision', 'Embedded Systems', 'Drone', 'OpenCV'],
+        featured: true,
+        category: 'other',
+        layout: 'demo-left',
+        role: 'AI & Drone Engineer (Short-term Contract)',
+        period: '2024',
+        detailedDescription: 'Designed and built a custom quadcopter from scratch for pigeon deterrence and aerial survey tasks. An onboard camera feeds a real-time computer vision pipeline for pigeon detection, while an Arduino-based embedded system handles autonomous flight control. The platform also supports aerial photography and survey missions for civil engineering inspections.',
+        challenge: 'Integrating real-time AI inference on constrained embedded hardware while maintaining stable autonomous flight and reliable pigeon detection across varying lighting and outdoor conditions.',
+        features: [
+            'Custom-built quadcopter frame and power system',
+            'Real-time pigeon detection using onboard camera and computer vision',
+            'Arduino-based embedded flight control system',
+            'Autonomous deterrence patrol missions',
+            'Aerial photography and survey for civil engineering inspections'
+        ],
+        deploymentPlan: [
+            'Field-test detection accuracy across different lighting and environments',
+            'Tune flight controller PID parameters for stable autonomous patrol',
+            'Validate deterrence effectiveness over multi-day deployments',
+            'Expand to multi-drone coordination for larger areas'
+        ],
+        conclusion: 'Delivered a working autonomous deterrence and survey drone, demonstrating end-to-end hardware–software integration from embedded flight control to onboard AI inference.'
     },
 ];
 
-export const featuredProjects = projects.filter(p => p.featured);
+const featuredOrder = ['aavc-2026', 'Handy-Talk', 'YangBOT-disease-detection', 'pigeon-drone'];
+
+export const featuredProjects = featuredOrder
+    .map(id => projects.find(project => project.id === id))
+    .filter((project): project is Project => Boolean(project?.featured));
 
 export const getProjectById = (id: string): Project | undefined => {
     return projects.find(p => p.id === id);

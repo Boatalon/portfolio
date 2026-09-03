@@ -40,8 +40,12 @@ export const isModelReady = (): boolean => {
  */
 async function loadModel(): Promise<tf.GraphModel | null> {
     try {
-        // Force WebGL backend for GPU acceleration
-        await tf.setBackend('webgl');
+        // Prefer WebGL, but keep the demo usable on browsers without WebGL.
+        try {
+            await tf.setBackend('webgl');
+        } catch {
+            await tf.setBackend('cpu');
+        }
         await tf.ready();
         console.log('[ModelPreloader] TFJS backend:', tf.getBackend());
 

@@ -3,7 +3,6 @@ import { Inter, Space_Grotesk } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import ModelPreloader from '@/components/ModelPreloader';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const inter = Inter({
@@ -19,14 +18,25 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-    title: 'Portfolio | Boat Arnon Chatri',
-    description: 'Portfolio showcasing Machine Learning, Computer Vision, and Web Development projects including Sign Language Translation and Object Detection systems.',
-    keywords: ['Machine Learning', 'Computer Vision', 'Deep Learning', 'Portfolio', 'AI', 'Developer', 'Boat', 'Arnon Chatri', 'intern ship', 'Boat portfolio website', 'Boat portfolio'],
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://arnonchatri.com'),
+    title: 'Boat Arnon Chatri | AI & Computer Vision Engineer',
+    description: 'I am an engineering student at Kasetsart University with a strong passion for AI, Robotics, and Computer Vision. I build systems that connect the physical world.',
+    keywords: ['Arnon Chatri', 'Boat Arnon Chatri', 'AI Engineer', 'Computer Vision', 'Robotics', 'Embedded Systems', 'Machine Learning'],
     authors: [{ name: 'Arnon Chatri' }],
+    alternates: { canonical: '/' },
     openGraph: {
-        title: 'Portfolio | Boat Arnon Chatri',
-        description: 'Portfolio showcasing Machine Learning, Computer Vision, and Web Development projects including Sign Language Translation and Object Detection systems.',
+        title: 'Boat Arnon Chatri | AI & Computer Vision Engineer',
+        description: 'I am an engineering student at Kasetsart University with a strong passion for AI, Robotics, and Computer Vision.',
         type: 'website',
+        url: '/',
+        siteName: 'Arnon Chatri Portfolio',
+        images: [{ url: '/profile.png', alt: 'Arnon Chatri' }],
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Boat Arnon Chatri | AI & Computer Vision Engineer',
+        description: 'I am an engineering student at Kasetsart University with a strong passion for AI, Robotics, and Computer Vision.',
+        images: ['/profile.png'],
     },
 };
 
@@ -38,7 +48,24 @@ export default function RootLayout({
     return (
         <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
             <body className="font-sans">
-                <ModelPreloader />
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            '@context': 'https://schema.org',
+                            '@type': 'Person',
+                            name: 'Arnon Chatri',
+                            alternateName: 'Boat Arnon Chatri',
+                            url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://arnonchatri.com',
+                            jobTitle: 'AI, Robotics & Computer Vision Engineer',
+                            sameAs: [
+                                'https://github.com/Boatalon',
+                                'https://www.linkedin.com/in/อานนท์-ชาตรี-b5b894392/',
+                                'https://huggingface.co/Boatalon',
+                            ],
+                        }),
+                    }}
+                />
                 <Navbar />
                 <main>{children}</main>
                 <Footer />

@@ -1,12 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    output: 'export',
     images: {
-        remotePatterns: [
-            {
-                protocol: 'https',
-                hostname: '**',
-            },
-        ],
+        unoptimized: true,
     },
     webpack: (config, { isServer }) => {
         if (!isServer) {
@@ -18,17 +14,11 @@ const nextConfig = {
                 crypto: false,
             };
         }
+        // Allow onnxruntime-web to load its WASM binaries
+        config.resolve.alias = {
+            ...config.resolve.alias,
+        };
         return config;
-    },
-    experimental: {
-        turbopack: {
-            resolveFallback: {
-                fs: false,
-                path: false,
-                os: false,
-                crypto: false,
-            },
-        },
     },
 };
 

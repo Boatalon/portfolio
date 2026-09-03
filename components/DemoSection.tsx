@@ -16,12 +16,21 @@ const DemoSection = ({ project }: DemoSectionProps) => {
 
     return (
         <>
-            <div className="h-full flex flex-col overflow-hidden">
-                <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-black mb-3 sm:mb-4 flex-shrink-0">Showcase</h3>
+            <div className="flex flex-col">
+                <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-black mb-3 sm:mb-4">Project Evidence</h3>
 
-                {/* Image/Demo Content */}
-                <div className="flex-1 flex items-center justify-center glass-effect rounded-xl overflow-hidden min-h-[300px] sm:min-h-[400px] lg:min-h-[550px] mb-3 sm:mb-4 relative group">
-                    {project.image && (
+                {/* Video/Image Demo Content */}
+                <div className="w-full aspect-video glass-effect rounded-xl overflow-hidden mb-3 sm:mb-4 relative group">
+                    {project.video ? (
+                        <video
+                            src={project.video}
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                    ) : project.image ? (
                         <Image
                             src={project.image}
                             alt={project.title}
@@ -32,7 +41,7 @@ const DemoSection = ({ project }: DemoSectionProps) => {
                                 e.currentTarget.style.display = 'none';
                             }}
                         />
-                    )}
+                    ) : null}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
 
@@ -44,7 +53,7 @@ const DemoSection = ({ project }: DemoSectionProps) => {
                             onClick={() => setShowLiveDemo(true)}
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
-                            className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 px-6 py-2 font-semibold text-white shadow-lg transition hover:from-amber-600 hover:to-orange-600 text-sm"
+                            className="inline-flex items-center gap-2 rounded-xl bg-amber-700 px-6 py-2 font-semibold text-white shadow-lg transition hover:bg-amber-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-900 text-sm"
                         >
                             <FiPlay className="w-4 h-4" />
                             Try Live Demo
@@ -58,7 +67,7 @@ const DemoSection = ({ project }: DemoSectionProps) => {
                             rel="noopener noreferrer"
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
-                            className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 px-6 py-2 font-semibold text-white shadow-lg transition hover:from-amber-600 hover:to-orange-600 text-sm"
+                            className="inline-flex items-center gap-2 rounded-xl bg-amber-700 px-6 py-2 font-semibold text-white shadow-lg transition hover:bg-amber-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-900 text-sm"
                         >
                             <FiExternalLink className="w-4 h-4" />
                             Live Demo
@@ -78,6 +87,30 @@ const DemoSection = ({ project }: DemoSectionProps) => {
                         </motion.a>
                     )}
                 </div>
+
+                {/* Key Features */}
+                {project.features && project.features.length > 0 && (
+                    <div className="mt-5">
+                        <h4 className="text-base lg:text-lg font-semibold text-black mb-3">Key Features</h4>
+                        <ul className="space-y-2">
+                            {project.features.map((feature, index) => (
+                                <motion.li
+                                    key={index}
+                                    initial={{ opacity: 0, x: -20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: 0.4 + index * 0.08 }}
+                                    className="flex items-start gap-2"
+                                >
+                                    <span className="flex-shrink-0 w-5 h-5 rounded-full bg-amber-600 text-white flex items-center justify-center text-xs font-bold mt-0.5">
+                                        ✓
+                                    </span>
+                                    <span className="text-black text-sm lg:text-base">{feature}</span>
+                                </motion.li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
+
             </div>
 
             {/* Hand Keypoint Demo Modal */}

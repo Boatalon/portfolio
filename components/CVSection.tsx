@@ -2,28 +2,40 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FiFileText, FiDownload } from 'react-icons/fi';
-import TranscriptModal from './TranscriptModal';
+import { FiFileText, FiEye } from 'react-icons/fi';
+import ResumeModal from './ResumeModal';
 
 const CVSection = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
+    const [isResumeOpen, setIsResumeOpen] = useState(false);
     const skills = [
-        { category: 'Languages', items: ['Python', 'C/C++', 'SQL', 'PHP', 'JavaScript'] },
-        { category: 'ML/DS', items: ['PyTorch', 'TensorFlow', 'Scikit-learn', 'Pandas'] },
-        { category: 'Web', items: ['React', 'Node.js', 'Next.js', 'Tailwind CSS'] },
-        { category: 'Tools', items: ['Docker', 'Git', 'FastAPI'] },
+        { category: 'Languages', items: ['Python', 'C/C++', 'JavaScript', 'SQL', 'PHP'] },
+        { category: 'AI / ML', items: ['PyTorch', 'TensorFlow', 'Scikit-learn', 'ONNX', 'OpenCV', 'MediaPipe', 'YOLO'] },
+        { category: 'Robotics', items: ['ROS2', 'Pixhawk', 'MAVLink', 'ArduPilot', 'Jetson Nano', 'Arduino'] },
+        { category: 'Web & Tools', items: ['React', 'Next.js', 'FastAPI', 'Docker', 'Git', 'Linux'] },
     ];
 
     const experiences = [
         {
-            role: 'Machine Learning Researcher Assistant',
-            company: 'Kasetsart University',
-            period: 'Nov 2024 - Present',
+            role: 'Drone & Computer Vision Engineer',
+            company: 'Flyhigh Team, Kasetsart University — Autonomous Aerial Vehicle Challenge (AAVC 2026)',
+            period: 'Aug 2026',
             description: [
-                'Developed end-to-end AI pipelines for data preprocessing and model training',
-                'Improved model accuracy through hyperparameter tuning and optimization',
-                'Deployed production-ready AI models using FastAPI and Docker'
+                'Designed and built an autonomous drone using Pixhawk, Jetson Nano, and cameras',
+                'Developed an AI system to detect ArUco landing pads and used MAVLink for autonomous payload delivery and precision landing',
+                'Set up flight missions, geofencing, Return-to-Launch (RTL), and failsafe functions',
+                'Tested the drone and analyzed flight logs to improve stability, power reliability, and flight safety',
+                'Represented Kasetsart University at AAVC 2026 from 28–30 Aug 2026'
+            ]
+        },
+        {
+            role: 'Machine Learning Research Assistant',
+            company: 'Kasetsart University',
+            period: 'Nov 2024 – Aug 2026',
+            description: [
+                'Developed and trained a YOLO-based object detection system to detect Colletotrichum disease in rubber trees',
+                'Used a custom dataset prepared with plant pathologists at Kasetsart University',
+                'Built a LINE Bot notification system to alert farmers in high-risk areas',
+                'Collected disease severity and weather data for training a disease forecasting model'
             ]
         },
         {
@@ -60,7 +72,7 @@ const CVSection = () => {
                                     CV & Resume
                                 </h2>
                                 <p className="text-gray-700 text-lg mb-8">
-                                    AI Engineer | Software Engineer | Robotics | Intregration Firmware
+                                    AI Engineer | Software Engineer | Robotics | Embedded Systems
                                 </p>
 
                                 {/* Summary moved here */}
@@ -74,8 +86,7 @@ const CVSection = () => {
                                         and software development. I can build machine learning models, 
                                         automated systems, and integrate APIs. I have experience in debugging, 
                                         some system troubleshooting, and improving system performance. 
-                                        Comfortable working on both software and hardware projects and solving real-world technical problems.
-                                        I'm can work under pressure and I like to learn new things.
+                                        Comfortable working across software and hardware projects, solving real-world technical problems, and learning quickly under pressure.
                                     </p>
                                 </div>
                             </motion.div>
@@ -97,7 +108,8 @@ const CVSection = () => {
                             </h3>
 
                             <div className="pl-2 mb-8">
-                                <div className="border-l-4 border-amber-600 pl-8 space-y-12">
+                                <div className="relative pl-8 space-y-12">
+                                    <span aria-hidden="true" className="absolute left-0 top-2 bottom-2 w-px bg-amber-700/40" />
                                     {experiences.map((exp, index) => (
                                         <div key={index} className="relative">
                                             {/* Timeline dot */}
@@ -132,17 +144,19 @@ const CVSection = () => {
                             </h3>
 
                             <div className="pl-2">
-                                <div className="border-l-4 border-amber-600 pl-8">
+                                <div className="relative pl-8">
+                                    <span aria-hidden="true" className="absolute left-0 top-2 bottom-2 w-px bg-amber-700/40" />
                                     <div className="relative">
                                         <div className="absolute -left-[39px] top-1.5 w-5 h-5 rounded-full bg-amber-600 border-4 border-[#f5f1e8]"></div>
                                         <h4 className="text-xl font-bold text-gray-800">Computer Engineering</h4>
                                         <p className="text-amber-700 font-medium text-base">Kasetsart University</p>
                                         <button
-                                            onClick={() => setIsModalOpen(true)}
-                                            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 px-8 py-3 font-semibold text-white shadow-lg transition hover:from-amber-600 hover:to-orange-600"
+                                            type="button"
+                                            onClick={() => setIsResumeOpen(true)}
+                                            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-amber-700 px-8 py-3 font-semibold text-white shadow-lg transition hover:bg-amber-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-900"
                                         >
-                                            <FiFileText size={18} />
-                                            View Transcript
+                                            <FiEye aria-hidden="true" size={18} />
+                                            Open résumé
                                         </button>
                                     </div>
                                 </div>
@@ -181,8 +195,7 @@ const CVSection = () => {
                 </div>
             </div>
 
-            {/* Transcript Modal */}
-            <TranscriptModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+            <ResumeModal isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
         </section>
     );
 };

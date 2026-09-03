@@ -9,15 +9,22 @@ interface TextSectionProps {
 
 const TextSection = ({ project }: TextSectionProps) => {
     return (
-        <div className="h-full flex flex-col overflow-hidden">
-            <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-black mb-3 sm:mb-4 flex-shrink-0">About This Project</h3>
+        <div className="flex flex-col">
+            <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-black mb-3 sm:mb-4">Project Brief</h3>
 
-            {/* Scrollable content area */}
-            <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar">
+            {/* Content area */}
+            <div className="pr-2">
                 {/* Description */}
                 <p className="text-black text-xs sm:text-sm lg:text-base leading-relaxed mb-4 sm:mb-6">
                     {project.detailedDescription || project.description}
                 </p>
+
+                {project.challenge && (
+                    <section className="mb-6 rounded-xl border border-amber-900/15 bg-amber-900/[0.05] p-4">
+                        <h4 className="text-base lg:text-lg font-semibold text-black mb-2">Engineering Challenge</h4>
+                        <p className="text-sm leading-relaxed text-stone-800 lg:text-base">{project.challenge}</p>
+                    </section>
+                )}
 
                 {/* Technologies */}
                 <div className="mb-6">
@@ -37,28 +44,23 @@ const TextSection = ({ project }: TextSectionProps) => {
                     </div>
                 </div>
 
-                {/* Key Features */}
-                {project.features && project.features.length > 0 && (
-                    <div>
-                        <h4 className="text-base lg:text-lg font-semibold text-black mb-3">Key Features</h4>
-                        <ul className="space-y-2">
-                            {project.features.map((feature, index) => (
-                                <motion.li
-                                    key={index}
-                                    initial={{ opacity: 0, x: -20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: 0.6 + index * 0.1 }}
-                                    className="flex items-start gap-2"
-                                >
-                                    <span className="flex-shrink-0 w-5 h-5 rounded-full bg-amber-600 text-white flex items-center justify-center text-xs font-bold mt-0.5">
-                                        ✓
+                {/* Deployment Plan */}
+                {project.deploymentPlan && project.deploymentPlan.length > 0 && (
+                    <section>
+                        <h4 className="text-base lg:text-lg font-semibold text-black mb-3">Deployment Plan</h4>
+                        <ol className="space-y-3">
+                            {project.deploymentPlan.map((step, index) => (
+                                <li key={step} className="flex items-start gap-3">
+                                    <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-stone-900 text-xs font-bold tabular-nums text-white">
+                                        {index + 1}
                                     </span>
-                                    <span className="text-black text-sm lg:text-base">{feature}</span>
-                                </motion.li>
+                                    <span className="pt-0.5 text-sm leading-relaxed text-stone-800 lg:text-base">{step}</span>
+                                </li>
                             ))}
-                        </ul>
-                    </div>
+                        </ol>
+                    </section>
                 )}
+
             </div>
         </div>
     );

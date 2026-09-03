@@ -133,8 +133,8 @@ const HeroAboutSection = () => {
                             </h1>
 
                             <p className="mb-4 text-xl font-medium text-gray-700 sm:text-2xl">
-                                <span className="bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
-                                    AI Engineer | Robotics | System Integration
+                                <span className="text-amber-800">
+                                    AI Engineer | Robotics | Embedded Systems
                                 </span>
                             </p>
 
@@ -167,7 +167,7 @@ const HeroAboutSection = () => {
                             <div className="flex flex-wrap gap-4">
                                 <Link
                                     href="#projects"
-                                    className="rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 px-8 py-3 font-semibold text-white shadow-lg transition hover:from-amber-600 hover:to-orange-600"
+                                    className="rounded-xl bg-amber-700 px-8 py-3 font-semibold text-white shadow-lg transition hover:bg-amber-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-900"
                                 >
                                     View Projects
                                 </Link>
@@ -181,13 +181,13 @@ const HeroAboutSection = () => {
                             </div>
 
                             <div className="mt-8 flex gap-4">
-                                <a className="rounded-lg glass-effect p-3 shadow-md text-amber-700 hover:text-amber-800 hover:shadow-lg transition-all" href="https://github.com/Boatalon" target="_blank" rel="noopener noreferrer">
+                                <a aria-label="GitHub profile" className="rounded-lg glass-effect p-3 shadow-md text-amber-700 hover:text-amber-800 hover:shadow-lg transition-all" href="https://github.com/Boatalon" target="_blank" rel="noopener noreferrer">
                                     <FiGithub className="h-6 w-6" />
                                 </a>
-                                <a className="rounded-lg glass-effect p-3 shadow-md text-amber-700 hover:text-amber-800 hover:shadow-lg transition-all" href="https://www.linkedin.com/in/อานนท์-ชาตรี-b5b894392/" target="_blank" rel="noopener noreferrer">
+                                <a aria-label="LinkedIn profile" className="rounded-lg glass-effect p-3 shadow-md text-amber-700 hover:text-amber-800 hover:shadow-lg transition-all" href="https://www.linkedin.com/in/อานนท์-ชาตรี-b5b894392/" target="_blank" rel="noopener noreferrer">
                                     <FiLinkedin className="h-6 w-6" />
                                 </a>
-                                <a className="rounded-lg glass-effect p-3 shadow-md text-amber-700 hover:text-amber-800 hover:shadow-lg transition-all" href="mailto:boat.arnonchatri@gmail.com">
+                                <a aria-label="Email Arnon Chatri" className="rounded-lg glass-effect p-3 shadow-md text-amber-700 hover:text-amber-800 hover:shadow-lg transition-all" href="mailto:boat.arnonchatri@gmail.com">
                                     <FiMail className="h-6 w-6" />
                                 </a>
                             </div>
