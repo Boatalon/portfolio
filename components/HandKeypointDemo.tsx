@@ -308,10 +308,8 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
                             framesSinceLastInferenceRef.current = 0;
                             
                             if (hasHands) {
-                                // Run inference in background without blocking
                                 runInference();
                             } else {
-                                // If no hands, add 'none' to history to quickly fade out old predictions
                                 predictionHistoryRef.current.push("none");
                                 if (predictionHistoryRef.current.length > VOTE_WINDOW) {
                                     predictionHistoryRef.current.shift();
@@ -322,7 +320,7 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
                 }
             } catch (err: any) {
                 console.error("MediaPipe detection error:", err);
-                // Optionally show error to user if it persists
+                setError(err?.message || "MediaPipe detection failed.");
             }
         }
         animRef.current = requestAnimationFrame(processFrameRef.current);
@@ -338,13 +336,13 @@ const HandKeypointDemo = ({ isOpen, onClose }: HandKeypointDemoProps) => {
             setLoadingMsg('Loading MediaPipe Holistic…');
             const vision = await import('@mediapipe/tasks-vision');
             const filesetResolver = await vision.FilesetResolver.forVisionTasks(
-                'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm'
+                'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm'
             );
             const holistic = await vision.HolisticLandmarker.createFromOptions(filesetResolver, {
                 baseOptions: {
                     modelAssetPath:
                         'https://storage.googleapis.com/mediapipe-models/holistic_landmarker/holistic_landmarker/float16/latest/holistic_landmarker.task',
-                    delegate: 'GPU',
+                    delegate: 'CPU',
                 },
                 runningMode: 'VIDEO',
                 minPoseDetectionConfidence: 0.5,
