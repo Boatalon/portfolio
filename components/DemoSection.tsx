@@ -3,16 +3,18 @@
 import { useState } from 'react';
 import { Project } from '@/lib/projects';
 import Image from 'next/image';
-import { FiExternalLink, FiGithub, FiPlay } from 'react-icons/fi';
-import { motion } from 'framer-motion';
+import { FiExternalLink, FiGithub, FiPlay, FiAward, FiX } from 'react-icons/fi';
+import { motion, AnimatePresence } from 'framer-motion';
 import HandKeypointDemo from './HandKeypointDemo';
 
 interface DemoSectionProps {
     project: Project;
 }
 
+
 const DemoSection = ({ project }: DemoSectionProps) => {
     const [showLiveDemo, setShowLiveDemo] = useState(false);
+    const [showCertificate, setShowCertificate] = useState(false);
 
     return (
         <>
@@ -86,6 +88,18 @@ const DemoSection = ({ project }: DemoSectionProps) => {
                             View Code
                         </motion.a>
                     )}
+                    {/* Certificate button */}
+                    {project.certificateImage && (
+                        <motion.button
+                            onClick={() => setShowCertificate(true)}
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-sm border border-amber-500/50 text-amber-800 bg-amber-50 hover:bg-amber-100 hover:border-amber-600 hover:shadow-md transition-all"
+                        >
+                            <FiAward className="w-4 h-4" />
+                            View Certificate
+                        </motion.button>
+                    )}
                 </div>
 
                 {/* Key Features */}
@@ -120,6 +134,71 @@ const DemoSection = ({ project }: DemoSectionProps) => {
                     onClose={() => setShowLiveDemo(false)}
                 />
             )}
+
+            {/* Certificate Lightbox */}
+            <AnimatePresence>
+                {showCertificate && project.certificateImage && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+                        onClick={() => setShowCertificate(false)}
+                    >
+                        {/* Backdrop */}
+                        <div className="absolute inset-0 bg-black/75 backdrop-blur-sm" />
+
+                        {/* Certificate card */}
+                        <motion.div
+                            initial={{ scale: 0.88, opacity: 0, y: 20 }}
+                            animate={{ scale: 1, opacity: 1, y: 0 }}
+                            exit={{ scale: 0.88, opacity: 0, y: 20 }}
+                            transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                            onClick={e => e.stopPropagation()}
+                            className="relative z-10 w-full max-w-2xl bg-[#fffbf5] rounded-3xl shadow-2xl overflow-hidden"
+                        >
+                            {/* Header */}
+                            <div className="flex items-center justify-between px-6 py-4 border-b border-amber-100">
+                                <div className="flex items-center gap-2.5">
+                                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-400 to-amber-700 flex items-center justify-center">
+                                        <FiAward className="w-4 h-4 text-white" />
+                                    </div>
+                                    <div>
+                                        <p className="text-sm font-bold text-stone-800">Award Certificate</p>
+                                        <p className="text-xs text-amber-700 font-medium">รางวัลชนะเลิศ — KU-KM Sharing Day 2026</p>
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={() => setShowCertificate(false)}
+                                    className="w-8 h-8 flex items-center justify-center rounded-lg text-stone-500 hover:bg-stone-100 hover:text-stone-800 transition-colors"
+                                    aria-label="Close certificate"
+                                >
+                                    <FiX className="w-5 h-5" />
+                                </button>
+                            </div>
+
+                            {/* Certificate image */}
+                            <div className="relative w-full" style={{ aspectRatio: '4/3' }}>
+                                <Image
+                                    src={project.certificateImage}
+                                    alt="Award Certificate — i-Dairy KU-KM Sharing Day 2026"
+                                    fill
+                                    unoptimized
+                                    className="object-contain p-4"
+                                />
+                            </div>
+
+                            {/* Footer */}
+                            <div className="px-6 py-4 bg-amber-50/60 border-t border-amber-100 text-center">
+                                <p className="text-xs text-stone-500 leading-relaxed">
+                                    1st Place · Innovation Work Category · Faculty of Engineering Kamphaeng Saen, Kasetsart University · 23 July 2026
+                                </p>
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </>
     );
 };

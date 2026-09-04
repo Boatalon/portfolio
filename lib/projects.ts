@@ -23,6 +23,7 @@ export interface Project {
     features?: string[];
     deploymentPlan?: string[];
     conclusion?: string;
+    certificateImage?: string; // Path to certificate/award image
 }
 
 export const projects: Project[] = [
@@ -153,9 +154,42 @@ export const projects: Project[] = [
         ],
         conclusion: 'Delivered a working autonomous deterrence and survey drone, demonstrating end-to-end hardware–software integration from embedded flight control to onboard AI inference.'
     },
+    {
+        id: 'idairy-smartfarm',
+        slug: 'idairy-smartfarm',
+        title: 'i-Dairy: Intelligent Dairy Management',
+        titleTH: 'i-Dairy: การจัดการฟาร์มโคนมอัจฉริยะ',
+        description: 'An intelligent dairy farm management system using IoT sensors and data analytics to monitor herd health, milk yield, and farm environment in real-time.',
+        descriptionTH: 'ระบบจัดการฟาร์มโคนมอัจฉริยะผ่าน IoT และการวิเคราะห์ข้อมูลเพื่อติดตามสุขภาพโค ปริมาณน้ำนม และสภาพแวดล้อมในฟาร์มแบบเรียลไทม์',
+        image: '/images/idairy-smartfarm.jpg',
+        tags: ['IoT', 'Smart Farm', 'Data Analytics', 'Embedded Systems', 'Dashboard', 'Python'],
+        featured: true,
+        category: 'other',
+        layout: 'demo-right',
+        role: 'System Developer & Innovation Lead',
+        period: 'Jul 2026',
+        detailedDescription: 'i-Dairy is an intelligent dairy farm management system developed at the Faculty of Engineering, Kamphaeng Saen, Kasetsart University. The system integrates IoT sensors across the farm to collect real-time data on herd health, milk production, feeding schedules, and environmental conditions. A central dashboard visualises trends and alerts farm operators to anomalies, enabling data-driven decisions that improve herd welfare and farm productivity.',
+        challenge: 'Collecting reliable sensor data in a harsh agricultural environment, synchronising multiple IoT nodes, and presenting actionable insights to farm operators with varying levels of technical literacy.',
+        features: [
+            'Real-time IoT sensor network for herd health and environment monitoring',
+            'Milk yield tracking and production analytics dashboard',
+            'Automated feeding schedule management system',
+            'Environmental condition monitoring (temperature, humidity)',
+            'Alert system for anomalies in health and production metrics',
+            'Data logging and historical trend visualisation'
+        ],
+        deploymentPlan: [
+            'Deploy sensor nodes across barn zones and validate data accuracy',
+            'Integrate dashboard with farm operator workflows',
+            'Expand to predictive health alerts using collected historical data',
+            'Scale system to cover full farm operations including breeding records'
+        ],
+        conclusion: 'The project was awarded 1st Place (รางวัลชนะเลิศ) in the Innovation Work category at the KU-KM Sharing Day 2026, Faculty of Engineering Kamphaeng Saen, Kasetsart University, on 23 July 2026.',
+        certificateImage: '/images/idairy-certificate.png',
+    },
 ];
 
-const featuredOrder = ['aavc-2026', 'Handy-Talk', 'YangBOT-disease-detection', 'pigeon-drone'];
+const featuredOrder = ['aavc-2026', 'idairy-smartfarm', 'Handy-Talk', 'YangBOT-disease-detection', 'pigeon-drone'];
 
 export const featuredProjects = featuredOrder
     .map(id => projects.find(project => project.id === id))
