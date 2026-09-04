@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { FiGithub, FiLinkedin, FiMail, FiCpu, FiTool, FiUsers, FiArrowDown } from 'react-icons/fi';
-import { useRef } from 'react';
+
 
 /* ── Floating particle background ── */
 const Particles = () => (
@@ -52,19 +52,13 @@ const ValueCard = ({
     </motion.div>
 );
 
-/* ── Shared profile image ── */
+/* ── Profile image (used in Hero only) ── */
 const ProfileImage = ({ className = '' }: { className?: string }) => (
     <div className={`relative ${className}`}>
         <div className="absolute -inset-6 rounded-[3rem] bg-gradient-to-br from-amber-300/20 via-orange-300/10 to-transparent blur-2xl pointer-events-none" />
         <div className="absolute inset-0 rotate-2 rounded-[2.5rem] bg-gradient-to-br from-amber-200/30 to-orange-100/20" />
         <div className="relative overflow-hidden rounded-[2.5rem] shadow-[0_24px_80px_rgba(120,53,15,0.22)]">
-            <Image
-                src="/profile.png"
-                alt="Arnon Chatri"
-                width={900} height={1000}
-                className="h-auto w-full object-cover"
-                priority
-            />
+            <Image src="/profile.png" alt="Arnon Chatri" width={900} height={1000} className="h-auto w-full object-cover" priority />
             <div className="absolute inset-0 rounded-[2.5rem] shadow-[inset_0_0_60px_rgba(120,53,15,0.08)]" />
         </div>
     </div>
@@ -72,7 +66,6 @@ const ProfileImage = ({ className = '' }: { className?: string }) => (
 
 /* ─────────────────────────────────────────────────────── */
 const HeroAboutSection = () => {
-    const aboutRef = useRef<HTMLDivElement>(null);
 
     return (
         <section
@@ -218,79 +211,69 @@ const HeroAboutSection = () => {
             </div>
 
             {/* ── ABOUT ── */}
-            <div id="about" ref={aboutRef} className="relative bg-[#f5f1e8]">
+            <div id="about" className="relative bg-[#f5f1e8]">
                 <div className="container mx-auto px-4 py-24 sm:px-8 lg:px-16">
-                    <div className="mx-auto grid max-w-screen-2xl grid-cols-1 gap-12 lg:grid-cols-2">
+                    <div className="mx-auto max-w-3xl">
 
-                        {/* Photo reappears in About section on desktop */}
+                        {/* Header */}
                         <motion.div
-                            initial={{ opacity: 0, x: -32 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true, margin: '-80px' }}
-                            transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-                            className="hidden lg:flex items-start justify-center pt-4"
+                            initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }} transition={{ duration: 0.5 }}
+                            className="mb-4"
                         >
-                            <ProfileImage className="w-full max-w-[380px] xl:max-w-[440px]" />
+                            <span className="section-label">About Me</span>
                         </motion.div>
 
-                        <div>
-                            <motion.div
-                                initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }} transition={{ duration: 0.5 }}
-                                className="mb-4"
-                            >
-                                <span className="section-label">About Me</span>
-                            </motion.div>
+                        <motion.h2
+                            initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }} transition={{ delay: 0.1, duration: 0.6 }}
+                            className="mb-2 text-4xl font-extrabold tracking-tight text-stone-900 sm:text-5xl font-display"
+                        >
+                            Who I Am
+                        </motion.h2>
+                        <motion.p
+                            initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
+                            viewport={{ once: true }} transition={{ delay: 0.18, duration: 0.5 }}
+                            className="mb-10 text-lg font-medium text-amber-700"
+                        >
+                            เกี่ยวกับฉัน
+                        </motion.p>
 
-                            <motion.h2
-                                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }} transition={{ delay: 0.1, duration: 0.6 }}
-                                className="mb-2 text-4xl font-extrabold tracking-tight text-stone-900 sm:text-5xl font-display"
-                            >
-                                Who I Am
-                            </motion.h2>
-                            <motion.p
-                                initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
-                                viewport={{ once: true }} transition={{ delay: 0.18, duration: 0.5 }}
-                                className="mb-10 text-lg font-medium text-amber-700"
-                            >
-                                เกี่ยวกับฉัน
-                            </motion.p>
+                        {/* Bio card */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }} transition={{ delay: 0.22, duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+                            className="mb-10 glass-effect rounded-2xl p-7 space-y-4"
+                        >
+                            <p className="text-base leading-[1.85] text-stone-600">
+                                Hello, my name is{' '}
+                                <span className="font-semibold text-stone-800">Arnon Chatri</span>,
+                                or you can call me{' '}
+                                <span className="font-semibold text-amber-700">Boat</span>.
+                                I have experience working with machine learning pipelines,
+                                AI research, and embedded systems.
+                            </p>
+                            <p className="text-base leading-[1.85] text-stone-600">
+                                I worked as a research assistant and co-authored a published research paper at{' '}
+                                <span className="font-medium text-stone-700">Kasetsart University</span> with{' '}
+                                <span className="font-medium text-stone-700">Team Sean</span> over two years.
+                            </p>
+                            <p className="text-base leading-[1.85] text-stone-600">
+                                I also built and customised a drone prototype for the Faculty of Civil Engineering—
+                                integrating AI computer vision end-to-end—which clarified my real interests and career direction.
+                            </p>
+                            <p className="text-base leading-[1.85] text-stone-600">
+                                Looking for someone for{' '}
+                                <span className="font-medium text-stone-700">control systems, ML pipelines, or hardware projects</span>?
+                                I&apos;m deeply passionate about this field and would love to join your team.
+                            </p>
+                        </motion.div>
 
-                            <motion.div
-                                initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }} transition={{ delay: 0.22, duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-                                className="mb-10 glass-effect rounded-2xl p-7 space-y-4"
-                            >
-                                <p className="text-base leading-[1.85] text-stone-600">
-                                    Hello, my name is{' '}
-                                    <span className="font-semibold text-stone-800">Arnon Chatri</span>,
-                                    or you can call me{' '}
-                                    <span className="font-semibold text-amber-700">Boat</span>.
-                                    I have experience working with machine learning pipelines,
-                                    AI research, and embedded systems.
-                                </p>
-                                <p className="text-base leading-[1.85] text-stone-600">
-                                    I worked as a research assistant and co-authored a published research paper at{' '}
-                                    <span className="font-medium text-stone-700">Kasetsart University</span> with{' '}
-                                    <span className="font-medium text-stone-700">Team Sean</span> over two years.
-                                </p>
-                                <p className="text-base leading-[1.85] text-stone-600">
-                                    I also built and customised a drone prototype for the Faculty of Civil Engineering —
-                                    integrating AI computer vision end-to-end — which clarified my real interests and career direction.
-                                </p>
-                                <p className="text-base leading-[1.85] text-stone-600">
-                                    Looking for someone for{' '}
-                                    <span className="font-medium text-stone-700">control systems, ML pipelines, or hardware projects</span>?
-                                    I&apos;m deeply passionate about this field and would love to join your team.
-                                </p>
-                            </motion.div>
-
-                            <div className="grid gap-4 sm:grid-cols-3">
-                                <ValueCard index={0} icon={<FiCpu size={20} />}   title="AI & ML"             description="ML pipelines & production-ready AI models" />
-                                <ValueCard index={1} icon={<FiTool size={20} />}  title="Hardware & Robotics" description="Drones, embedded systems, HW-SW integration" />
-                                <ValueCard index={2} icon={<FiUsers size={20} />} title="Team Player"         description="2+ years on research & engineering teams" />
-                            </div>
+                        {/* Value cards */}
+                        <div className="grid gap-4 sm:grid-cols-3">
+                            <ValueCard index={0} icon={<FiCpu size={20} />}   title="AI & ML"             description="ML pipelines & production-ready AI models" />
+                            <ValueCard index={1} icon={<FiTool size={20} />}  title="Hardware & Robotics" description="Drones, embedded systems, HW-SW integration" />
+                            <ValueCard index={2} icon={<FiUsers size={20} />} title="Team Player"         description="2+ years on research & engineering teams" />
                         </div>
                     </div>
                 </div>
