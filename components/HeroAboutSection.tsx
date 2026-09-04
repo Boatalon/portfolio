@@ -87,12 +87,28 @@ const ProfileImage = ({ className = '' }: { className?: string }) => (
             />
         </motion.div>
 
-        {/* Floating award badge — top-right */}
+        {/* Floating award badge — AAVC 3rd place (top-right) */}
         <motion.div
             initial={{ opacity: 0, scale: 0.6, x: 12 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
             transition={{ delay: 1.1, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute top-[10%] -right-4 z-20 flex items-center gap-2
+            className="absolute top-[8%] -right-4 z-20 flex items-center gap-2
+                       bg-white/90 backdrop-blur-sm rounded-2xl px-3.5 py-2.5
+                       shadow-[0_4px_20px_rgba(120,53,15,0.18)] border border-amber-100"
+        >
+            <span className="text-xl">🥉</span>
+            <div className="leading-tight">
+                <p className="text-[10px] font-bold text-stone-700 whitespace-nowrap">3rd Place</p>
+                <p className="text-[9px] text-amber-600 font-medium whitespace-nowrap">AAVC 2026</p>
+            </div>
+        </motion.div>
+
+        {/* Floating award badge — i-Dairy 1st place (top-left) */}
+        <motion.div
+            initial={{ opacity: 0, scale: 0.6, x: -12 }}
+            animate={{ opacity: 1, scale: 1, x: 0 }}
+            transition={{ delay: 1.2, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute top-[8%] -left-4 z-20 flex items-center gap-2
                        bg-white/90 backdrop-blur-sm rounded-2xl px-3.5 py-2.5
                        shadow-[0_4px_20px_rgba(120,53,15,0.18)] border border-amber-100"
         >

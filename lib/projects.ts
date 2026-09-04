@@ -121,7 +121,8 @@ export const projects: Project[] = [
             'Review flight logs after every test and tune power, control, and failsafe parameters',
             'Promote only validated mission profiles to competition deployment'
         ],
-        conclusion: 'The team completed an integrated autonomous-flight system and represented Kasetsart University at AAVC 2026, using staged testing and flight-log review to improve reliability and safety.'
+        conclusion: 'The Flyhigh Team was awarded 3rd Place (รางวัลชมเชยอันดับ 3) at the Autonomous Aerial Vehicle Challenge (AAVC) 2026, representing Kasetsart University from 28–30 August 2026. The team delivered a fully integrated autonomous-flight system using staged testing and flight-log analysis to achieve reliable mission performance.',
+        certificateImage: '/images/aavc-certificate.png',
     },
     {
         id: 'pigeon-drone',
