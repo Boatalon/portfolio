@@ -52,15 +52,72 @@ const ValueCard = ({
     </motion.div>
 );
 
-/* ── Profile image (used in Hero only) ── */
+/* ── Profile image — MinimalistHero-style circular backdrop ── */
 const ProfileImage = ({ className = '' }: { className?: string }) => (
-    <div className={`relative ${className}`}>
-        <div className="absolute -inset-6 rounded-[3rem] bg-gradient-to-br from-amber-300/20 via-orange-300/10 to-transparent blur-2xl pointer-events-none" />
-        <div className="absolute inset-0 rotate-2 rounded-[2.5rem] bg-gradient-to-br from-amber-200/30 to-orange-100/20" />
-        <div className="relative overflow-hidden rounded-[2.5rem] shadow-[0_24px_80px_rgba(120,53,15,0.22)]">
-            <Image src="/profile.png" alt="Arnon Chatri" width={900} height={1000} className="h-auto w-full object-cover" priority />
-            <div className="absolute inset-0 rounded-[2.5rem] shadow-[inset_0_0_60px_rgba(120,53,15,0.08)]" />
-        </div>
+    <div className={`relative flex items-end justify-center ${className}`}>
+        {/* Outer decorative ring */}
+        <div className="absolute inset-0 rounded-full border-2 border-amber-300/25 scale-[1.12] pointer-events-none" />
+        {/* Secondary ring */}
+        <div className="absolute inset-0 rounded-full border border-amber-200/20 scale-[1.24] pointer-events-none" />
+
+        {/* The amber circle backdrop */}
+        <motion.div
+            initial={{ scale: 0.75, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+            className="absolute inset-0 rounded-full bg-gradient-to-b from-amber-300 via-amber-400 to-amber-600 shadow-[0_20px_60px_rgba(217,119,6,0.35)]"
+        />
+
+        {/* Subtle inner highlight */}
+        <div className="absolute inset-0 rounded-full bg-gradient-to-br from-white/20 to-transparent pointer-events-none" />
+
+        {/* Profile photo — sits on top of the circle, slightly overflowing top */}
+        <motion.div
+            initial={{ opacity: 0, y: 32 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.45 }}
+            className="relative z-10 w-[88%] -mb-2"
+        >
+            <Image
+                src="/profile.png"
+                alt="Arnon Chatri"
+                width={900} height={1000}
+                className="h-auto w-full object-cover object-top drop-shadow-[0_8px_32px_rgba(0,0,0,0.18)]"
+                priority
+            />
+        </motion.div>
+
+        {/* Floating award badge — top-right */}
+        <motion.div
+            initial={{ opacity: 0, scale: 0.6, x: 12 }}
+            animate={{ opacity: 1, scale: 1, x: 0 }}
+            transition={{ delay: 1.1, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute top-[10%] -right-4 z-20 flex items-center gap-2
+                       bg-white/90 backdrop-blur-sm rounded-2xl px-3.5 py-2.5
+                       shadow-[0_4px_20px_rgba(120,53,15,0.18)] border border-amber-100"
+        >
+            <span className="text-xl">🏆</span>
+            <div className="leading-tight">
+                <p className="text-[10px] font-bold text-stone-700 whitespace-nowrap">1st Place</p>
+                <p className="text-[9px] text-amber-600 font-medium whitespace-nowrap">KU Innovation 2026</p>
+            </div>
+        </motion.div>
+
+        {/* Floating availability pill — bottom-left */}
+        <motion.div
+            initial={{ opacity: 0, scale: 0.6, x: -12 }}
+            animate={{ opacity: 1, scale: 1, x: 0 }}
+            transition={{ delay: 1.3, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute bottom-[12%] -left-4 z-20 flex items-center gap-2
+                       bg-white/90 backdrop-blur-sm rounded-2xl px-3.5 py-2.5
+                       shadow-[0_4px_20px_rgba(120,53,15,0.18)] border border-amber-100"
+        >
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse flex-shrink-0" />
+            <div className="leading-tight">
+                <p className="text-[10px] font-bold text-stone-700 whitespace-nowrap">Available</p>
+                <p className="text-[9px] text-stone-400 font-medium whitespace-nowrap">Open to work</p>
+            </div>
+        </motion.div>
     </div>
 );
 
@@ -134,9 +191,9 @@ const HeroAboutSection = () => {
                             ))}
                         </motion.div>
 
-                        {/* Mobile photo */}
-                        <div className="block lg:hidden mb-8 max-w-[280px] mx-auto sm:mx-0">
-                            <ProfileImage />
+                        {/* Mobile: circular photo — centered, smaller */}
+                        <div className="block lg:hidden mb-8">
+                            <ProfileImage className="w-64 h-64 mx-auto" />
                         </div>
 
                         <motion.p
@@ -188,14 +245,14 @@ const HeroAboutSection = () => {
                         </motion.div>
                     </motion.div>
 
-                    {/* RIGHT: static photo — desktop only */}
+                    {/* RIGHT: circular photo — desktop only */}
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.96 }}
+                        initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.35, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
                         className="hidden lg:flex items-center justify-center"
                     >
-                        <ProfileImage className="w-full max-w-[440px] xl:max-w-[520px] animate-float-slow" />
+                        <ProfileImage className="w-[380px] h-[380px] xl:w-[460px] xl:h-[460px]" />
                     </motion.div>
                 </div>
 
