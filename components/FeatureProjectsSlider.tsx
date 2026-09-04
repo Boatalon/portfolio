@@ -6,140 +6,126 @@ import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
 import ProjectSlide from './ProjectSlide';
 
-interface FeatureProjectsSliderProps {
-    projects: Project[];
-}
+interface FeatureProjectsSliderProps { projects: Project[]; }
 
 const FeatureProjectsSlider = ({ projects }: FeatureProjectsSliderProps) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [direction, setDirection] = useState(0);
 
     const slideVariants = {
-        enter: (direction: number) => ({
-            x: direction > 0 ? 1000 : -1000,
-            opacity: 0,
-        }),
-        center: {
-            zIndex: 1,
-            x: 0,
-            opacity: 1
-        },
-        exit: (direction: number) => ({
-            zIndex: 0,
-            x: direction < 0 ? 1000 : -1000,
-            opacity: 0
-        })
+        enter:  (dir: number) => ({ x: dir > 0 ? '80%' : '-80%', opacity: 0 }),
+        center: { x: 0, opacity: 1, zIndex: 1 },
+        exit:   (dir: number) => ({ x: dir < 0 ? '80%' : '-80%', opacity: 0, zIndex: 0 }),
     };
 
-    const swipeConfidenceThreshold = 10000;
-    const swipePower = (offset: number, velocity: number) => {
-        return Math.abs(offset) * velocity;
-    };
-
-    const paginate = useCallback((newDirection: number) => {
-        setDirection(newDirection);
-        setCurrentIndex((prevIndex) => {
-            let newIndex = prevIndex + newDirection;
-            if (newIndex < 0) newIndex = projects.length - 1;
-            if (newIndex >= projects.length) newIndex = 0;
-            return newIndex;
+    const paginate = useCallback((newDir: number) => {
+        setDirection(newDir);
+        setCurrentIndex(prev => {
+            let n = prev + newDir;
+            if (n < 0) n = projects.length - 1;
+            if (n >= projects.length) n = 0;
+            return n;
         });
     }, [projects.length]);
 
-    // Keyboard navigation
     useEffect(() => {
-        const handleKeyPress = (e: KeyboardEvent) => {
-            if (e.key === 'ArrowLeft') {
-                paginate(-1);
-            } else if (e.key === 'ArrowRight') {
-                paginate(1);
-            }
+        const handleKey = (e: KeyboardEvent) => {
+            if (e.key === 'ArrowLeft')  paginate(-1);
+            if (e.key === 'ArrowRight') paginate(1);
         };
-
-        window.addEventListener('keydown', handleKeyPress);
-        return () => window.removeEventListener('keydown', handleKeyPress);
+        window.addEventListener('keydown', handleKey);
+        return () => window.removeEventListener('keydown', handleKey);
     }, [paginate]);
 
-    const currentProject = projects[currentIndex];
+    const canPrev = currentIndex > 0;
+    const canNext = currentIndex < projects.length - 1;
 
     return (
-        <div className="relative w-full h-auto bg-[#f5f1e8] flex flex-col">
-            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-600/50 to-transparent"></div>
-            <div className="flex flex-col bg-[#f5f1e8]">
-                {/* Slide area with side arrow buttons */}
-                <div className="relative w-full overflow-x-hidden">
-                    <AnimatePresence initial={false} custom={direction} mode="wait">
-                        <motion.div
-                            key={currentIndex}
-                            custom={direction}
-                            variants={slideVariants}
-                            initial="enter"
-                            animate="center"
-                            exit="exit"
-                            transition={{
-                                x: { type: "spring", stiffness: 300, damping: 30 },
-                                opacity: { duration: 0.2 }
-                            }}
-                            drag="x"
-                            dragConstraints={{ left: 0, right: 0 }}
-                            dragElastic={1}
-                            onDragEnd={(e, { offset, velocity }) => {
-                                const swipe = swipePower(offset.x, velocity.x);
+        <div className="relative w-full bg-[#f5f1e8]">
+            <div className="section-divider" />
 
-                                if (swipe < -swipeConfidenceThreshold && currentIndex < projects.length - 1) {
-                                    paginate(1);
-                                } else if (swipe > swipeConfidenceThreshold && currentIndex > 0) {
-                                    paginate(-1);
-                                }
-                            }}
-                            className="relative w-full"
-                        >
-                            <ProjectSlide project={currentProject} />
-                        </motion.div>
-                    </AnimatePresence>
-
-                    {/* Left arrow — absolute, vertically centred */}
-                    <motion.button
-                        onClick={() => paginate(-1)}
-                        disabled={currentIndex === 0}
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/80 backdrop-blur-sm shadow-lg border border-amber-600/20 flex items-center justify-center text-gray-700 hover:text-amber-600 hover:border-amber-600/60 hover:shadow-xl transition-all disabled:opacity-20 disabled:cursor-not-allowed"
-                        aria-label="Previous project"
+            {/* Slide wrapper */}
+            <div className="relative w-full overflow-x-hidden">
+                <AnimatePresence initial={false} custom={direction} mode="wait">
+                    <motion.div
+                        key={currentIndex}
+                        custom={direction}
+                        variants={slideVariants}
+                        initial="enter"
+                        animate="center"
+                        exit="exit"
+                        transition={{ x: { type: 'spring', stiffness: 280, damping: 32 }, opacity: { duration: 0.18 } }}
+                        drag="x"
+                        dragConstraints={{ left: 0, right: 0 }}
+                        dragElastic={0.6}
+                        onDragEnd={(_, { offset, velocity }) => {
+                            const power = Math.abs(offset.x) * velocity.x;
+                            if (power < -8000 && canNext) paginate(1);
+                            else if (power > 8000 && canPrev) paginate(-1);
+                        }}
+                        className="w-full"
                     >
-                        <FiChevronLeft className="w-6 h-6" />
-                    </motion.button>
+                        <ProjectSlide project={projects[currentIndex]} />
+                    </motion.div>
+                </AnimatePresence>
 
-                    {/* Right arrow — absolute, vertically centred */}
-                    <motion.button
-                        onClick={() => paginate(1)}
-                        disabled={currentIndex === projects.length - 1}
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/80 backdrop-blur-sm shadow-lg border border-amber-600/20 flex items-center justify-center text-gray-700 hover:text-amber-600 hover:border-amber-600/60 hover:shadow-xl transition-all disabled:opacity-20 disabled:cursor-not-allowed"
-                        aria-label="Next project"
-                    >
-                        <FiChevronRight className="w-6 h-6" />
-                    </motion.button>
-                </div>
+                {/* Prev arrow */}
+                <motion.button
+                    onClick={() => paginate(-1)}
+                    disabled={!canPrev}
+                    whileHover={canPrev ? { scale: 1.1 } : {}}
+                    whileTap={canPrev ? { scale: 0.95 } : {}}
+                    className={`absolute left-3 top-1/2 -translate-y-1/2 z-20
+                        w-11 h-11 rounded-full flex items-center justify-center
+                        bg-white/90 backdrop-blur-sm shadow-md border
+                        transition-all duration-200
+                        ${canPrev
+                            ? 'border-amber-300/50 text-amber-800 hover:border-amber-500 hover:shadow-[0_4px_16px_rgba(217,119,6,0.25)]'
+                            : 'border-stone-200 text-stone-300 cursor-not-allowed opacity-0 pointer-events-none'
+                        }`}
+                    aria-label="Previous project"
+                >
+                    <FiChevronLeft className="w-5 h-5" />
+                </motion.button>
 
-                {/* Dot indicators */}
-                <div className="flex-shrink-0 w-full py-3 flex justify-center items-center gap-2 relative z-10">
-                    {projects.map((_, index) => (
-                        <button
-                            key={index}
-                            onClick={() => {
-                                setDirection(index > currentIndex ? 1 : -1);
-                                setCurrentIndex(index);
-                            }}
-                            className={`h-2 rounded-full transition-all ${index === currentIndex
-                                ? 'bg-amber-600 w-8'
-                                : 'bg-gray-400 w-2 hover:bg-gray-600'
-                                }`}
-                            aria-label={`Go to project ${index + 1}`}
+                {/* Next arrow */}
+                <motion.button
+                    onClick={() => paginate(1)}
+                    disabled={!canNext}
+                    whileHover={canNext ? { scale: 1.1 } : {}}
+                    whileTap={canNext ? { scale: 0.95 } : {}}
+                    className={`absolute right-3 top-1/2 -translate-y-1/2 z-20
+                        w-11 h-11 rounded-full flex items-center justify-center
+                        bg-white/90 backdrop-blur-sm shadow-md border
+                        transition-all duration-200
+                        ${canNext
+                            ? 'border-amber-300/50 text-amber-800 hover:border-amber-500 hover:shadow-[0_4px_16px_rgba(217,119,6,0.25)]'
+                            : 'border-stone-200 text-stone-300 cursor-not-allowed opacity-0 pointer-events-none'
+                        }`}
+                    aria-label="Next project"
+                >
+                    <FiChevronRight className="w-5 h-5" />
+                </motion.button>
+            </div>
+
+            {/* Dots + counter */}
+            <div className="py-4 flex items-center justify-center gap-4">
+                <span className="text-xs font-medium text-stone-400 tabular-nums w-10 text-right">
+                    {currentIndex + 1} / {projects.length}
+                </span>
+                <div className="flex items-center gap-2">
+                    {projects.map((_, i) => (
+                        <motion.button
+                            key={i}
+                            onClick={() => { setDirection(i > currentIndex ? 1 : -1); setCurrentIndex(i); }}
+                            animate={{ width: i === currentIndex ? 28 : 8, opacity: i === currentIndex ? 1 : 0.4 }}
+                            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                            className={`h-2 rounded-full ${i === currentIndex ? 'bg-amber-600' : 'bg-stone-400 hover:bg-stone-500'}`}
+                            aria-label={`Go to project ${i + 1}`}
                         />
                     ))}
                 </div>
+                <span className="w-10" /> {/* balance spacer */}
             </div>
         </div>
     );

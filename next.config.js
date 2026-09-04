@@ -4,6 +4,7 @@ const nextConfig = {
     images: {
         unoptimized: true,
     },
+    turbopack: {},
     webpack: (config, { isServer }) => {
         if (!isServer) {
             config.resolve.fallback = {
@@ -14,7 +15,6 @@ const nextConfig = {
                 crypto: false,
             };
         }
-        // Allow onnxruntime-web to load its WASM binaries
         config.resolve.alias = {
             ...config.resolve.alias,
         };

@@ -2,195 +2,264 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FiFileText, FiEye } from 'react-icons/fi';
+import { FiFileText, FiEye, FiCode, FiZap, FiBox, FiBookOpen } from 'react-icons/fi';
 import ResumeModal from './ResumeModal';
+
+const skills = [
+    {
+        category: 'Languages',
+        icon: <FiCode size={14} />,
+        items: ['Python', 'C/C++', 'JavaScript', 'SQL', 'PHP'],
+    },
+    {
+        category: 'AI / ML',
+        icon: <FiZap size={14} />,
+        items: ['PyTorch', 'TensorFlow', 'Scikit-learn', 'ONNX', 'OpenCV', 'MediaPipe', 'YOLO'],
+    },
+    {
+        category: 'Robotics',
+        icon: <FiBox size={14} />,
+        items: ['ROS2', 'Pixhawk', 'MAVLink', 'ArduPilot', 'Jetson Nano', 'Arduino'],
+    },
+    {
+        category: 'Web & Tools',
+        icon: <FiBookOpen size={14} />,
+        items: ['React', 'Next.js', 'FastAPI', 'Docker', 'Git', 'Linux'],
+    },
+];
+
+const experiences = [
+    {
+        role: 'Drone & Computer Vision Engineer',
+        company: 'Flyhigh Team, Kasetsart University — AAVC 2026',
+        period: 'Aug 2026',
+        description: [
+            'Designed & built an autonomous drone using Pixhawk, Jetson Nano, and cameras',
+            'Developed AI to detect ArUco pads; used MAVLink for autonomous payload delivery & precision landing',
+            'Configured flight missions, geofencing, RTL, and failsafe functions',
+            'Represented Kasetsart University at AAVC 2026 (28–30 Aug 2026)',
+        ],
+    },
+    {
+        role: 'Machine Learning Research Assistant',
+        company: 'Kasetsart University',
+        period: 'Nov 2024 – Aug 2026',
+        description: [
+            'Trained YOLO object detection system for Colletotrichum disease in rubber trees',
+            'Used custom dataset prepared with plant pathologists at Kasetsart University',
+            'Built LINE Bot notification system to alert farmers in high-risk zones',
+            'Collected disease severity & weather data for a disease forecasting model',
+        ],
+    },
+    {
+        role: 'AI & Drone Engineer (Short-term Contract)',
+        company: 'Freelance',
+        period: '2024',
+        description: [
+            'Designed & built a custom quadcopter for pigeon deterrence and aerial survey',
+            'Integrated real-time pigeon detection via onboard AI computer vision',
+            'Developed autonomous flight control with an Arduino-based embedded system',
+            'Implemented aerial photography capabilities for civil engineering inspections',
+        ],
+    },
+];
+
+const cardAnim = {
+    hidden:  { opacity: 0, y: 28 },
+    visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.12, duration: 0.55, ease: [0.16, 1, 0.3, 1] } }),
+};
 
 const CVSection = () => {
     const [isResumeOpen, setIsResumeOpen] = useState(false);
-    const skills = [
-        { category: 'Languages', items: ['Python', 'C/C++', 'JavaScript', 'SQL', 'PHP'] },
-        { category: 'AI / ML', items: ['PyTorch', 'TensorFlow', 'Scikit-learn', 'ONNX', 'OpenCV', 'MediaPipe', 'YOLO'] },
-        { category: 'Robotics', items: ['ROS2', 'Pixhawk', 'MAVLink', 'ArduPilot', 'Jetson Nano', 'Arduino'] },
-        { category: 'Web & Tools', items: ['React', 'Next.js', 'FastAPI', 'Docker', 'Git', 'Linux'] },
-    ];
-
-    const experiences = [
-        {
-            role: 'Drone & Computer Vision Engineer',
-            company: 'Flyhigh Team, Kasetsart University — Autonomous Aerial Vehicle Challenge (AAVC 2026)',
-            period: 'Aug 2026',
-            description: [
-                'Designed and built an autonomous drone using Pixhawk, Jetson Nano, and cameras',
-                'Developed an AI system to detect ArUco landing pads and used MAVLink for autonomous payload delivery and precision landing',
-                'Set up flight missions, geofencing, Return-to-Launch (RTL), and failsafe functions',
-                'Tested the drone and analyzed flight logs to improve stability, power reliability, and flight safety',
-                'Represented Kasetsart University at AAVC 2026 from 28–30 Aug 2026'
-            ]
-        },
-        {
-            role: 'Machine Learning Research Assistant',
-            company: 'Kasetsart University',
-            period: 'Nov 2024 – Aug 2026',
-            description: [
-                'Developed and trained a YOLO-based object detection system to detect Colletotrichum disease in rubber trees',
-                'Used a custom dataset prepared with plant pathologists at Kasetsart University',
-                'Built a LINE Bot notification system to alert farmers in high-risk areas',
-                'Collected disease severity and weather data for training a disease forecasting model'
-            ]
-        },
-        {
-            role: 'AI & Drone Engineer (Short-term Contract)',
-            company: 'Freelance',
-            period: '2024',
-            description: [
-                'Designed and built a custom quadcopter drone for pigeon deterrence and aerial survey',
-                'Integrated AI computer vision system for real-time pigeon detection using onboard camera',
-                'Developed autonomous flight control with Arduino-based embedded system',
-                'Implemented aerial photography and survey capabilities for civil engineering inspections'
-            ]
-        },
-    ];
 
     return (
-        <section id="cv" className="py-24 px-4 relative bg-[#f5f1e8]">
-            {/* Decorative border */}
-            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-amber-600/50 to-transparent"></div>
+        <section id="cv" className="py-28 px-4 relative bg-[#f5f1e8] overflow-hidden">
+            <div className="section-divider" />
 
-            <div className="container mx-auto max-w-2xl md:max-w-5xl lg:max-w-7xl px-4 sm:px-8 lg:px-16">
-                <div className="grid lg:grid-cols-12 gap-12">
-                    {/* LEFT COLUMN: Header & Summary (Sticky) */}
+            {/* subtle background orbs */}
+            <div className="pointer-events-none absolute -top-40 -right-40 w-96 h-96 rounded-full bg-amber-200/20 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-32 -left-32 w-80 h-80 rounded-full bg-orange-200/15 blur-3xl" />
+
+            <div className="container mx-auto max-w-2xl md:max-w-5xl lg:max-w-7xl px-4 sm:px-8 lg:px-16 relative">
+
+                <div className="grid lg:grid-cols-12 gap-16">
+
+                    {/* ── LEFT: Header, Summary ── */}
                     <div className="lg:col-span-4">
-                        <div className="lg:sticky lg:top-32 space-y-8 md:flex md:gap-8 md:space-y-0 lg:block lg:space-y-8">
+                        <div className="lg:sticky lg:top-32 space-y-8">
                             <motion.div
-                                initial={{ opacity: 0, x: -20 }}
+                                initial={{ opacity: 0, x: -28 }}
                                 whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true }}
-                                transition={{ duration: 0.6 }}
-                                className="w-full"
+                                transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
                             >
-                                <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-800">
-                                    CV & Resume
-                                </h2>
-                                <p className="text-gray-700 text-lg mb-8">
-                                    AI Engineer | Software Engineer | Robotics | Embedded Systems
-                                </p>
+                                <span className="section-label mb-5 inline-flex">Experience</span>
 
-                                {/* Summary moved here */}
-                                <div className="glass-effect border border-amber-600/20 rounded-2xl p-6 lg:p-8">
-                                    <h3 className="text-2xl font-bold mb-4 text-gray-800 flex items-center gap-2">
-                                        <div className="w-8 h-1 bg-amber-600 rounded-full"></div>
-                                        Summary
-                                    </h3>
-                                    <p className="text-gray-700 leading-relaxed text-sm">
-                                        I have experience in AI research, robotics, embedded systems, 
-                                        and software development. I can build machine learning models, 
-                                        automated systems, and integrate APIs. I have experience in debugging, 
-                                        some system troubleshooting, and improving system performance. 
-                                        Comfortable working across software and hardware projects, solving real-world technical problems, and learning quickly under pressure.
-                                    </p>
+                                <h2 className="mt-4 text-4xl md:text-5xl font-extrabold tracking-tight text-stone-900 font-display leading-tight">
+                                    CV &amp;{' '}
+                                    <span className="gradient-text">Resume</span>
+                                </h2>
+                                <p className="mt-3 text-stone-500 text-base leading-relaxed">
+                                    AI Engineer · Software Engineer · Robotics · Embedded Systems
+                                </p>
+                            </motion.div>
+
+                            {/* Summary card */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 0.15, duration: 0.6 }}
+                                className="glass-effect rounded-2xl p-6"
+                            >
+                                <div className="flex items-center gap-2 mb-4">
+                                    <div className="w-6 h-1.5 rounded-full bg-gradient-to-r from-amber-500 to-amber-700" />
+                                    <h3 className="text-base font-bold text-stone-800">Summary</h3>
                                 </div>
+                                <p className="text-sm text-stone-600 leading-[1.8]">
+                                    Experienced in AI research, robotics, embedded systems, and full-stack
+                                    development. Can build ML models, automated systems, and integrate APIs.
+                                    Comfortable across software and hardware projects; learning quickly under pressure.
+                                </p>
+                            </motion.div>
+
+                            {/* Open résumé button */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 16 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 0.25, duration: 0.5 }}
+                            >
+                                <button
+                                    type="button"
+                                    onClick={() => setIsResumeOpen(true)}
+                                    className="btn-primary w-full justify-center"
+                                >
+                                    <FiEye aria-hidden size={17} />
+                                    Open Résumé
+                                </button>
                             </motion.div>
                         </div>
                     </div>
 
-                    {/* RIGHT COLUMN: Experience, Education, Skills */}
-                    <div className="lg:col-span-8 space-y-12">
+                    {/* ── RIGHT: Experience, Education, Skills ── */}
+                    <div className="lg:col-span-8 space-y-16">
+
                         {/* Experience */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: 0.2 }}
-                        >
-                            <h3 className="text-3xl font-bold mb-8 text-gray-800 flex items-center gap-3">
-                                <span className="p-2 rounded-lg bg-amber-100 text-amber-600"><FiFileText size={28} /></span>
+                        <div>
+                            <motion.h3
+                                initial={{ opacity: 0, y: 16 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5 }}
+                                className="text-2xl font-bold mb-8 text-stone-800 flex items-center gap-3"
+                            >
+                                <span className="p-2 rounded-xl bg-amber-100 text-amber-700"><FiFileText size={20} /></span>
                                 Experience
-                            </h3>
+                            </motion.h3>
 
-                            <div className="pl-2 mb-8">
-                                <div className="relative pl-8 space-y-12">
-                                    <span aria-hidden="true" className="absolute left-0 top-2 bottom-2 w-px bg-amber-700/40" />
-                                    {experiences.map((exp, index) => (
-                                        <div key={index} className="relative">
-                                            {/* Timeline dot */}
-                                            <div className="absolute -left-[39px] top-1.5 w-5 h-5 rounded-full bg-amber-600 border-4 border-[#f5f1e8]"></div>
-
-                                            <div className="mb-4">
-                                                <h4 className="text-xl font-bold text-gray-800">{exp.role}</h4>
-                                                <p className="text-amber-700 font-medium text-base">{exp.company}</p>
-                                                <p className="text-sm text-gray-500 mt-1">{exp.period}</p>
+                            <div className="relative pl-8">
+                                <div className="timeline-line" />
+                                <div className="space-y-12">
+                                    {experiences.map((exp, i) => (
+                                        <motion.div
+                                            key={i}
+                                            variants={cardAnim}
+                                            custom={i}
+                                            initial="hidden"
+                                            whileInView="visible"
+                                            viewport={{ once: true, margin: '-30px' }}
+                                            className="relative"
+                                        >
+                                            <div className="timeline-dot" />
+                                            <div className="glass-effect rounded-2xl p-6 hover:shadow-[0_8px_32px_rgba(120,53,15,0.10)] transition-shadow duration-300">
+                                                <div className="flex flex-wrap items-start justify-between gap-2 mb-3">
+                                                    <h4 className="text-base font-bold text-stone-800 leading-snug">{exp.role}</h4>
+                                                    <span className="shrink-0 text-xs font-semibold text-amber-700 bg-amber-50 border border-amber-200/60 px-2.5 py-1 rounded-full tabular-nums">
+                                                        {exp.period}
+                                                    </span>
+                                                </div>
+                                                <p className="text-sm font-semibold text-amber-700 mb-4">{exp.company}</p>
+                                                <ul className="space-y-2">
+                                                    {exp.description.map((item, idx) => (
+                                                        <li key={idx} className="flex gap-2.5 text-sm text-stone-600 leading-relaxed">
+                                                            <span className="mt-1.5 w-1 h-1 rounded-full bg-amber-500 flex-shrink-0" />
+                                                            {item}
+                                                        </li>
+                                                    ))}
+                                                </ul>
                                             </div>
-                                            <ul className="list-disc list-inside text-gray-700 space-y-2 mt-4 text-sm leading-relaxed">
-                                                {exp.description.map((item, idx) => (
-                                                    <li key={idx}>{item}</li>
-                                                ))}
-                                            </ul>
-                                        </div>
+                                        </motion.div>
                                     ))}
                                 </div>
                             </div>
-                        </motion.div>
+                        </div>
 
                         {/* Education */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: 0.3 }}
-                        >
-                            <h3 className="text-3xl font-bold mb-8 text-gray-800 flex items-center gap-3">
-                                <span className="p-2 rounded-lg bg-amber-100 text-amber-600"><FiFileText size={28} /></span>
+                        <div>
+                            <motion.h3
+                                initial={{ opacity: 0, y: 16 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5 }}
+                                className="text-2xl font-bold mb-8 text-stone-800 flex items-center gap-3"
+                            >
+                                <span className="p-2 rounded-xl bg-amber-100 text-amber-700"><FiBookOpen size={20} /></span>
                                 Education
-                            </h3>
+                            </motion.h3>
 
-                            <div className="pl-2">
-                                <div className="relative pl-8">
-                                    <span aria-hidden="true" className="absolute left-0 top-2 bottom-2 w-px bg-amber-700/40" />
-                                    <div className="relative">
-                                        <div className="absolute -left-[39px] top-1.5 w-5 h-5 rounded-full bg-amber-600 border-4 border-[#f5f1e8]"></div>
-                                        <h4 className="text-xl font-bold text-gray-800">Computer Engineering</h4>
-                                        <p className="text-amber-700 font-medium text-base">Kasetsart University</p>
-                                        <button
-                                            type="button"
-                                            onClick={() => setIsResumeOpen(true)}
-                                            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-amber-700 px-8 py-3 font-semibold text-white shadow-lg transition hover:bg-amber-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-900"
-                                        >
-                                            <FiEye aria-hidden="true" size={18} />
-                                            Open résumé
-                                        </button>
-                                    </div>
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.55 }}
+                                className="relative pl-8"
+                            >
+                                <div className="timeline-line" style={{ height: '3rem', bottom: 'auto' }} />
+                                <div className="timeline-dot" />
+                                <div className="glass-effect rounded-2xl p-6">
+                                    <h4 className="text-base font-bold text-stone-800 mb-1">B.Eng. Computer Engineering</h4>
+                                    <p className="text-sm font-semibold text-amber-700">Kasetsart University</p>
                                 </div>
-                            </div>
-                        </motion.div>
+                            </motion.div>
+                        </div>
 
                         {/* Technical Skills */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: 0.4 }}
-                        >
-                            <h3 className="text-3xl font-bold mb-8 text-gray-800">Technical Skills</h3>
-                            <div className="space-y-8 pl-2">
-                                {skills.map((skillGroup, index) => (
-                                    <div key={index}>
-                                        <h4 className="text-lg font-bold text-amber-700 uppercase tracking-widest mb-4">
-                                            {skillGroup.category}
-                                        </h4>
+                        <div>
+                            <motion.h3
+                                initial={{ opacity: 0, y: 16 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5 }}
+                                className="text-2xl font-bold mb-8 text-stone-800"
+                            >
+                                Technical Skills
+                            </motion.h3>
+
+                            <div className="space-y-7">
+                                {skills.map((group, gi) => (
+                                    <motion.div
+                                        key={gi}
+                                        initial={{ opacity: 0, y: 16 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ delay: gi * 0.09, duration: 0.5 }}
+                                    >
+                                        <div className="flex items-center gap-2 mb-3">
+                                            <span className="text-amber-600">{group.icon}</span>
+                                            <h4 className="text-xs font-bold text-amber-700 uppercase tracking-[0.12em]">
+                                                {group.category}
+                                            </h4>
+                                        </div>
                                         <div className="flex flex-wrap gap-2">
-                                            {skillGroup.items.map((skill, idx) => (
-                                                <span
-                                                    key={idx}
-                                                    className="px-3 py-1.5 bg-amber-500/10 text-amber-900 rounded-lg text-xs font-semibold hover:bg-amber-500/20 transition-all cursor-default"
-                                                >
-                                                    {skill}
-                                                </span>
+                                            {group.items.map((skill, si) => (
+                                                <span key={si} className="skill-badge">{skill}</span>
                                             ))}
                                         </div>
-                                    </div>
+                                    </motion.div>
                                 ))}
                             </div>
-                        </motion.div>
+                        </div>
                     </div>
                 </div>
             </div>
