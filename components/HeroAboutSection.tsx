@@ -209,7 +209,7 @@ const HeroAboutSection = () => {
 
                         {/* Mobile: circular photo — centered, smaller */}
                         <div className="block lg:hidden mb-8">
-                            <ProfileImage className="w-64 h-64 mx-auto" />
+                            <ProfileImage className="w-[330px] h-[330px] mx-auto" />
                         </div>
 
                         <motion.p
@@ -268,7 +268,7 @@ const HeroAboutSection = () => {
                         transition={{ delay: 0.35, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
                         className="hidden lg:flex items-center justify-center"
                     >
-                        <ProfileImage className="w-[380px] h-[380px] xl:w-[460px] xl:h-[460px]" />
+                        <ProfileImage className="w-[500px] h-[500px] xl:w-[600px] xl:h-[600px]" />
                     </motion.div>
                 </div>
 
