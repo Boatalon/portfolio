@@ -166,7 +166,11 @@ const DemoSection = ({ project }: DemoSectionProps) => {
                                     </div>
                                     <div>
                                         <p className="text-sm font-bold text-stone-800">Award Certificate</p>
-                                        <p className="text-xs text-amber-700 font-medium">รางวัลชนะเลิศ — KU-KM Sharing Day 2026</p>
+                                        <p className="text-xs text-amber-700 font-medium">
+                                            {project.id === 'aavc-2026'
+                                                ? 'รางวัลชมเชยอันดับ 3 — AAVC 2026'
+                                                : 'รางวัลชนะเลิศ — KU-KM Sharing Day 2026'}
+                                        </p>
                                     </div>
                                 </div>
                                 <button
@@ -182,7 +186,7 @@ const DemoSection = ({ project }: DemoSectionProps) => {
                             <div className="relative w-full" style={{ aspectRatio: '4/3' }}>
                                 <Image
                                     src={project.certificateImage}
-                                    alt="Award Certificate — i-Dairy KU-KM Sharing Day 2026"
+                                    alt={`Award Certificate — ${project.title}`}
                                     fill
                                     unoptimized
                                     className="object-contain p-4"
@@ -192,7 +196,9 @@ const DemoSection = ({ project }: DemoSectionProps) => {
                             {/* Footer */}
                             <div className="px-6 py-4 bg-amber-50/60 border-t border-amber-100 text-center">
                                 <p className="text-xs text-stone-500 leading-relaxed">
-                                    1st Place · Innovation Work Category · Faculty of Engineering Kamphaeng Saen, Kasetsart University · 23 July 2026
+                                    {project.id === 'aavc-2026'
+                                        ? '3rd Place · Autonomous Aerial Vehicle Challenge (AAVC) 2026 · Kasetsart University · 28–30 August 2026'
+                                        : '1st Place · Innovation Work Category · Faculty of Engineering Kamphaeng Saen, Kasetsart University · 23 July 2026'}
                                 </p>
                             </div>
                         </motion.div>
